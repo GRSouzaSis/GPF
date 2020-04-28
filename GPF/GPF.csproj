@@ -75,7 +75,9 @@
     <Compile Include="Cache\ParametrizacaoCache.cs" />
     <Compile Include="Cache\UsuarioLoginCache.cs" />
     <Compile Include="Helper\DialogHelper.cs" />
+    <Compile Include="Helper\Ajudas.cs" />
     <Compile Include="Model\Cidade.cs" />
+    <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\Endereco.cs" />
     <Compile Include="Model\Parametrizacao.cs" />
     <Compile Include="Model\Perfil.cs" />
@@ -83,11 +85,21 @@
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Repository\AcessoHelper.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\CidadeRepository.cs" />
+    <Compile Include="Repository\ClienteRepository.cs" />
     <Compile Include="Repository\Connection.cs" />
+    <Compile Include="Repository\EnderecoRepository.cs" />
     <Compile Include="Repository\ParametrizacaoRepository.cs" />
     <Compile Include="Repository\PerfilRepository.cs" />
     <Compile Include="Repository\PessoaRepository.cs" />
+    <Compile Include="Repository\UfRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />
+    <Compile Include="View\fCadCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\fCadCliente.Designer.cs">
+      <DependentUpon>fCadCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\fCadParametrizacao.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +132,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="View\fCadCliente.resx">
+      <DependentUpon>fCadCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\fCadParametrizacao.resx">
       <DependentUpon>fCadParametrizacao.cs</DependentUpon>
     </EmbeddedResource>
@@ -145,7 +160,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\GPF.Model.Cliente.datasource" />
+    <None Include="Properties\DataSources\GPF.Model.Endereco.datasource" />
     <None Include="Properties\DataSources\GPF.Model.Perfil.datasource" />
+    <None Include="Properties\DataSources\GPF.Model.Usuario.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -23,10 +23,16 @@ namespace GPF.View
 
         private void Inicializar()
         {
-            Perfil = new Perfil();
+           
            // HabilitarControles();
             AtualizarInterface();
         }
+        private void LimpaTela()
+        {
+            txtNome.Text = "";           
+            cbAtivo.Checked = true;// ? 1 : 0;              
+        }
+
 
         private void fCadPerfil_Load(object sender, EventArgs e)
         {
@@ -95,12 +101,7 @@ namespace GPF.View
         {
 
             string nome = txtNome.Text.Trim();
-            if (nome == string.Empty)
-            {
-                DialogHelper.Alerta("Informe um nome para o perfil.");
-                txtNome.Focus();
-                return false;
-            }
+           
             
             int ativo = cbAtivo.Checked ? 1 : 0;
 
@@ -138,7 +139,7 @@ namespace GPF.View
         private void bNovo_Click(object sender, EventArgs e)
         {
             Inicializar();
-            HabilitarControles(editando: true);
+            //HabilitarControles(editando: true);
         }
 
         private void bSalvar_Click(object sender, EventArgs e)
@@ -160,7 +161,7 @@ namespace GPF.View
                         MostrarPerfis();//---> Atualiza Data grid view
                         DialogHelper.Alerta("Perfil incluido com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         Inicializar();
-                       
+                        LimpaTela();
 
                     }
                 }
@@ -183,8 +184,7 @@ namespace GPF.View
                             MostrarPerfis();//---> Atualiza Data grid view
                             DialogHelper.Informacao("Perfil alterado com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             Inicializar();
-                           
-
+                            LimpaTela();
                         }
                     }
                     catch (Exception ex)
@@ -210,7 +210,7 @@ namespace GPF.View
                             MostrarPerfis();//---> Atualiza Data grid view
                             DialogHelper.Alerta("Perfil alterado com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             Inicializar();
-                            
+                            LimpaTela();
 
                         }
                     }
@@ -284,8 +284,10 @@ namespace GPF.View
 
         private void txtNome_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!System.Text.RegularExpressions.Regex.IsMatch(e.KeyChar.ToString(), @"^[a-zA-Z]+$"))
+            if (char.IsDigit(e.KeyChar) && e.KeyChar != 08)
+            {
                 e.Handled = true;
+            }
         }
 
         private void txtDescricao_KeyPress(object sender, KeyPressEventArgs e)

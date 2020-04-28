@@ -5,7 +5,7 @@
         public string uf { get; set; }
         public string uf_nome { get; set; }
 
-        public Uf() : this ("","")
+        public Uf() : this (null,"")
         {
         }
 
@@ -17,7 +17,7 @@
 
         public override string ToString()
         {
-            return uf_nome;
+            return uf;
         }
     }
 }

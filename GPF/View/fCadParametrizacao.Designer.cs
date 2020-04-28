@@ -279,10 +279,12 @@
             // 
             // txtCnpj
             // 
+            this.txtCnpj.BeepOnError = true;
+            this.txtCnpj.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCnpj.Location = new System.Drawing.Point(23, 154);
             this.txtCnpj.Mask = "00,000,000/0000-00";
             this.txtCnpj.Name = "txtCnpj";
-            this.txtCnpj.Size = new System.Drawing.Size(229, 20);
+            this.txtCnpj.Size = new System.Drawing.Size(229, 22);
             this.txtCnpj.TabIndex = 1;
             // 
             // label1
@@ -396,11 +398,11 @@
             // 
             // txtNome
             // 
-            this.txtNome.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNome.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNome.Location = new System.Drawing.Point(22, 111);
             this.txtNome.MaxLength = 25;
             this.txtNome.Name = "txtNome";
-            this.txtNome.Size = new System.Drawing.Size(230, 21);
+            this.txtNome.Size = new System.Drawing.Size(230, 22);
             this.txtNome.TabIndex = 0;
             // 
             // openFileDialog1

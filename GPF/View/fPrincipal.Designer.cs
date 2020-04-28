@@ -437,6 +437,7 @@
             this.bCadCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bCadCliente.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.bCadCliente.UseVisualStyleBackColor = false;
+            this.bCadCliente.Click += new System.EventHandler(this.bCadCliente_Click);
             // 
             // bCadPerfil
             // 

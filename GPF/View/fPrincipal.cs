@@ -168,5 +168,10 @@ namespace GPF
         {
             AbrirForm<fCadParametrizacao>();
         }
+
+        private void bCadCliente_Click(object sender, EventArgs e)
+        {
+            AbrirForm<fCadCliente>();
+        }
     }
 }

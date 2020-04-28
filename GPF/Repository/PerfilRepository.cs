@@ -118,7 +118,7 @@ namespace GPF.Repository
                 SqlDataAdapter da = new SqlDataAdapter(sql, db.GetStringConnection());
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
+               
                 DataView dv = new DataView(dt);
                 dv.Sort = dt.Columns[0].ColumnName;
                 return dv;
@@ -139,7 +139,7 @@ namespace GPF.Repository
                 SqlDataAdapter da = new SqlDataAdapter(sql, db.GetStringConnection());
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
+                
                 DataView dv = new DataView(dt);
                 dv.Sort = dt.Columns[0].ColumnName;
                 return dv;

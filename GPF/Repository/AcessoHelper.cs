@@ -36,7 +36,7 @@ namespace GPF.Repository
 
         public string GetStringConnection()
         {
-            string strConexao = "Server=; Database=; User=; Password= ";
+            string strConexao = "";
             // Retorna a string de conexão
             return strConexao;
         }

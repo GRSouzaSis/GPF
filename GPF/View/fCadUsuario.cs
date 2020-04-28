@@ -108,7 +108,7 @@ namespace GPF.View
             Usuario.uso_login = login;
             Usuario.uso_senha = senha;
             Usuario.uso_nome = nome;
-            Usuario.pes_id = null;             
+            Usuario.uso_ativo = ativo;             
             return true;
         }
 

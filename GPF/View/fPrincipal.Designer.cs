@@ -50,8 +50,8 @@
             this.bCadUsuario = new FontAwesome.Sharp.IconButton();
             this.bCadastro = new FontAwesome.Sharp.IconButton();
             this.pSubGerProjeto = new System.Windows.Forms.Panel();
-            this.iconButton5 = new FontAwesome.Sharp.IconButton();
-            this.iconButton4 = new FontAwesome.Sharp.IconButton();
+            this.bOrcamento = new FontAwesome.Sharp.IconButton();
+            this.bClienteXLote = new FontAwesome.Sharp.IconButton();
             this.iconButton3 = new FontAwesome.Sharp.IconButton();
             this.iconButton2 = new FontAwesome.Sharp.IconButton();
             this.bGerProjeto = new FontAwesome.Sharp.IconButton();
@@ -372,7 +372,7 @@
             this.bPagamento.Rotation = 0D;
             this.bPagamento.Size = new System.Drawing.Size(257, 45);
             this.bPagamento.TabIndex = 5;
-            this.bPagamento.Text = "Pagamentos";
+            this.bPagamento.Text = "Financeiro";
             this.bPagamento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.bPagamento.UseVisualStyleBackColor = false;
             this.bPagamento.Click += new System.EventHandler(this.bPagamento_Click);
@@ -515,8 +515,8 @@
             // pSubGerProjeto
             // 
             this.pSubGerProjeto.BackColor = System.Drawing.Color.PaleTurquoise;
-            this.pSubGerProjeto.Controls.Add(this.iconButton5);
-            this.pSubGerProjeto.Controls.Add(this.iconButton4);
+            this.pSubGerProjeto.Controls.Add(this.bOrcamento);
+            this.pSubGerProjeto.Controls.Add(this.bClienteXLote);
             this.pSubGerProjeto.Controls.Add(this.iconButton3);
             this.pSubGerProjeto.Controls.Add(this.iconButton2);
             this.pSubGerProjeto.Dock = System.Windows.Forms.DockStyle.Top;
@@ -525,49 +525,55 @@
             this.pSubGerProjeto.Size = new System.Drawing.Size(257, 122);
             this.pSubGerProjeto.TabIndex = 2;
             // 
-            // iconButton5
+            // bOrcamento
             // 
-            this.iconButton5.BackColor = System.Drawing.Color.Teal;
-            this.iconButton5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.iconButton5.FlatAppearance.BorderSize = 0;
-            this.iconButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton5.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.iconButton5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButton5.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.iconButton5.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.iconButton5.IconColor = System.Drawing.Color.Black;
-            this.iconButton5.IconSize = 16;
-            this.iconButton5.Location = new System.Drawing.Point(0, 90);
-            this.iconButton5.Name = "iconButton5";
-            this.iconButton5.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.iconButton5.Rotation = 0D;
-            this.iconButton5.Size = new System.Drawing.Size(257, 30);
-            this.iconButton5.TabIndex = 3;
-            this.iconButton5.Text = "iconButton5";
-            this.iconButton5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButton5.UseVisualStyleBackColor = false;
+            this.bOrcamento.BackColor = System.Drawing.Color.Teal;
+            this.bOrcamento.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bOrcamento.FlatAppearance.BorderSize = 0;
+            this.bOrcamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bOrcamento.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.bOrcamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bOrcamento.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.bOrcamento.IconChar = FontAwesome.Sharp.IconChar.CommentDollar;
+            this.bOrcamento.IconColor = System.Drawing.Color.WhiteSmoke;
+            this.bOrcamento.IconSize = 20;
+            this.bOrcamento.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bOrcamento.Location = new System.Drawing.Point(0, 90);
+            this.bOrcamento.Name = "bOrcamento";
+            this.bOrcamento.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.bOrcamento.Rotation = 0D;
+            this.bOrcamento.Size = new System.Drawing.Size(257, 30);
+            this.bOrcamento.TabIndex = 3;
+            this.bOrcamento.Text = "Orçamento Lotes";
+            this.bOrcamento.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bOrcamento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.bOrcamento.UseVisualStyleBackColor = false;
+            this.bOrcamento.Click += new System.EventHandler(this.bOrcamento_Click);
             // 
-            // iconButton4
+            // bClienteXLote
             // 
-            this.iconButton4.BackColor = System.Drawing.Color.Teal;
-            this.iconButton4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.iconButton4.FlatAppearance.BorderSize = 0;
-            this.iconButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton4.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.iconButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButton4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.iconButton4.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.iconButton4.IconColor = System.Drawing.Color.Black;
-            this.iconButton4.IconSize = 16;
-            this.iconButton4.Location = new System.Drawing.Point(0, 60);
-            this.iconButton4.Name = "iconButton4";
-            this.iconButton4.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.iconButton4.Rotation = 0D;
-            this.iconButton4.Size = new System.Drawing.Size(257, 30);
-            this.iconButton4.TabIndex = 2;
-            this.iconButton4.Text = "iconButton4";
-            this.iconButton4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButton4.UseVisualStyleBackColor = false;
+            this.bClienteXLote.BackColor = System.Drawing.Color.Teal;
+            this.bClienteXLote.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bClienteXLote.FlatAppearance.BorderSize = 0;
+            this.bClienteXLote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bClienteXLote.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.bClienteXLote.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bClienteXLote.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.bClienteXLote.IconChar = FontAwesome.Sharp.IconChar.Link;
+            this.bClienteXLote.IconColor = System.Drawing.Color.WhiteSmoke;
+            this.bClienteXLote.IconSize = 20;
+            this.bClienteXLote.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bClienteXLote.Location = new System.Drawing.Point(0, 60);
+            this.bClienteXLote.Name = "bClienteXLote";
+            this.bClienteXLote.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.bClienteXLote.Rotation = 0D;
+            this.bClienteXLote.Size = new System.Drawing.Size(257, 30);
+            this.bClienteXLote.TabIndex = 2;
+            this.bClienteXLote.Text = "Lote X Cliente";
+            this.bClienteXLote.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bClienteXLote.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.bClienteXLote.UseVisualStyleBackColor = false;
+            this.bClienteXLote.Click += new System.EventHandler(this.bClienteXLote_Click);
             // 
             // iconButton3
             // 
@@ -789,8 +795,8 @@
 
         private System.Windows.Forms.Panel pSlideMenu;
         private System.Windows.Forms.Panel pSubGerProjeto;
-        private FontAwesome.Sharp.IconButton iconButton5;
-        private FontAwesome.Sharp.IconButton iconButton4;
+        private FontAwesome.Sharp.IconButton bOrcamento;
+        private FontAwesome.Sharp.IconButton bClienteXLote;
         private FontAwesome.Sharp.IconButton iconButton3;
         private FontAwesome.Sharp.IconButton iconButton2;
         private FontAwesome.Sharp.IconButton bGerProjeto;

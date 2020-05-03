@@ -10,7 +10,6 @@ namespace GPF.Repository
     {
         public AcessoHelper db = new AcessoHelper();
 
-
         public bool cadastrar(Cliente cliente, Endereco endereco)
         {
            
@@ -152,18 +151,54 @@ namespace GPF.Repository
           
         }
 
-        public void excluir(int cli_id)
+        public bool excluir(int cli_id, int end_id)
         {
-            try
+
+            using (SqlConnection connection = new SqlConnection(db.GetStringConnection()))
             {
-                string sql = "Delete From cliente where cli_id=@cli_id";
-                db.AddParameter("@cli_id", cli_id);
-                db.ExecuteNonQuery(sql);
+                connection.Open();
+
+                SqlCommand command = connection.CreateCommand();
+                SqlTransaction transaction;
+                transaction = connection.BeginTransaction("SampleTransaction");
+                command.Connection = connection;
+                command.Transaction = transaction;
+
+                string sqlEndereco = "delete from endereco where end_id =@end_id";
+                try
+                {
+
+                    string sqlCliente = "delete from cliente where cli_id = @cli_id";
+                    command.CommandText = sqlCliente; // insert cliente 
+                    command.Parameters.AddWithValue("@cli_id", cli_id);
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = sqlEndereco;  //insert endereço                   
+                    command.Parameters.AddWithValue("@end_id", end_id);
+                    command.ExecuteNonQuery();
+                    //var IdInserido = Convert.ToInt32(command.ExecuteScalar());                    
+
+                    // Se deu certo Commit.
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+
+                    // roll back na transaction.
+                    try
+                    {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2)
+                    {
+
+                        return false;
+                    }
+                }
+                return false;
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            
         }
 
         public DataView GetDataView(string nome)
@@ -172,7 +207,9 @@ namespace GPF.Repository
             try
             {
                 string par = "'%" + nome + "%'";
-                string sql = @"select * from cliente where cli_nome like" + par;
+                string sql = @"select TOP (50) * from cliente c
+                                inner join endereco e on e.end_id = c.end_id
+                                where (cli_nome like" + par+") or (cli_sobrenome like" + par+ ") or (cli_cpf like" + par + ")" ;
 
                 SqlDataAdapter da = new SqlDataAdapter(sql, db.GetStringConnection());
                 DataTable dt = new DataTable();
@@ -195,7 +232,7 @@ namespace GPF.Repository
             try
             {
                // string sql = "select * from cliente";
-                string sql = @"select * from cliente c
+                string sql = @"select TOP (50) * from cliente c
                                 inner join endereco e on c.end_id = e.end_id";
                 SqlDataAdapter da = new SqlDataAdapter(sql, db.GetStringConnection());
                 DataTable dt = new DataTable();
@@ -235,6 +272,23 @@ namespace GPF.Repository
             }
         }
 
+        public DataTable GetAll(string nome)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+               // string sql = "SELECT cli_id, cli_nome FROM cliente";
+                string sql = @"select cli_nome + ' ' + cli_sobrenome + ' ' + cli_cpf as cli, cli_id 
+                                from cliente 
+                                order by cli_nome";
+                dt.Load(db.ExecuteReader(sql));
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
 

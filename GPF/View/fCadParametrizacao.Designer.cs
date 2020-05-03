@@ -235,6 +235,7 @@
             this.bAlterar.TabIndex = 1;
             this.bAlterar.Text = "  Alterar";
             this.bAlterar.UseVisualStyleBackColor = false;
+            this.bAlterar.Visible = false;
             this.bAlterar.Click += new System.EventHandler(this.bAlterar_Click);
             // 
             // bNovo

@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pCrud = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.CbbFuncionario = new System.Windows.Forms.ComboBox();
             this.bMinimizar = new FontAwesome.Sharp.IconButton();
             this.bFechar = new FontAwesome.Sharp.IconButton();
             this.bCancelar = new FontAwesome.Sharp.IconButton();
@@ -54,21 +55,23 @@
             this.bExcluir = new FontAwesome.Sharp.IconButton();
             this.bAlterar = new FontAwesome.Sharp.IconButton();
             this.bNovo = new FontAwesome.Sharp.IconButton();
-            this.usuarioBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.uso_login = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.uso_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.uso_ativo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Login = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Usuário = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ativo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.pCrud.SuspendLayout();
             this.pDgvLocaliza.SuspendLayout();
             this.pBuscas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCadastro)).BeginInit();
             this.pButtons.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.usuarioBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pCrud
             // 
             this.pCrud.BackColor = System.Drawing.Color.DarkCyan;
+            this.pCrud.Controls.Add(this.label15);
+            this.pCrud.Controls.Add(this.CbbFuncionario);
             this.pCrud.Controls.Add(this.bMinimizar);
             this.pCrud.Controls.Add(this.bFechar);
             this.pCrud.Controls.Add(this.bCancelar);
@@ -86,6 +89,28 @@
             this.pCrud.Name = "pCrud";
             this.pCrud.Size = new System.Drawing.Size(279, 438);
             this.pCrud.TabIndex = 1;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label15.Location = new System.Drawing.Point(18, 109);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(80, 16);
+            this.label15.TabIndex = 38;
+            this.label15.Text = "Funcionário";
+            // 
+            // CbbFuncionario
+            // 
+            this.CbbFuncionario.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CbbFuncionario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CbbFuncionario.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CbbFuncionario.FormattingEnabled = true;
+            this.CbbFuncionario.Location = new System.Drawing.Point(21, 126);
+            this.CbbFuncionario.Name = "CbbFuncionario";
+            this.CbbFuncionario.Size = new System.Drawing.Size(230, 24);
+            this.CbbFuncionario.TabIndex = 0;
             // 
             // bMinimizar
             // 
@@ -132,13 +157,14 @@
             this.bCancelar.IconColor = System.Drawing.Color.WhiteSmoke;
             this.bCancelar.IconSize = 16;
             this.bCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bCancelar.Location = new System.Drawing.Point(21, 297);
+            this.bCancelar.Location = new System.Drawing.Point(21, 335);
             this.bCancelar.Name = "bCancelar";
             this.bCancelar.Rotation = 0D;
             this.bCancelar.Size = new System.Drawing.Size(230, 23);
-            this.bCancelar.TabIndex = 18;
+            this.bCancelar.TabIndex = 6;
             this.bCancelar.Text = "Cancelar";
             this.bCancelar.UseVisualStyleBackColor = false;
+            this.bCancelar.Click += new System.EventHandler(this.bCancelar_Click);
             // 
             // bSalvar
             // 
@@ -153,20 +179,21 @@
             this.bSalvar.IconColor = System.Drawing.Color.WhiteSmoke;
             this.bSalvar.IconSize = 16;
             this.bSalvar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bSalvar.Location = new System.Drawing.Point(21, 262);
+            this.bSalvar.Location = new System.Drawing.Point(21, 300);
             this.bSalvar.Name = "bSalvar";
             this.bSalvar.Rotation = 0D;
             this.bSalvar.Size = new System.Drawing.Size(230, 23);
-            this.bSalvar.TabIndex = 17;
+            this.bSalvar.TabIndex = 5;
             this.bSalvar.Text = "Salvar";
             this.bSalvar.UseVisualStyleBackColor = false;
+            this.bSalvar.Click += new System.EventHandler(this.bSalvar_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label4.Location = new System.Drawing.Point(19, 115);
+            this.label4.Location = new System.Drawing.Point(19, 153);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(115, 16);
             this.label4.TabIndex = 12;
@@ -177,7 +204,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label3.Location = new System.Drawing.Point(19, 201);
+            this.label3.Location = new System.Drawing.Point(19, 239);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 16);
             this.label3.TabIndex = 11;
@@ -188,7 +215,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Location = new System.Drawing.Point(19, 158);
+            this.label1.Location = new System.Drawing.Point(19, 196);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(42, 16);
             this.label1.TabIndex = 10;
@@ -206,7 +233,7 @@
             this.cbAtivo.Location = new System.Drawing.Point(184, 90);
             this.cbAtivo.Name = "cbAtivo";
             this.cbAtivo.Size = new System.Drawing.Size(68, 22);
-            this.cbAtivo.TabIndex = 0;
+            this.cbAtivo.TabIndex = 4;
             this.cbAtivo.Text = "Ativo";
             this.cbAtivo.UseVisualStyleBackColor = false;
             // 
@@ -224,7 +251,7 @@
             // txtSenha
             // 
             this.txtSenha.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSenha.Location = new System.Drawing.Point(21, 220);
+            this.txtSenha.Location = new System.Drawing.Point(21, 258);
             this.txtSenha.MaxLength = 50;
             this.txtSenha.Name = "txtSenha";
             this.txtSenha.Size = new System.Drawing.Size(230, 21);
@@ -233,7 +260,7 @@
             // txtLogin
             // 
             this.txtLogin.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLogin.Location = new System.Drawing.Point(21, 177);
+            this.txtLogin.Location = new System.Drawing.Point(21, 215);
             this.txtLogin.MaxLength = 50;
             this.txtLogin.Name = "txtLogin";
             this.txtLogin.Size = new System.Drawing.Size(230, 21);
@@ -242,7 +269,7 @@
             // txtNomeUsuario
             // 
             this.txtNomeUsuario.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNomeUsuario.Location = new System.Drawing.Point(22, 134);
+            this.txtNomeUsuario.Location = new System.Drawing.Point(22, 172);
             this.txtNomeUsuario.MaxLength = 20;
             this.txtNomeUsuario.Name = "txtNomeUsuario";
             this.txtNomeUsuario.Size = new System.Drawing.Size(230, 21);
@@ -290,6 +317,7 @@
             this.bBuscar.TabIndex = 2;
             this.bBuscar.Text = "   Buscar";
             this.bBuscar.UseVisualStyleBackColor = false;
+            this.bBuscar.Click += new System.EventHandler(this.bBuscar_Click);
             // 
             // txtDescricao
             // 
@@ -297,61 +325,66 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescricao.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDescricao.ForeColor = System.Drawing.Color.DarkGray;
             this.txtDescricao.Location = new System.Drawing.Point(12, 12);
             this.txtDescricao.Name = "txtDescricao";
             this.txtDescricao.Size = new System.Drawing.Size(405, 21);
             this.txtDescricao.TabIndex = 0;
+            this.txtDescricao.Text = "Nome de usuário ou login";
+            this.txtDescricao.Enter += new System.EventHandler(this.txtDescricao_Enter);
+            this.txtDescricao.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescricao_KeyPress);
+            this.txtDescricao.Leave += new System.EventHandler(this.txtDescricao_Leave);
             // 
             // dgvCadastro
             // 
+            this.dgvCadastro.AllowUserToAddRows = false;
             this.dgvCadastro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvCadastro.AutoGenerateColumns = false;
             this.dgvCadastro.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvCadastro.BackgroundColor = System.Drawing.Color.DarkSlateGray;
             this.dgvCadastro.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvCadastro.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkCyan;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCadastro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkCyan;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCadastro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCadastro.ColumnHeadersHeight = 30;
             this.dgvCadastro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCadastro.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.uso_login,
-            this.uso_nome,
-            this.uso_ativo});
-            this.dgvCadastro.DataSource = this.usuarioBindingSource;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.MediumTurquoise;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCadastro.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Login,
+            this.Usuário,
+            this.Ativo});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.MediumTurquoise;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCadastro.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCadastro.EnableHeadersVisualStyles = false;
             this.dgvCadastro.GridColor = System.Drawing.SystemColors.GrayText;
             this.dgvCadastro.Location = new System.Drawing.Point(12, 48);
             this.dgvCadastro.Name = "dgvCadastro";
             this.dgvCadastro.ReadOnly = true;
             this.dgvCadastro.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.DarkCyan;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCadastro.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.DarkCyan;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCadastro.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCadastro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCadastro.Size = new System.Drawing.Size(487, 342);
             this.dgvCadastro.TabIndex = 0;
+            this.dgvCadastro.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCadastro_CellDoubleClick);
             // 
             // pButtons
             // 
@@ -385,6 +418,7 @@
             this.bExcluir.TabIndex = 2;
             this.bExcluir.Text = "  Excluir";
             this.bExcluir.UseVisualStyleBackColor = false;
+            this.bExcluir.Click += new System.EventHandler(this.bExcluir_Click);
             // 
             // bAlterar
             // 
@@ -406,6 +440,7 @@
             this.bAlterar.TabIndex = 1;
             this.bAlterar.Text = "  Alterar";
             this.bAlterar.UseVisualStyleBackColor = false;
+            this.bAlterar.Click += new System.EventHandler(this.bAlterar_Click);
             // 
             // bNovo
             // 
@@ -427,31 +462,40 @@
             this.bNovo.TabIndex = 0;
             this.bNovo.Text = "  Novo";
             this.bNovo.UseVisualStyleBackColor = false;
-            // 
-            // usuarioBindingSource
-            // 
-            this.usuarioBindingSource.DataSource = typeof(GPF.Model.Usuario);
+            this.bNovo.Click += new System.EventHandler(this.bNovo_Click);
             // 
             // uso_login
             // 
             this.uso_login.DataPropertyName = "uso_login";
             this.uso_login.HeaderText = "Login";
             this.uso_login.Name = "uso_login";
-            this.uso_login.ReadOnly = true;
             // 
-            // uso_nome
+            // dataGridViewTextBoxColumn1
             // 
-            this.uso_nome.DataPropertyName = "uso_nome";
-            this.uso_nome.HeaderText = "Nome";
-            this.uso_nome.Name = "uso_nome";
-            this.uso_nome.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "funcionario";
+            this.dataGridViewTextBoxColumn1.HeaderText = "funcionario";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
-            // uso_ativo
+            // Login
             // 
-            this.uso_ativo.DataPropertyName = "uso_ativo";
-            this.uso_ativo.HeaderText = "Ativo";
-            this.uso_ativo.Name = "uso_ativo";
-            this.uso_ativo.ReadOnly = true;
+            this.Login.DataPropertyName = "Login";
+            this.Login.HeaderText = "Login";
+            this.Login.Name = "Login";
+            this.Login.ReadOnly = true;
+            // 
+            // Usuário
+            // 
+            this.Usuário.DataPropertyName = "Usuário";
+            this.Usuário.HeaderText = "Usuário";
+            this.Usuário.Name = "Usuário";
+            this.Usuário.ReadOnly = true;
+            // 
+            // Ativo
+            // 
+            this.Ativo.DataPropertyName = "Ativo";
+            this.Ativo.HeaderText = "Ativo";
+            this.Ativo.Name = "Ativo";
+            this.Ativo.ReadOnly = true;
             // 
             // fCadUsuario
             // 
@@ -467,6 +511,7 @@
             this.MinimumSize = new System.Drawing.Size(600, 430);
             this.Name = "fCadUsuario";
             this.Text = "Cadastro Usuário";
+            this.Load += new System.EventHandler(this.fCadUsuario_Load);
             this.pCrud.ResumeLayout(false);
             this.pCrud.PerformLayout();
             this.pDgvLocaliza.ResumeLayout(false);
@@ -474,7 +519,6 @@
             this.pBuscas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCadastro)).EndInit();
             this.pButtons.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.usuarioBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -494,7 +538,6 @@
         private System.Windows.Forms.Panel pBuscas;
         private FontAwesome.Sharp.IconButton bBuscar;
         private System.Windows.Forms.TextBox txtDescricao;
-        private System.Windows.Forms.DataGridView dgvCadastro;
         private System.Windows.Forms.Panel pButtons;
         private FontAwesome.Sharp.IconButton bExcluir;
         private FontAwesome.Sharp.IconButton bAlterar;
@@ -503,9 +546,13 @@
         private FontAwesome.Sharp.IconButton bSalvar;
         private FontAwesome.Sharp.IconButton bMinimizar;
         private FontAwesome.Sharp.IconButton bFechar;
-        private System.Windows.Forms.BindingSource usuarioBindingSource;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox CbbFuncionario;
         private System.Windows.Forms.DataGridViewTextBoxColumn uso_login;
-        private System.Windows.Forms.DataGridViewTextBoxColumn uso_nome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn uso_ativo;
+        private System.Windows.Forms.DataGridView dgvCadastro;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Login;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Usuário;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Ativo;
     }
 }

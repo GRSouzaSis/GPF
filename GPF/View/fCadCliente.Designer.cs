@@ -37,6 +37,22 @@
             this.bBuscar = new FontAwesome.Sharp.IconButton();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.dgvCadastro = new System.Windows.Forms.DataGridView();
+            this.cli_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_sobrenome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_dtnasc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_telefone1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_telefone2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_casado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.cli_conjuge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_conjuge_cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.end_logradouro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.end_bairro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cid_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.end_uf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.end_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.enderecoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pButtons = new System.Windows.Forms.Panel();
             this.bExcluir = new FontAwesome.Sharp.IconButton();
             this.bAlterar = new FontAwesome.Sharp.IconButton();
@@ -47,6 +63,7 @@
             this.txtTelefone2 = new System.Windows.Forms.MaskedTextBox();
             this.pCadastroEnd = new System.Windows.Forms.Panel();
             this.pBotoes = new System.Windows.Forms.Panel();
+            this.bCancelar = new FontAwesome.Sharp.IconButton();
             this.bSalvar = new FontAwesome.Sharp.IconButton();
             this.pEndereco = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
@@ -77,35 +94,18 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
-            this.bCancelar = new FontAwesome.Sharp.IconButton();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.enderecoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.clienteBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.cli_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_sobrenome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_dtnasc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_telefone1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_telefone2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_casado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.cli_conjuge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_conjuge_cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.end_logradouro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.end_bairro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cid_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.end_uf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.end_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pDgvLocaliza.SuspendLayout();
             this.pBuscas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCadastro)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.enderecoBindingSource)).BeginInit();
             this.pButtons.SuspendLayout();
             this.pCrud.SuspendLayout();
             this.pCadastroEnd.SuspendLayout();
             this.pBotoes.SuspendLayout();
             this.pEndereco.SuspendLayout();
             this.pConjunge.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.enderecoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -151,6 +151,7 @@
             this.bBuscar.TabIndex = 2;
             this.bBuscar.Text = "   Buscar";
             this.bBuscar.UseVisualStyleBackColor = false;
+            this.bBuscar.Click += new System.EventHandler(this.bBuscar_Click);
             // 
             // txtDescricao
             // 
@@ -158,13 +159,19 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescricao.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDescricao.ForeColor = System.Drawing.Color.DarkGray;
             this.txtDescricao.Location = new System.Drawing.Point(12, 12);
             this.txtDescricao.Name = "txtDescricao";
             this.txtDescricao.Size = new System.Drawing.Size(525, 21);
             this.txtDescricao.TabIndex = 0;
+            this.txtDescricao.Text = "Nome ou Sobrenome ou CPF ex: 123.456.789-25";
+            this.txtDescricao.Enter += new System.EventHandler(this.txtDescricao_Enter);
+            this.txtDescricao.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescricao_KeyPress);
+            this.txtDescricao.Leave += new System.EventHandler(this.txtDescricao_Leave);
             // 
             // dgvCadastro
             // 
+            this.dgvCadastro.AllowUserToAddRows = false;
             this.dgvCadastro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -226,6 +233,138 @@
             this.dgvCadastro.Size = new System.Drawing.Size(607, 465);
             this.dgvCadastro.TabIndex = 0;
             // 
+            // cli_id
+            // 
+            this.cli_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.cli_id.DataPropertyName = "cli_id";
+            this.cli_id.HeaderText = "Código";
+            this.cli_id.Name = "cli_id";
+            this.cli_id.ReadOnly = true;
+            this.cli_id.Width = 80;
+            // 
+            // cli_nome
+            // 
+            this.cli_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_nome.DataPropertyName = "cli_nome";
+            this.cli_nome.HeaderText = "Nome";
+            this.cli_nome.Name = "cli_nome";
+            this.cli_nome.ReadOnly = true;
+            this.cli_nome.Width = 73;
+            // 
+            // cli_sobrenome
+            // 
+            this.cli_sobrenome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_sobrenome.DataPropertyName = "cli_sobrenome";
+            this.cli_sobrenome.HeaderText = "Sobrenome";
+            this.cli_sobrenome.Name = "cli_sobrenome";
+            this.cli_sobrenome.ReadOnly = true;
+            this.cli_sobrenome.Width = 110;
+            // 
+            // cli_cpf
+            // 
+            this.cli_cpf.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_cpf.DataPropertyName = "cli_cpf";
+            this.cli_cpf.HeaderText = "CPF";
+            this.cli_cpf.Name = "cli_cpf";
+            this.cli_cpf.ReadOnly = true;
+            this.cli_cpf.Width = 62;
+            // 
+            // cli_dtnasc
+            // 
+            this.cli_dtnasc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_dtnasc.DataPropertyName = "cli_dtnasc";
+            this.cli_dtnasc.HeaderText = "Data Nascimento";
+            this.cli_dtnasc.Name = "cli_dtnasc";
+            this.cli_dtnasc.ReadOnly = true;
+            this.cli_dtnasc.Width = 134;
+            // 
+            // cli_telefone1
+            // 
+            this.cli_telefone1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_telefone1.DataPropertyName = "cli_telefone1";
+            this.cli_telefone1.HeaderText = "Contato";
+            this.cli_telefone1.Name = "cli_telefone1";
+            this.cli_telefone1.ReadOnly = true;
+            this.cli_telefone1.Width = 85;
+            // 
+            // cli_telefone2
+            // 
+            this.cli_telefone2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_telefone2.DataPropertyName = "cli_telefone2";
+            this.cli_telefone2.HeaderText = "Contato";
+            this.cli_telefone2.Name = "cli_telefone2";
+            this.cli_telefone2.ReadOnly = true;
+            this.cli_telefone2.Width = 85;
+            // 
+            // cli_casado
+            // 
+            this.cli_casado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.cli_casado.DataPropertyName = "cli_casado";
+            this.cli_casado.HeaderText = "Casado";
+            this.cli_casado.Name = "cli_casado";
+            this.cli_casado.ReadOnly = true;
+            this.cli_casado.Width = 65;
+            // 
+            // cli_conjuge
+            // 
+            this.cli_conjuge.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_conjuge.DataPropertyName = "cli_conjuge";
+            this.cli_conjuge.HeaderText = "Nome Cônjuge";
+            this.cli_conjuge.Name = "cli_conjuge";
+            this.cli_conjuge.ReadOnly = true;
+            this.cli_conjuge.Width = 121;
+            // 
+            // cli_conjuge_cpf
+            // 
+            this.cli_conjuge_cpf.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_conjuge_cpf.DataPropertyName = "cli_conjuge_cpf";
+            this.cli_conjuge_cpf.HeaderText = "Cônjuge CPF";
+            this.cli_conjuge_cpf.Name = "cli_conjuge_cpf";
+            this.cli_conjuge_cpf.ReadOnly = true;
+            this.cli_conjuge_cpf.Width = 111;
+            // 
+            // end_logradouro
+            // 
+            this.end_logradouro.DataPropertyName = "end_logradouro";
+            this.end_logradouro.HeaderText = "Logradouro";
+            this.end_logradouro.Name = "end_logradouro";
+            this.end_logradouro.ReadOnly = true;
+            // 
+            // end_bairro
+            // 
+            this.end_bairro.DataPropertyName = "end_bairro";
+            this.end_bairro.HeaderText = "Bairro";
+            this.end_bairro.Name = "end_bairro";
+            this.end_bairro.ReadOnly = true;
+            // 
+            // cid_id
+            // 
+            this.cid_id.DataPropertyName = "cid_id";
+            this.cid_id.HeaderText = "cid_id";
+            this.cid_id.Name = "cid_id";
+            this.cid_id.ReadOnly = true;
+            this.cid_id.Visible = false;
+            // 
+            // end_uf
+            // 
+            this.end_uf.DataPropertyName = "end_uf";
+            this.end_uf.HeaderText = "end_uf";
+            this.end_uf.Name = "end_uf";
+            this.end_uf.ReadOnly = true;
+            this.end_uf.Visible = false;
+            // 
+            // end_id
+            // 
+            this.end_id.DataPropertyName = "end_id";
+            this.end_id.HeaderText = "end_id";
+            this.end_id.Name = "end_id";
+            this.end_id.ReadOnly = true;
+            this.end_id.Visible = false;
+            // 
+            // enderecoBindingSource
+            // 
+            this.enderecoBindingSource.DataSource = typeof(GPF.Model.Endereco);
+            // 
             // pButtons
             // 
             this.pButtons.BackColor = System.Drawing.Color.LightSeaGreen;
@@ -258,6 +397,7 @@
             this.bExcluir.TabIndex = 2;
             this.bExcluir.Text = "  Excluir";
             this.bExcluir.UseVisualStyleBackColor = false;
+            this.bExcluir.Click += new System.EventHandler(this.bExcluir_Click);
             // 
             // bAlterar
             // 
@@ -382,6 +522,30 @@
             this.pBotoes.Name = "pBotoes";
             this.pBotoes.Size = new System.Drawing.Size(260, 58);
             this.pBotoes.TabIndex = 33;
+            // 
+            // bCancelar
+            // 
+            this.bCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bCancelar.BackColor = System.Drawing.Color.OrangeRed;
+            this.bCancelar.FlatAppearance.BorderSize = 0;
+            this.bCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bCancelar.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.bCancelar.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bCancelar.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.bCancelar.IconChar = FontAwesome.Sharp.IconChar.Ban;
+            this.bCancelar.IconColor = System.Drawing.Color.WhiteSmoke;
+            this.bCancelar.IconSize = 16;
+            this.bCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bCancelar.Location = new System.Drawing.Point(14, 31);
+            this.bCancelar.Name = "bCancelar";
+            this.bCancelar.Rotation = 0D;
+            this.bCancelar.Size = new System.Drawing.Size(230, 23);
+            this.bCancelar.TabIndex = 2;
+            this.bCancelar.Text = "Cancelar";
+            this.bCancelar.UseVisualStyleBackColor = false;
+            this.bCancelar.Click += new System.EventHandler(this.bCancelar_Click);
             // 
             // bSalvar
             // 
@@ -514,11 +678,11 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label11.Location = new System.Drawing.Point(99, 5);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(67, 16);
+            this.label11.Size = new System.Drawing.Size(75, 16);
             this.label11.TabIndex = 28;
             this.label11.Text = "Endereço";
             this.label11.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -539,11 +703,11 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label10.Location = new System.Drawing.Point(74, 1);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(120, 16);
+            this.label10.Size = new System.Drawing.Size(136, 16);
             this.label10.TabIndex = 27;
             this.label10.Text = "Cadastro cônjuge";
             // 
@@ -597,9 +761,9 @@
             this.label6.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label6.Location = new System.Drawing.Point(135, 162);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 16);
+            this.label6.Size = new System.Drawing.Size(126, 16);
             this.label6.TabIndex = 29;
-            this.label6.Text = "Contato";
+            this.label6.Text = "Contato - Opcional";
             // 
             // label7
             // 
@@ -739,6 +903,7 @@
             // 
             // txtNome
             // 
+            this.txtNome.BackColor = System.Drawing.SystemColors.Window;
             this.txtNome.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNome.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNome.Location = new System.Drawing.Point(22, 59);
@@ -748,30 +913,6 @@
             this.txtNome.TabIndex = 2;
             this.txtNome.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNome_KeyPress);
             // 
-            // bCancelar
-            // 
-            this.bCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.bCancelar.BackColor = System.Drawing.Color.OrangeRed;
-            this.bCancelar.FlatAppearance.BorderSize = 0;
-            this.bCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bCancelar.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.bCancelar.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bCancelar.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.bCancelar.IconChar = FontAwesome.Sharp.IconChar.Ban;
-            this.bCancelar.IconColor = System.Drawing.Color.WhiteSmoke;
-            this.bCancelar.IconSize = 16;
-            this.bCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bCancelar.Location = new System.Drawing.Point(14, 31);
-            this.bCancelar.Name = "bCancelar";
-            this.bCancelar.Rotation = 0D;
-            this.bCancelar.Size = new System.Drawing.Size(230, 23);
-            this.bCancelar.TabIndex = 2;
-            this.bCancelar.Text = "Cancelar";
-            this.bCancelar.UseVisualStyleBackColor = false;
-            this.bCancelar.Click += new System.EventHandler(this.bCancelar_Click);
-            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "end_id";
@@ -779,141 +920,9 @@
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Visible = false;
             // 
-            // enderecoBindingSource
-            // 
-            this.enderecoBindingSource.DataSource = typeof(GPF.Model.Endereco);
-            // 
             // clienteBindingSource
             // 
             this.clienteBindingSource.DataSource = typeof(GPF.Model.Cliente);
-            // 
-            // cli_id
-            // 
-            this.cli_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.cli_id.DataPropertyName = "cli_id";
-            this.cli_id.HeaderText = "Código";
-            this.cli_id.Name = "cli_id";
-            this.cli_id.ReadOnly = true;
-            this.cli_id.Width = 80;
-            // 
-            // cli_nome
-            // 
-            this.cli_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_nome.DataPropertyName = "cli_nome";
-            this.cli_nome.HeaderText = "Nome";
-            this.cli_nome.Name = "cli_nome";
-            this.cli_nome.ReadOnly = true;
-            this.cli_nome.Width = 73;
-            // 
-            // cli_sobrenome
-            // 
-            this.cli_sobrenome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_sobrenome.DataPropertyName = "cli_sobrenome";
-            this.cli_sobrenome.HeaderText = "Sobrenome";
-            this.cli_sobrenome.Name = "cli_sobrenome";
-            this.cli_sobrenome.ReadOnly = true;
-            this.cli_sobrenome.Width = 110;
-            // 
-            // cli_cpf
-            // 
-            this.cli_cpf.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_cpf.DataPropertyName = "cli_cpf";
-            this.cli_cpf.HeaderText = "CPF";
-            this.cli_cpf.Name = "cli_cpf";
-            this.cli_cpf.ReadOnly = true;
-            this.cli_cpf.Width = 62;
-            // 
-            // cli_dtnasc
-            // 
-            this.cli_dtnasc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_dtnasc.DataPropertyName = "cli_dtnasc";
-            this.cli_dtnasc.HeaderText = "Data Nascimento";
-            this.cli_dtnasc.Name = "cli_dtnasc";
-            this.cli_dtnasc.ReadOnly = true;
-            this.cli_dtnasc.Width = 134;
-            // 
-            // cli_telefone1
-            // 
-            this.cli_telefone1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_telefone1.DataPropertyName = "cli_telefone1";
-            this.cli_telefone1.HeaderText = "Contato";
-            this.cli_telefone1.Name = "cli_telefone1";
-            this.cli_telefone1.ReadOnly = true;
-            this.cli_telefone1.Width = 85;
-            // 
-            // cli_telefone2
-            // 
-            this.cli_telefone2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_telefone2.DataPropertyName = "cli_telefone2";
-            this.cli_telefone2.HeaderText = "Contato";
-            this.cli_telefone2.Name = "cli_telefone2";
-            this.cli_telefone2.ReadOnly = true;
-            this.cli_telefone2.Width = 85;
-            // 
-            // cli_casado
-            // 
-            this.cli_casado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.cli_casado.DataPropertyName = "cli_casado";
-            this.cli_casado.HeaderText = "Casado";
-            this.cli_casado.Name = "cli_casado";
-            this.cli_casado.ReadOnly = true;
-            this.cli_casado.Width = 65;
-            // 
-            // cli_conjuge
-            // 
-            this.cli_conjuge.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_conjuge.DataPropertyName = "cli_conjuge";
-            this.cli_conjuge.HeaderText = "Nome Cônjuge";
-            this.cli_conjuge.Name = "cli_conjuge";
-            this.cli_conjuge.ReadOnly = true;
-            this.cli_conjuge.Width = 121;
-            // 
-            // cli_conjuge_cpf
-            // 
-            this.cli_conjuge_cpf.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_conjuge_cpf.DataPropertyName = "cli_conjuge_cpf";
-            this.cli_conjuge_cpf.HeaderText = "Cônjuge CPF";
-            this.cli_conjuge_cpf.Name = "cli_conjuge_cpf";
-            this.cli_conjuge_cpf.ReadOnly = true;
-            this.cli_conjuge_cpf.Width = 111;
-            // 
-            // end_logradouro
-            // 
-            this.end_logradouro.DataPropertyName = "end_logradouro";
-            this.end_logradouro.HeaderText = "Logradouro";
-            this.end_logradouro.Name = "end_logradouro";
-            this.end_logradouro.ReadOnly = true;
-            // 
-            // end_bairro
-            // 
-            this.end_bairro.DataPropertyName = "end_bairro";
-            this.end_bairro.HeaderText = "Bairro";
-            this.end_bairro.Name = "end_bairro";
-            this.end_bairro.ReadOnly = true;
-            // 
-            // cid_id
-            // 
-            this.cid_id.DataPropertyName = "cid_id";
-            this.cid_id.HeaderText = "cid_id";
-            this.cid_id.Name = "cid_id";
-            this.cid_id.ReadOnly = true;
-            this.cid_id.Visible = false;
-            // 
-            // end_uf
-            // 
-            this.end_uf.DataPropertyName = "end_uf";
-            this.end_uf.HeaderText = "end_uf";
-            this.end_uf.Name = "end_uf";
-            this.end_uf.ReadOnly = true;
-            this.end_uf.Visible = false;
-            // 
-            // end_id
-            // 
-            this.end_id.DataPropertyName = "end_id";
-            this.end_id.HeaderText = "end_id";
-            this.end_id.Name = "end_id";
-            this.end_id.ReadOnly = true;
-            this.end_id.Visible = false;
             // 
             // fCadCliente
             // 
@@ -932,6 +941,7 @@
             this.pBuscas.ResumeLayout(false);
             this.pBuscas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCadastro)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.enderecoBindingSource)).EndInit();
             this.pButtons.ResumeLayout(false);
             this.pCrud.ResumeLayout(false);
             this.pCrud.PerformLayout();
@@ -941,7 +951,6 @@
             this.pEndereco.PerformLayout();
             this.pConjunge.ResumeLayout(false);
             this.pConjunge.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.enderecoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).EndInit();
             this.ResumeLayout(false);
 

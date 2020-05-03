@@ -2,14 +2,8 @@
 using GPF.Helper;
 using GPF.Repository;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace GPF.View
 {
@@ -21,11 +15,7 @@ namespace GPF.View
         public Uf Uf { get; set; }
 
         private int cliid;
-        private int endid;
-        private int cidid;
-        private string uf;
-        private int flag;
-        private string flagNome;
+        private int endid;       
         private bool editar = false;
 
         UfRepository repUF = new UfRepository();
@@ -54,8 +44,8 @@ namespace GPF.View
             CbbUf.SelectedItem = null;
             CbbCidade.SelectedItem = null;
             AtualizarInterface(Cliente);
-            Endereco = new Endereco();         
-
+            Endereco = new Endereco();
+            Cliente = new Cliente();
         }
 
         private void LimpaTela()
@@ -137,8 +127,7 @@ namespace GPF.View
 
             if (Cliente == null)
             {
-                Cliente = new Cliente();
-               
+                Cliente = new Cliente();               
             }
 
             Cliente.cli_nome = txtNome.Text.ToUpper();
@@ -254,6 +243,12 @@ namespace GPF.View
                 if (!ajudas.ValidaCpf(txtCpfConjuge.Text))
                 {
                     DialogHelper.Alerta("Informe um CPF valido para o cônjuge");
+                    txtCpfConjuge.Focus();
+                    return false;
+                }
+                if (repCli.ProcurarPorCPF(txtCpfConjuge.Text))
+                {
+                    DialogHelper.Alerta("CPF do cônjuge já cadastrado");
                     txtCpfConjuge.Focus();
                     return false;
                 }
@@ -402,7 +397,7 @@ namespace GPF.View
                         if (repCli.cadastrar(Cliente, Endereco))
                         {
                             MostrarClientes();//---> Atualiza Data grid view
-                            DialogHelper.Informacao("Cliente incluido com sucesso.");
+                          //  DialogHelper.Informacao("Cliente incluido com sucesso.");
                             Inicializa();
                             LimpaTela();
                         }
@@ -430,7 +425,7 @@ namespace GPF.View
                         if (repCli.alterar(Cliente, Endereco))
                         {
                             MostrarClientes();//---> Atualiza Data grid view
-                            DialogHelper.Informacao("Cliente alterado com sucesso.");
+                           // DialogHelper.Informacao("Cliente alterado com sucesso.");
                             Inicializa();
                             LimpaTela();
                         }
@@ -490,9 +485,7 @@ namespace GPF.View
                 txtBairro.Text = dgvCadastro.CurrentRow.Cells["end_bairro"].Value.ToString();
 
                 Cliente.cli_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["cli_id"].Value);
-                Endereco.end_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["end_id"].Value);
-                //  flag = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["cli_casado"].Value);
-                // flagNome = dgvCadastro.CurrentRow.Cells["cli_cpf"].Value.ToString();                             
+                Endereco.end_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["end_id"].Value);                                          
             }
             else
             {
@@ -512,6 +505,78 @@ namespace GPF.View
             Escondecrud();
         }
 
-     
+        private void bExcluir_Click(object sender, EventArgs e)
+        {
+            DialogResult resultado = MessageBox.Show("Confirma exclusão deste cliente ?", "Confirma Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resultado == DialogResult.Yes)
+            {           
+                if (dgvCadastro.SelectedRows.Count > 0)
+                { 
+                    cliid = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["cli_id"].Value);
+                    endid = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["end_id"].Value);
+                    try
+                    {
+                       if( repCli.excluir(cliid, endid))
+                       {
+                            MostrarClientes();//---> Atualiza Data grid view
+                          //  DialogHelper.Informacao("Cliente excluido com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            Inicializa();
+                            Escondecrud();
+                       }
+                        else
+                        {
+                            DialogHelper.Alerta("Não é possível excluir esse cliente.");
+                        }
+                        Inicializa();
+                        LimpaTela();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Cliente não pode ser excluido." + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+        }
+
+        private void bBuscar_Click(object sender, EventArgs e)
+        {
+            string nome = "";
+            nome = txtDescricao.Text;
+            try
+            {
+                dgvCadastro.DataSource = repCli.GetDataView(nome);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void txtDescricao_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                bBuscar.PerformClick();
+            }
+        }
+
+        private void txtDescricao_Enter(object sender, EventArgs e)
+        {
+            if(txtDescricao.Text == "Nome ou Sobrenome ou CPF ex: 123.456.789-25")
+            {
+                txtDescricao.Text = "";
+                txtDescricao.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtDescricao_Leave(object sender, EventArgs e)
+        {
+            if (txtDescricao.Text == "")
+            {
+                txtDescricao.Text = "Nome ou Sobrenome ou CPF ex: 123.456.789-25";
+                txtDescricao.ForeColor = Color.DarkGray;
+            }
+        }
     }
 }

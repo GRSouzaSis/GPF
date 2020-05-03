@@ -173,5 +173,15 @@ namespace GPF
         {
             AbrirForm<fCadCliente>();
         }
+
+        private void bOrcamento_Click(object sender, EventArgs e)
+        {
+            AbrirForm<fCadOrcamento>();
+        }
+
+        private void bClienteXLote_Click(object sender, EventArgs e)
+        {
+            AbrirForm<fCadCliLote>();
+        }
     }
 }

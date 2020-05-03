@@ -2,6 +2,7 @@
 using GPF.Model;
 using GPF.Repository;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace GPF.View
@@ -159,7 +160,7 @@ namespace GPF.View
                         }
                         acc.cadastraPerfil(Perfil);
                         MostrarPerfis();//---> Atualiza Data grid view
-                        DialogHelper.Alerta("Perfil incluido com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                      //  DialogHelper.Alerta("Perfil incluido com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         Inicializar();
                         LimpaTela();
 
@@ -182,7 +183,7 @@ namespace GPF.View
                             AtualizarObjeto();  
                             acc.alterarPerfil(Perfil);
                             MostrarPerfis();//---> Atualiza Data grid view
-                            DialogHelper.Informacao("Perfil alterado com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                          //  DialogHelper.Informacao("Perfil alterado com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             Inicializar();
                             LimpaTela();
                         }
@@ -208,7 +209,7 @@ namespace GPF.View
                             }
                             acc.alterarPerfil(Perfil);
                             MostrarPerfis();//---> Atualiza Data grid view
-                            DialogHelper.Alerta("Perfil alterado com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                          //  DialogHelper.Alerta("Perfil alterado com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             Inicializar();
                             LimpaTela();
 
@@ -246,12 +247,13 @@ namespace GPF.View
             {
                 if (dgvCadastro.SelectedRows.Count > 0)
                 {
-                    per_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["per_id"].Value);
+                    per_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["codigo"].Value);
                     try
                     {                       
                         acc.excluirPerfil(per_id);
-                        MostrarPerfis();//---> Atualiza Data grid view
+                       
                         DialogHelper.Informacao("Perfil excluido com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MostrarPerfis();//---> Atualiza Data grid view
                         Inicializar();
                         
                     }
@@ -279,7 +281,7 @@ namespace GPF.View
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-           }
+            }
         }
 
         private void txtNome_KeyPress(object sender, KeyPressEventArgs e)
@@ -292,15 +294,27 @@ namespace GPF.View
 
         private void txtDescricao_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string nome = "";
-            nome = txtDescricao.Text;
-            try
+            if (e.KeyChar == 13)
             {
-                dgvCadastro.DataSource = acc.GetDataView(nome);
+                bBuscar.PerformClick();
             }
-            catch (Exception ex)
+        }
+
+        private void txtDescricao_Enter(object sender, EventArgs e)
+        {
+            if(txtDescricao.Text == "Perfil de usuário")
             {
-                MessageBox.Show(ex.Message);
+                txtDescricao.Text = "";
+                txtDescricao.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtDescricao_Leave(object sender, EventArgs e)
+        {
+            if (txtDescricao.Text == "")
+            {
+                txtDescricao.Text = "Perfil de usuário";
+                txtDescricao.ForeColor = Color.DarkGray;
             }
         }
     }

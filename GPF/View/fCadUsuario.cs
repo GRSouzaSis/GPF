@@ -2,6 +2,7 @@
 using GPF.Model;
 using GPF.Repository;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -9,8 +10,17 @@ namespace GPF.View
 {
     public partial class fCadUsuario : Form
     {
-        public UsuarioRepository UsuarioRepository { get; set; }
-        public Usuario Usuario { get;private set; }
+        public Usuario Usuario { get; set; }
+        public Funcionario Funcionario { get; set; }   
+
+        UsuarioRepository repUso = new UsuarioRepository();
+
+        FuncionarioRepository repFun = new FuncionarioRepository();
+
+        private int uso_id;
+        private bool editar = false;
+        private int flag;
+        private string flagNome;
         public fCadUsuario()
         {
             InitializeComponent();
@@ -19,9 +29,61 @@ namespace GPF.View
 
         private void Inicializar()
         {
-            Usuario = new Usuario();          
-            HabilitarControles();
+            Usuario = new Usuario();
+            Funcionario = new Funcionario();
+            carregarFuncionario();
+            CbbFuncionario.SelectedItem = null;
+            CbbFuncionario.Focus();
             AtualizarInterface();
+            
+            // HabilitarControles();
+        }
+
+        private void LimpaTela()
+        {
+            txtNomeUsuario.Text = "";
+            txtLogin.Text = "";
+            txtSenha.Text = "";
+            cbAtivo.Checked = true;// ? 1 : 0;            
+            CbbFuncionario.SelectedItem = null;
+        }
+        private void fCadUsuario_Load(object sender, EventArgs e)
+        {
+            MostrarUsuarios();
+        }
+
+        private void MostrarUsuarios()
+        {
+            try
+            {
+                DataGridViewCheckBoxColumn column = new DataGridViewCheckBoxColumn();
+                
+                    
+                UsuarioRepository acc = new UsuarioRepository();
+                dgvCadastro.DataSource = acc.GetDataView();
+                dgvCadastro.Columns[0].Visible = false;
+                dgvCadastro.Columns[1].Visible = false;
+                dgvCadastro.Columns[2].Visible = false;
+               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+        private void carregarFuncionario()
+        {
+            try
+            {
+                CbbFuncionario.DataSource = repFun.GetAll("");// GetAll("").ToList();
+                CbbFuncionario.DisplayMember = "fun_nome";
+                CbbFuncionario.ValueMember = "fun_id";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void HabilitarControles(bool editando = false, bool visualizando = false)
@@ -54,61 +116,43 @@ namespace GPF.View
                 }
             }
         }
-    
+
         private void AtualizarInterface()
         {
             if (Usuario == null)
             {
                 Usuario = new Usuario();
+                Funcionario = new Funcionario();
             }
             else
             {
                 txtNomeUsuario.Text = Usuario.uso_nome.ToString();
                 txtLogin.Text = Usuario.uso_login.ToString();
                 txtSenha.Text = Usuario.uso_senha.ToString();
-               
-                //cbAtivo.Checked = Convert.ToBoolean(Usuario.pes_id.pes_ativo);
+                cbAtivo.CheckState = CheckState.Checked;
+                try
+                {
+                    CbbFuncionario.SelectedValue = Funcionario.fun_id;
+                }
+                catch (Exception ex)
+                {
+                    CbbFuncionario.SelectedItem = null;
+                }
             }
         }
 
         private bool AtualizarObjeto()
-        {           
-
-            string nome = txtNomeUsuario.Text.Trim();
-            if (nome == string.Empty)
-            {
-                DialogHelper.Alerta("Informe um nome de usuário.");
-                txtNomeUsuario.Focus();
-                return false;
-            }
-
-            string login = txtLogin.Text.Trim();
-            if (login == string.Empty)
-            {
-                DialogHelper.Alerta("Informe um login de usuário.");
-                txtLogin.Focus();
-                return false;
-            }
-
-            string senha = txtSenha.Text;
-            if (senha == string.Empty)
-            {
-                DialogHelper.Alerta("Informe uma senha de usuário.");
-                txtSenha.Focus();
-                return false;
-            }
-            int ativo = cbAtivo.Checked ? 1 : 0;
-
-
+        {
             if (Usuario == null)
             {
                 Usuario = new Usuario();
             }
 
-            Usuario.uso_login = login;
-            Usuario.uso_senha = senha;
-            Usuario.uso_nome = nome;
-            Usuario.uso_ativo = ativo;             
+            Usuario.uso_login = txtLogin.Text;
+            Usuario.uso_senha = txtSenha.Text;
+            Usuario.uso_nome = txtNomeUsuario.Text;
+            Usuario.uso_ativo = cbAtivo.Checked ? 1 : 0;
+            Funcionario.fun_id = Convert.ToInt32(CbbFuncionario.SelectedValue.ToString());
             return true;
         }
 
@@ -150,58 +194,231 @@ namespace GPF.View
                 txtSenha.Focus();
                 return false;
             }
+
+            if (CbbFuncionario.SelectedItem == null)
+            {
+                DialogHelper.Alerta("Selecione um funcionário.");
+                CbbFuncionario.Focus();
+                return false;
+            }
+
             return true;
         }
 
-
-        private void bNovo_Click_1(object sender, EventArgs e)
+        private void bSalvar_Click(object sender, EventArgs e)
         {
-            Inicializar();
-            HabilitarControles(editando: true);
+
+            if (editar == false)//Salvar
+            {
+                try
+                {
+                    if (validaObjeto())
+                    {
+                        AtualizarObjeto();
+                        if (repUso.ProcurarLogin(txtLogin.Text))
+                        {
+                            DialogHelper.Informacao("Já existe usuário com esse Login.");//Login já Cadastrado
+                            txtLogin.Focus();
+                            return;
+                        }
+                        // repCli.cadastrar(Cliente);
+                        repUso.Cadastrar(Usuario);
+                        MostrarUsuarios();//---> Atualiza Data grid view
+                       // DialogHelper.Informacao("Usuário incluido com sucesso.");
+                        Inicializar();
+                        LimpaTela();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            if (editar == true)//alterar
+            {
+                if (flag != (cbAtivo.Checked ? 1 : 0) && txtNomeUsuario.Text == flagNome)
+                {
+
+                    try
+                    {
+                        if (validaObjeto())
+                        {
+                            AtualizarObjeto();
+                            repUso.alterar(Usuario);
+                            MostrarUsuarios();//---> Atualiza Data grid view
+                            DialogHelper.Informacao("Usuário alterado com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            Inicializar();
+                            LimpaTela();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        if (validaObjeto())
+                        {
+                            AtualizarObjeto();
+
+                            if (repUso.ProcurarLogin(txtLogin.Text))
+                            {
+                                DialogHelper.Informacao("Já existe um usuário cadastrado com este login. Tente outro nome para o perfil.");//, "Perfil já Cadastrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                txtLogin.Focus();
+                                return;
+                            }
+                            repUso.alterar(Usuario);
+                            MostrarUsuarios();//---> Atualiza Data grid view
+                          //  DialogHelper.Alerta("Usuário alterado com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            Inicializar();
+                            LimpaTela();
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+            }
+
         }
 
-        private void bSalvar_Click_1(object sender, EventArgs e)
+        private void bAlterar_Click(object sender, EventArgs e)
         {
-            if (validaObjeto())
+            if (dgvCadastro.SelectedRows.Count > 0)
             {
-                if (AtualizarObjeto())
+                editar = true;
+                txtNomeUsuario.Text = dgvCadastro.CurrentRow.Cells["Usuário"].Value.ToString();
+                txtLogin.Text = dgvCadastro.CurrentRow.Cells["Login"].Value.ToString();
+                txtSenha.Text = dgvCadastro.CurrentRow.Cells["uso_senha"].Value.ToString();
+                Usuario.uso_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["uso_id"].Value);
+                cbAtivo.Checked = Convert.ToBoolean(dgvCadastro.CurrentRow.Cells["Ativo"].Value);
+                flag = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["Ativo"].Value);
+                flagNome = dgvCadastro.CurrentRow.Cells["Usuário"].Value.ToString();
+
+                try
+                {                    
+
+                    CbbFuncionario.DataSource = repFun.GetAll("");
+                    CbbFuncionario.DisplayMember = "fun_nome";
+                    CbbFuncionario.ValueMember = "fun_id";
+                    CbbFuncionario.SelectedValue = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["fun_id"].Value.ToString());
+                }
+                catch (Exception ex)
                 {
-                   
+                    CbbFuncionario.SelectedItem = null;
+                    //MessageBox.Show(ex.Message);                    
+                }
+            }
+            else
+            {
+                DialogHelper.Informacao("Selecione um registro para alterar.");
+            }
+        }
+        private void bExcluir_Click(object sender, EventArgs e)
+        {
+            DialogResult resultado = MessageBox.Show("Confirma exclusão deste usuário ?", "Confirma Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resultado == DialogResult.Yes)
+            {
+                if (dgvCadastro.SelectedRows.Count > 0)
+                {
+                    uso_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["usoid"].Value);
+                    try
+                    {
+                        repUso.excluir(uso_id);
+                        MostrarUsuarios();//---> Atualiza Data grid view
+                        DialogHelper.Informacao("Usuário excluido com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        Inicializar();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Usuário não pode ser excluido, desative o usuário." + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
         }
 
-        private void bCancelar_Click_1(object sender, EventArgs e)
+        private void bNovo_Click(object sender, EventArgs e)
+        {
+            Inicializar();
+           // HabilitarControles(editando: true);
+        }
+
+
+        private void bCancelar_Click(object sender, EventArgs e)
         {
             Inicializar();
         }
 
-        private void bExcluir_Click_1(object sender, EventArgs e)
+        private void bBuscar_Click(object sender, EventArgs e)
         {
-            if (AtualizarObjeto())
+            string nome = "";
+            nome = txtDescricao.Text;
+            try
             {
-                
+                dgvCadastro.DataSource = repUso.GetDataView(nome);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private void bBuscar_Click_1(object sender, EventArgs e)
+        private void txtDescricao_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string nome = txtDescricao.Text;
-          //  dgvCadastro.DataSource = UsuarioRepository.GetAll().ToList();
-        }
-
-        private void bAlterar_Click_1(object sender, EventArgs e)
-        {
-            HabilitarControles();
-        }
-
-        private void dgvCadastro_DoubleClick_1(object sender, EventArgs e)
-        {
-            Usuario = dgvCadastro.CurrentRow?.DataBoundItem as Usuario;
-            if (Usuario != null)
+            if (e.KeyChar == 13)
             {
-                DialogResult = DialogResult.OK;
-                // Close();
+                bBuscar.PerformClick();
+            }
+        }
+
+        private void txtDescricao_Enter(object sender, EventArgs e)
+        {
+            if(txtDescricao.Text == "Nome de usuário ou login")
+            {
+                txtDescricao.Text = "";
+                txtDescricao.ForeColor = Color.Black;
+            }
+        }
+
+        private void txtDescricao_Leave(object sender, EventArgs e)
+        {
+            if (txtDescricao.Text == "")
+            {
+                txtDescricao.Text = "Nome de usuário ou login";
+                txtDescricao.ForeColor = Color.DarkGray;
+            }
+        }
+
+        private void dgvCadastro_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            editar = true;
+            txtNomeUsuario.Text = dgvCadastro.CurrentRow.Cells["Usuário"].Value.ToString();
+            txtLogin.Text = dgvCadastro.CurrentRow.Cells["Login"].Value.ToString();
+            txtSenha.Text = dgvCadastro.CurrentRow.Cells["uso_senha"].Value.ToString();
+            Usuario.uso_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["uso_id"].Value);
+            cbAtivo.Checked = Convert.ToBoolean(dgvCadastro.CurrentRow.Cells["Ativo"].Value);
+            flag = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["Ativo"].Value);
+            flagNome = dgvCadastro.CurrentRow.Cells["Usuário"].Value.ToString();
+
+            try
+            {
+
+                CbbFuncionario.DataSource = repFun.GetAll("");
+                CbbFuncionario.DisplayMember = "fun_nome";
+                CbbFuncionario.ValueMember = "fun_id";
+                CbbFuncionario.SelectedValue = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["fun_id"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                CbbFuncionario.SelectedItem = null;
+                //MessageBox.Show(ex.Message);                    
             }
         }
     }

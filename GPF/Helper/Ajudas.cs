@@ -150,6 +150,13 @@ namespace GPF.Helper
             return oDate;
         }
 
+        public DateTime AtualizaDataDia(string data)
+        {
+
+            DateTime oDate = DateTime.ParseExact(data, "dd", CultureInfo.InvariantCulture);
+            return oDate;
+        }
+
         public bool ValidaData(string data)
         {
             DateTime oDate = DateTime.ParseExact(data, "dd/MM/yyyy", CultureInfo.InvariantCulture);

@@ -37,18 +37,20 @@ namespace GPF.Repository
                     //command.ExecuteNonQuery();
                     var IdInserido = Convert.ToInt32(command.ExecuteScalar());
 
-                    string sqlCliente = @"Insert Into cliente(end_id,cli_nome,cli_sobrenome,cli_cpf,cli_casado,cli_conjuge,
-                                                              cli_conjuge_cpf, cli_dtnasc,cli_telefone1,cli_telefone2) 
-                                                      values (@end_id, @cli_nome, @cli_sobrenome, @cli_cpf, @cli_casado, @cli_conjuge,
-                                                              @cli_conjuge_cpf,@cli_dtnasc, @cli_telefone1, @cli_telefone2)";
+                    string sqlCliente = @"Insert Into cliente(end_id,cli_nome,cli_sobrenome,cli_cpf,cli_rg,cli_casado,cli_conjuge,
+                                                              cli_conjuge_cpf,cli_conjuge_rg, cli_dtnasc,cli_telefone1,cli_telefone2) 
+                                                      values (@end_id, @cli_nome, @cli_sobrenome, @cli_cpf, @cli_rg, @cli_casado, @cli_conjuge,
+                                                              @cli_conjuge_cpf,@cli_conjuge_rg,@cli_dtnasc, @cli_telefone1, @cli_telefone2)";
                     command.CommandText = sqlCliente; // insert cliente 
                     command.Parameters.AddWithValue("@end_id", IdInserido);
                     command.Parameters.AddWithValue("@cli_nome", cliente.cli_nome);
                     command.Parameters.AddWithValue("@cli_sobrenome", cliente.cli_sobrenome);
                     command.Parameters.AddWithValue("@cli_cpf", cliente.cli_cpf);
+                    command.Parameters.AddWithValue("@cli_rg", cliente.cli_rg);
                     command.Parameters.AddWithValue("@cli_casado", cliente.cli_casado);
                     command.Parameters.AddWithValue("@cli_conjuge", cliente.cli_conjuge);
                     command.Parameters.AddWithValue("@cli_conjuge_cpf", cliente.cli_conjuge_cpf);
+                    command.Parameters.AddWithValue("@cli_conjuge_rg", cliente.cli_conjuge_rg);
                     command.Parameters.AddWithValue("@cli_dtnasc", cliente.cli_dtnasc);
                     command.Parameters.AddWithValue("@cli_telefone1", cliente.cli_telefone1);
                     command.Parameters.AddWithValue("@cli_telefone2", cliente.cli_telefone2);
@@ -98,9 +100,11 @@ namespace GPF.Repository
                                             cli_nome = @cli_nome,
                                             cli_sobrenome = @cli_sobrenome,
                                             cli_cpf = @cli_cpf,
+                                            cli_rg = @cli_rg,
                                             cli_casado = @cli_casado,
                                             cli_conjuge = @cli_conjuge,
                                             cli_conjuge_cpf =  @cli_conjuge_cpf,
+                                            cli_conjuge_rg =  @cli_conjuge_rg,
                                             cli_dtnasc = @cli_dtnasc,
                                             cli_telefone1 = @cli_telefone1,
                                             cli_telefone2 = @cli_telefone2 where cli_id = @cli_id";
@@ -110,9 +114,11 @@ namespace GPF.Repository
                     command.Parameters.AddWithValue("@cli_nome", cliente.cli_nome);
                     command.Parameters.AddWithValue("@cli_sobrenome", cliente.cli_sobrenome);
                     command.Parameters.AddWithValue("@cli_cpf", cliente.cli_cpf);
+                    command.Parameters.AddWithValue("@cli_rg", cliente.cli_rg);
                     command.Parameters.AddWithValue("@cli_casado", cliente.cli_casado);
                     command.Parameters.AddWithValue("@cli_conjuge", cliente.cli_conjuge);
                     command.Parameters.AddWithValue("@cli_conjuge_cpf", cliente.cli_conjuge_cpf);
+                    command.Parameters.AddWithValue("@cli_conjuge_rg", cliente.cli_conjuge_rg);
                     command.Parameters.AddWithValue("@cli_dtnasc", cliente.cli_dtnasc);
                     command.Parameters.AddWithValue("@cli_telefone1", cliente.cli_telefone1);
                     command.Parameters.AddWithValue("@cli_telefone2", cliente.cli_telefone2);
@@ -281,6 +287,26 @@ namespace GPF.Repository
                 string sql = @"select cli_nome + ' ' + cli_sobrenome + ' ' + cli_cpf as cli, cli_id 
                                 from cliente 
                                 order by cli_nome";
+                dt.Load(db.ExecuteReader(sql));
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public DataTable GetClienteProjeto(int pro_id)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                // string sql = "SELECT cli_id, cli_nome FROM cliente";
+                string sql = @"select c.cli_nome + ' ' + c.cli_sobrenome + ' ' + c.cli_cpf as cli, c.cli_id
+                                from lote l
+                                inner join cliente c on c.cli_id = l.cli_id
+                                inner join projeto p on p.pro_id = l.pro_id
+                                where p.pro_id = "+ pro_id +"    order by c.cli_nome";
                 dt.Load(db.ExecuteReader(sql));
                 return dt;
             }

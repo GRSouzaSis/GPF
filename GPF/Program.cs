@@ -13,20 +13,10 @@ namespace GPF
         /// </summary>
         [STAThread]
         static void Main()
-        {
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //using (ThreadScopedLifestyle.BeginScope(Dependencias.Container))
-            //{
-            //    Dependencias.Configurar();
-            //    Application.Run(new fLogin());
-            //   // Application.Run(new fPrincipal());
-            //}
-            //--------
+        {            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new fLogin());
-           // Application.Run(new fCadParametrizacao());
+            //Application.Run(new fLogin());          
             Application.Run(new fPrincipal());
         }
     }

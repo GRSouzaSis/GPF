@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\ParametrizacaoCache.cs" />
+    <Compile Include="Cache\ProjetoCache.cs" />
     <Compile Include="Cache\UsuarioLoginCache.cs" />
     <Compile Include="Helper\DialogHelper.cs" />
     <Compile Include="Helper\Ajudas.cs" />
@@ -94,9 +95,9 @@
     <Compile Include="Repository\EnderecoRepository.cs" />
     <Compile Include="Repository\FuncionarioRepository.cs" />
     <Compile Include="Repository\LoteRepository.cs" />
+    <Compile Include="Repository\OrcamentoRepository.cs" />
     <Compile Include="Repository\ParametrizacaoRepository.cs" />
     <Compile Include="Repository\PerfilRepository.cs" />
-    <Compile Include="Repository\PessoaRepository.cs" />
     <Compile Include="Repository\ProjetoRepository.cs" />
     <Compile Include="Repository\UfRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />

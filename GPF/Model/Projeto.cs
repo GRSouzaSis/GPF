@@ -16,12 +16,14 @@ namespace GPF.Model
         public DateTime? dtinicio { get; set; }
         public int pro_ativo { get; set; }
         public int pro_finalizado { get; set; }
+        public double pro_vlrPorLote { get; set; }
+        public double pro_vlrEntrada { get; set; }
 
-        public Projeto(): this(null,null,"",0,0,null,0,0)
+        public Projeto(): this(null,null,"",0,0,null,0,0,0,0)
         {
         }
 
-        public Projeto(int? pro_id, Endereco end_id, string pro_nome, double pro_vlrtotal, int qtdlotes, DateTime? dtinicio, int pro_ativo, int pro_finalizado)
+        public Projeto(int? pro_id, Endereco end_id, string pro_nome, double pro_vlrtotal, int qtdlotes, DateTime? dtinicio, int pro_ativo, int pro_finalizado, double pro_vlrPorLote, double pro_vlrEntrada)
         {
             this.pro_id = pro_id;
             this.end_id = end_id;
@@ -31,6 +33,8 @@ namespace GPF.Model
             this.dtinicio = dtinicio;
             this.pro_ativo = pro_ativo;
             this.pro_finalizado = pro_finalizado;
+            this.pro_vlrPorLote = pro_vlrPorLote;
+            this.pro_vlrEntrada = pro_vlrEntrada;
         }
     }
 

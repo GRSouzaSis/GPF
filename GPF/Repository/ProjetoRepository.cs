@@ -1,15 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using GPF.Cache;
+using System;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Common;
 
 namespace GPF.Repository
 {
     public class ProjetoRepository
     {
         public AcessoHelper db = new AcessoHelper();
+
+        public bool carregarValoresProjeto(int pro_id)
+        {
+            DbDataReader reader;                       
+            string sql = @"SELECT * FROM projeto where pro_id = "+pro_id;
+            reader = db.ExecuteReader(sql);
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    ProjetoCache.pro_id = reader.GetInt32(0);
+                    ProjetoCache.pro_vlrPorLote = reader.GetDecimal(8);
+                    ProjetoCache.pro_vlrEntrada = reader.GetDecimal(9);                    
+                }
+                reader.Close();
+                return true;
+                
+            }
+            else
+            {
+                reader.Close();
+                return false;
+            }
+
+        }
 
         public DataTable GetAll(string nome)
         {

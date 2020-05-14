@@ -53,12 +53,14 @@ namespace GPF.View
             txtNome.Text = "";
             txtSobrenome.Text = "";
             txtCpf.Text = "";
+            txtRG.Text = "";
             txtDataNasc.Text = "";
             txtTelefone1.Text = "";
             txtTelefone2.Text = "";
             cbCasado.Checked = false;// ? 1 : 0;  
             txtNomeConjuge.Text = "";
-            txtCpfConjuge.Text = "";        
+            txtCpfConjuge.Text = "";
+            txtConjugeRg.Text = "";
             CbbCidade.SelectedItem = null;
             CbbUf.SelectedItem = null;
             txtLogradouro.Text = "";
@@ -96,12 +98,14 @@ namespace GPF.View
                 txtNome.Text = Cliente.cli_nome.ToString();
                 txtSobrenome.Text = Cliente.cli_sobrenome.ToString();
                 txtCpf.Text = Cliente.cli_cpf.ToString();
+                txtRG.Text = Cliente.cli_rg.ToString();
                 txtDataNasc.Text = Cliente.cli_dtnasc.ToString();
                 txtTelefone1.Text = Cliente.cli_telefone1.ToString();
                 txtTelefone2.Text = Cliente.cli_telefone2.ToString();
                 cbCasado.CheckState = CheckState.Checked;// ? 1 : 0;  
                 txtNomeConjuge.Text = Cliente.cli_conjuge.ToString();
                 txtCpfConjuge.Text = Cliente.cli_conjuge_cpf.ToString();
+                txtConjugeRg.Text = Cliente.cli_conjuge_rg.ToString();
                 try
                 {
                     CbbUf.SelectedValue = Endereco.cid_id;
@@ -133,12 +137,14 @@ namespace GPF.View
             Cliente.cli_nome = txtNome.Text.ToUpper();
             Cliente.cli_sobrenome = txtSobrenome.Text.ToUpper();
             Cliente.cli_cpf = txtCpf.Text;
+            Cliente.cli_rg = txtRG.Text;
             Cliente.cli_dtnasc = ajudas.AtualizaData(txtDataNasc.Text); 
             Cliente.cli_telefone1 = txtTelefone1.Text;
             Cliente.cli_telefone2 = txtTelefone2.Text;
             Cliente.cli_casado = casado;
             Cliente.cli_conjuge = txtNomeConjuge.Text.ToUpper();
             Cliente.cli_conjuge_cpf = txtCpfConjuge.Text;
+            Cliente.cli_conjuge_rg = txtConjugeRg.Text;
             Endereco.end_logradouro = txtLogradouro.Text.ToUpper();
             Endereco.end_bairro = txtBairro.Text.ToUpper();
             Endereco.cid_id = Convert.ToInt32(CbbCidade.SelectedValue.ToString());           
@@ -196,6 +202,13 @@ namespace GPF.View
                 return false;
             }
 
+            if (txtRG.Text == String.Empty)
+            {
+                DialogHelper.Alerta("Informe um RG para o cliente");
+                txtRG.Focus();
+                return false;
+            }
+
             if (txtDataNasc.Text == String.Empty)
             {
                 DialogHelper.Alerta("Informe uma data de nascimento para o cliente");
@@ -249,6 +262,12 @@ namespace GPF.View
                 if (repCli.ProcurarPorCPF(txtCpfConjuge.Text))
                 {
                     DialogHelper.Alerta("CPF do cônjuge já cadastrado");
+                    txtCpfConjuge.Focus();
+                    return false;
+                }
+                if (txtConjugeRg.Text == String.Empty)
+                {
+                    DialogHelper.Alerta("Informe um RG para o cônjuge");
                     txtCpfConjuge.Focus();
                     return false;
                 }
@@ -343,6 +362,7 @@ namespace GPF.View
                 pConjunge.Visible = false;
                 txtCpfConjuge.Text = "";
                 txtNomeConjuge.Text = "";
+                txtConjugeRg.Text = "";
             }
         }
 
@@ -456,12 +476,14 @@ namespace GPF.View
                 txtNome.Text = dgvCadastro.CurrentRow.Cells["cli_nome"].Value.ToString();
                 txtSobrenome.Text = dgvCadastro.CurrentRow.Cells["cli_sobrenome"].Value.ToString();
                 txtCpf.Text = dgvCadastro.CurrentRow.Cells["cli_cpf"].Value.ToString();
+                txtRG.Text = dgvCadastro.CurrentRow.Cells["cli_rg"].Value.ToString();
                 txtDataNasc.Text = dgvCadastro.CurrentRow.Cells["cli_dtnasc"].Value.ToString();
                 txtTelefone1.Text = dgvCadastro.CurrentRow.Cells["cli_telefone1"].Value.ToString();
                 txtTelefone2.Text = dgvCadastro.CurrentRow.Cells["cli_telefone2"].Value.ToString();
                 cbCasado.Checked = Convert.ToBoolean(dgvCadastro.CurrentRow.Cells["cli_casado"].Value);
                 txtNomeConjuge.Text = dgvCadastro.CurrentRow.Cells["cli_conjuge"].Value.ToString();
                 txtCpfConjuge.Text = dgvCadastro.CurrentRow.Cells["cli_conjuge_cpf"].Value.ToString();
+                txtConjugeRg.Text = dgvCadastro.CurrentRow.Cells["cli_conjuge_rg"].Value.ToString();
                 try
                 {
                     var uf = dgvCadastro.CurrentRow.Cells["end_uf"].Value.ToString();
@@ -577,6 +599,69 @@ namespace GPF.View
                 txtDescricao.Text = "Nome ou Sobrenome ou CPF ex: 123.456.789-25";
                 txtDescricao.ForeColor = Color.DarkGray;
             }
+        }
+
+        private void txtRG_KeyPress(object sender, KeyPressEventArgs e)
+        {
+           // var tecla =(Convert.ToByte( e.KeyChar));
+           // MessageBox.Show(tecla.ToString());
+
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 08 && e.KeyChar != 46 && e.KeyChar != 45 && e.KeyChar != 88 && e.KeyChar != 120)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtConjugeRg_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 08 && e.KeyChar != 46 && e.KeyChar != 45 && e.KeyChar != 88 && e.KeyChar != 120)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void dgvCadastro_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (pCrud.Visible == false)
+            {
+                pCrud.Visible = true;
+            }
+            editar = true;
+            txtNome.Text = dgvCadastro.CurrentRow.Cells["cli_nome"].Value.ToString();
+            txtSobrenome.Text = dgvCadastro.CurrentRow.Cells["cli_sobrenome"].Value.ToString();
+            txtCpf.Text = dgvCadastro.CurrentRow.Cells["cli_cpf"].Value.ToString();
+            txtRG.Text = dgvCadastro.CurrentRow.Cells["cli_rg"].Value.ToString();
+            txtDataNasc.Text = dgvCadastro.CurrentRow.Cells["cli_dtnasc"].Value.ToString();
+            txtTelefone1.Text = dgvCadastro.CurrentRow.Cells["cli_telefone1"].Value.ToString();
+            txtTelefone2.Text = dgvCadastro.CurrentRow.Cells["cli_telefone2"].Value.ToString();
+            cbCasado.Checked = Convert.ToBoolean(dgvCadastro.CurrentRow.Cells["cli_casado"].Value);
+            txtNomeConjuge.Text = dgvCadastro.CurrentRow.Cells["cli_conjuge"].Value.ToString();
+            txtCpfConjuge.Text = dgvCadastro.CurrentRow.Cells["cli_conjuge_cpf"].Value.ToString();
+            txtConjugeRg.Text = dgvCadastro.CurrentRow.Cells["cli_conjuge_rg"].Value.ToString();
+            try
+            {
+                var uf = dgvCadastro.CurrentRow.Cells["end_uf"].Value.ToString();
+                CbbUf.DataSource = repUF.GetAll("");
+                CbbUf.DisplayMember = "uf_nome";
+                CbbUf.ValueMember = "uf";
+                CbbUf.SelectedValue = uf;
+
+                CbbCidade.DataSource = repCid.GetAll(uf);
+                CbbCidade.DisplayMember = "cid_nome";
+                CbbCidade.ValueMember = "cid_id";
+                CbbCidade.SelectedValue = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["cid_id"].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                CbbUf.SelectedItem = null;
+                CbbCidade.SelectedItem = null;
+                //MessageBox.Show(ex.Message);                    
+            }
+            txtLogradouro.Text = dgvCadastro.CurrentRow.Cells["end_logradouro"].Value.ToString();
+            txtBairro.Text = dgvCadastro.CurrentRow.Cells["end_bairro"].Value.ToString();
+
+            Cliente.cli_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["cli_id"].Value);
+            Endereco.end_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["end_id"].Value);
         }
     }
 }

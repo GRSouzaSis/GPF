@@ -38,14 +38,17 @@ namespace GPF.View
 
         private void Inicializa()
         {
+            Endereco = new Endereco();
+            Cliente = new Cliente();            
             pCrud.Visible = false;
             pConjunge.Visible = false;
+            dtpDataNasc.Value = DateTime.Now;
             carregarUf();
             CbbUf.SelectedItem = null;
             CbbCidade.SelectedItem = null;
             AtualizarInterface(Cliente);
-            Endereco = new Endereco();
-            Cliente = new Cliente();
+            editar = false;
+           
         }
 
         private void LimpaTela()
@@ -54,7 +57,7 @@ namespace GPF.View
             txtSobrenome.Text = "";
             txtCpf.Text = "";
             txtRG.Text = "";
-            txtDataNasc.Text = "";
+            dtpDataNasc.Text = "";
             txtTelefone1.Text = "";
             txtTelefone2.Text = "";
             cbCasado.Checked = false;// ? 1 : 0;  
@@ -99,7 +102,7 @@ namespace GPF.View
                 txtSobrenome.Text = Cliente.cli_sobrenome.ToString();
                 txtCpf.Text = Cliente.cli_cpf.ToString();
                 txtRG.Text = Cliente.cli_rg.ToString();
-                txtDataNasc.Text = Cliente.cli_dtnasc.ToString();
+                dtpDataNasc.Text = Cliente.cli_dtnasc.ToString();
                 txtTelefone1.Text = Cliente.cli_telefone1.ToString();
                 txtTelefone2.Text = Cliente.cli_telefone2.ToString();
                 cbCasado.CheckState = CheckState.Checked;// ? 1 : 0;  
@@ -138,7 +141,7 @@ namespace GPF.View
             Cliente.cli_sobrenome = txtSobrenome.Text.ToUpper();
             Cliente.cli_cpf = txtCpf.Text;
             Cliente.cli_rg = txtRG.Text;
-            Cliente.cli_dtnasc = ajudas.AtualizaData(txtDataNasc.Text); 
+            Cliente.cli_dtnasc = dtpDataNasc.Value; 
             Cliente.cli_telefone1 = txtTelefone1.Text;
             Cliente.cli_telefone2 = txtTelefone2.Text;
             Cliente.cli_casado = casado;
@@ -209,23 +212,17 @@ namespace GPF.View
                 return false;
             }
 
-            if (txtDataNasc.Text == String.Empty)
+            if (dtpDataNasc.Text == String.Empty)
             {
                 DialogHelper.Alerta("Informe uma data de nascimento para o cliente");
-                txtDataNasc.Focus();
+                dtpDataNasc.Focus();
                 return false;
             }
-
-            if (!txtDataNasc.MaskCompleted)
-            {
-                DialogHelper.Alerta("Informe corretamente a data de nascimento Ex: 27/04/2020");
-                txtDataNasc.Focus();
-                return false;
-            }
-            else if (!ajudas.ValidaData(txtDataNasc.Text))
+           
+            else if (!ajudas.ValidaData(dtpDataNasc.Text))
             {
                 DialogHelper.Alerta("Informe uma data de nascimento menor que o dia de hoje para o cliente");
-                txtDataNasc.Focus();
+                dtpDataNasc.Focus();
                 return false;
             }
 
@@ -414,7 +411,7 @@ namespace GPF.View
                             return;
                         }
                         // repCli.cadastrar(Cliente);
-                        if (repCli.cadastrar(Cliente, Endereco))
+                        if (repCli.Cadastrar(Cliente, Endereco))
                         {
                             MostrarClientes();//---> Atualiza Data grid view
                           //  DialogHelper.Informacao("Cliente incluido com sucesso.");
@@ -423,7 +420,7 @@ namespace GPF.View
                         }
                         else
                         {
-                            DialogHelper.Alerta("Tente novamente.");
+                            DialogHelper.Alerta("Reinicie a tela de cadastro.");
                         }
                         Inicializa();
                         LimpaTela();
@@ -442,7 +439,7 @@ namespace GPF.View
                     if (validaObjeto())
                     {
                         AtualizarObjeto();
-                        if (repCli.alterar(Cliente, Endereco))
+                        if (repCli.Alterar(Cliente, Endereco))
                         {
                             MostrarClientes();//---> Atualiza Data grid view
                            // DialogHelper.Informacao("Cliente alterado com sucesso.");
@@ -451,7 +448,7 @@ namespace GPF.View
                         }
                         else
                         {
-                            DialogHelper.Alerta("Tente novamente.");
+                            DialogHelper.Alerta("Reinicie a tela de cadastro.");
                         }
                     }
                 }
@@ -477,7 +474,7 @@ namespace GPF.View
                 txtSobrenome.Text = dgvCadastro.CurrentRow.Cells["cli_sobrenome"].Value.ToString();
                 txtCpf.Text = dgvCadastro.CurrentRow.Cells["cli_cpf"].Value.ToString();
                 txtRG.Text = dgvCadastro.CurrentRow.Cells["cli_rg"].Value.ToString();
-                txtDataNasc.Text = dgvCadastro.CurrentRow.Cells["cli_dtnasc"].Value.ToString();
+                dtpDataNasc.Text = dgvCadastro.CurrentRow.Cells["cli_dtnasc"].Value.ToString();
                 txtTelefone1.Text = dgvCadastro.CurrentRow.Cells["cli_telefone1"].Value.ToString();
                 txtTelefone2.Text = dgvCadastro.CurrentRow.Cells["cli_telefone2"].Value.ToString();
                 cbCasado.Checked = Convert.ToBoolean(dgvCadastro.CurrentRow.Cells["cli_casado"].Value);
@@ -538,7 +535,7 @@ namespace GPF.View
                     endid = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["end_id"].Value);
                     try
                     {
-                       if( repCli.excluir(cliid, endid))
+                       if( repCli.Excluir(cliid, endid))
                        {
                             MostrarClientes();//---> Atualiza Data grid view
                           //  DialogHelper.Informacao("Cliente excluido com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -631,7 +628,7 @@ namespace GPF.View
             txtSobrenome.Text = dgvCadastro.CurrentRow.Cells["cli_sobrenome"].Value.ToString();
             txtCpf.Text = dgvCadastro.CurrentRow.Cells["cli_cpf"].Value.ToString();
             txtRG.Text = dgvCadastro.CurrentRow.Cells["cli_rg"].Value.ToString();
-            txtDataNasc.Text = dgvCadastro.CurrentRow.Cells["cli_dtnasc"].Value.ToString();
+            dtpDataNasc.Text = dgvCadastro.CurrentRow.Cells["cli_dtnasc"].Value.ToString();
             txtTelefone1.Text = dgvCadastro.CurrentRow.Cells["cli_telefone1"].Value.ToString();
             txtTelefone2.Text = dgvCadastro.CurrentRow.Cells["cli_telefone2"].Value.ToString();
             cbCasado.Checked = Convert.ToBoolean(dgvCadastro.CurrentRow.Cells["cli_casado"].Value);

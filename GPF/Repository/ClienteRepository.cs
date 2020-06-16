@@ -10,7 +10,7 @@ namespace GPF.Repository
     {
         public AcessoHelper db = new AcessoHelper();
 
-        public bool cadastrar(Cliente cliente, Endereco endereco)
+        public bool Cadastrar(Cliente cliente, Endereco endereco)
         {
            
             using (SqlConnection connection = new SqlConnection(db.GetStringConnection()))
@@ -67,6 +67,7 @@ namespace GPF.Repository
                     try
                     {
                         transaction.Rollback();
+                        connection.Close();
                     }
                     catch (Exception ex2)
                     {                        
@@ -78,7 +79,7 @@ namespace GPF.Repository
             }
         }       
 
-        public bool alterar(Cliente cliente, Endereco endereco)//passar uma classe 
+        public bool Alterar(Cliente cliente, Endereco endereco)//passar uma classe 
         {
             var endid = endereco.end_id;
             using (SqlConnection connection = new SqlConnection(db.GetStringConnection()))
@@ -157,7 +158,7 @@ namespace GPF.Repository
           
         }
 
-        public bool excluir(int cli_id, int end_id)
+        public bool Excluir(int cli_id, int end_id)
         {
 
             using (SqlConnection connection = new SqlConnection(db.GetStringConnection()))
@@ -302,11 +303,11 @@ namespace GPF.Repository
             {
                 DataTable dt = new DataTable();
                 // string sql = "SELECT cli_id, cli_nome FROM cliente";
-                string sql = @"select c.cli_nome + ' ' + c.cli_sobrenome + ' ' + c.cli_cpf as cli, c.cli_id
+                string sql = @"select distinct c.cli_nome + ' ' + c.cli_sobrenome + ' ' + c.cli_cpf as cli, c.cli_id
                                 from lote l
                                 inner join cliente c on c.cli_id = l.cli_id
                                 inner join projeto p on p.pro_id = l.pro_id
-                                where p.pro_id = "+ pro_id +"    order by c.cli_nome";
+                                where p.pro_id = "+ pro_id ;
                 dt.Load(db.ExecuteReader(sql));
                 return dt;
             }

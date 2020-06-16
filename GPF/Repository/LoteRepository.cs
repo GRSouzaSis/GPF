@@ -133,8 +133,10 @@ namespace GPF.Repository
                                 from lote l
                                 inner join cliente c on c.cli_id = l.cli_id
                                 inner join projeto p on p.pro_id = l.pro_id
-                                where c.cli_id =" + cliente + " and p.pro_id = " + projeto;
+                                where c.cli_id =@cli_id and p.pro_id =@pro_id ";
                     command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@cli_id", cliente);
+                    command.Parameters.AddWithValue("@pro_id", projeto);
                     var reader = command.ExecuteScalar();                   
                   
                         if (Convert.ToInt32(reader) > 0)
@@ -151,7 +153,7 @@ namespace GPF.Repository
             }
         }
 
-        public int ContaLote(int pro_id, int cli_id)
+        public int ContaLote(int cli_id)
         {
            
             using (SqlConnection connection = new SqlConnection(db.GetStringConnection()))
@@ -162,8 +164,9 @@ namespace GPF.Repository
                     command.Connection = connection;
                     command.CommandText = @"select Count(*) lot_id 
                                             from lote
-                                            where pro_id = "+ pro_id +" and cli_id = "+ cli_id;
+                                            where cli_id =@cli_id";
                     command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@cli_id", cli_id);
                     var reader = command.ExecuteScalar();
                     return Convert.ToInt32(reader);
                 }
@@ -255,7 +258,7 @@ namespace GPF.Repository
             }
         }
 
-        public bool excluir(int lot_id, int pro_id, int cli_id)
+        public bool Excluir(int lot_id, int pro_id, int cli_id)
         {
             using (SqlConnection connection = new SqlConnection(db.GetStringConnection()))
             {
@@ -306,7 +309,7 @@ namespace GPF.Repository
 
         }
 
-        public void excluirCliente(int cli_id, int pro_id)
+        public void ExcluirCliente(int cli_id, int pro_id)
         {
             try
             {
@@ -321,6 +324,8 @@ namespace GPF.Repository
             }
         }
 
+       
+
         public DataTable GetLotes(int cli_id, int pro_id)
         {
             try
@@ -330,7 +335,9 @@ namespace GPF.Repository
                                 from lote l
                                 inner join cliente c on c.cli_id = l.cli_id
                                 inner join projeto p on p.pro_id = l.pro_id
-                                where c.cli_id =" + cli_id + " and p.pro_id = "+pro_id +"order by l.lot_numero";
+                                where c.cli_id =@cli_id and p.pro_id =@pro_id order by l.lot_numero";
+                db.AddParameter("@cli_id", cli_id);
+                db.AddParameter("@pro_id", pro_id);
                 dt.Load(db.ExecuteReader(sql));
                 return dt;
             }
@@ -345,8 +352,8 @@ namespace GPF.Repository
             try
             {  
                 string sql = @"select cli_id as CodCli, lot_id as CodLote, lot_numero as Lote, lot_quadra as Quadra, lot_matricula as Matrícula, pro_id
-                                from lote 
-                                where pro_id ="+pro_id+ " and cli_id ="+cli_id+ " order by lot_numero";
+                                from lote
+                                where pro_id =" + pro_id+ " and cli_id ="+cli_id+ " order by lot_id";
 
                 SqlDataAdapter da = new SqlDataAdapter(sql, db.GetStringConnection());
                 DataTable dt = new DataTable();

@@ -32,17 +32,38 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pDgvLocaliza = new System.Windows.Forms.Panel();
             this.pBuscas = new System.Windows.Forms.Panel();
             this.bBuscar = new FontAwesome.Sharp.IconButton();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.dgvCadastro = new System.Windows.Forms.DataGridView();
+            this.cli_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_sobrenome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_rg = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_dtnasc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_telefone1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_telefone2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_casado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.cli_conjuge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_conjuge_cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli_conjuge_rg = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.end_logradouro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.end_bairro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cid_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.end_uf = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.end_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clienteBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pButtons = new System.Windows.Forms.Panel();
             this.bExcluir = new FontAwesome.Sharp.IconButton();
             this.bAlterar = new FontAwesome.Sharp.IconButton();
             this.bNovo = new FontAwesome.Sharp.IconButton();
             this.pCrud = new System.Windows.Forms.Panel();
-            this.txtDataNasc = new System.Windows.Forms.MaskedTextBox();
+            this.dtpDataNasc = new System.Windows.Forms.DateTimePicker();
+            this.txtRG = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.txtTelefone1 = new System.Windows.Forms.MaskedTextBox();
             this.txtTelefone2 = new System.Windows.Forms.MaskedTextBox();
             this.pCadastroEnd = new System.Windows.Forms.Panel();
@@ -60,6 +81,8 @@
             this.txtLogradouro = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.pConjunge = new System.Windows.Forms.Panel();
+            this.txtConjugeRg = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtCpfConjuge = new System.Windows.Forms.MaskedTextBox();
@@ -79,32 +102,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txtConjugeRg = new System.Windows.Forms.TextBox();
-            this.txtRG = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
             this.enderecoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.clienteBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.cli_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_sobrenome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_rg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_dtnasc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_telefone1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_telefone2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_casado = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.cli_conjuge = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_conjuge_cpf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli_conjuge_rg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.end_logradouro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.end_bairro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cid_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.end_uf = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.end_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pDgvLocaliza.SuspendLayout();
             this.pBuscas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCadastro)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).BeginInit();
             this.pButtons.SuspendLayout();
             this.pCrud.SuspendLayout();
             this.pCadastroEnd.SuspendLayout();
@@ -112,12 +114,11 @@
             this.pEndereco.SuspendLayout();
             this.pConjunge.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.enderecoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pDgvLocaliza
             // 
-            this.pDgvLocaliza.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.pDgvLocaliza.BackColor = System.Drawing.Color.CadetBlue;
             this.pDgvLocaliza.Controls.Add(this.pBuscas);
             this.pDgvLocaliza.Controls.Add(this.dgvCadastro);
             this.pDgvLocaliza.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -128,6 +129,7 @@
             // 
             // pBuscas
             // 
+            this.pBuscas.BackColor = System.Drawing.Color.CadetBlue;
             this.pBuscas.Controls.Add(this.bBuscar);
             this.pBuscas.Controls.Add(this.txtDescricao);
             this.pBuscas.Dock = System.Windows.Forms.DockStyle.Top;
@@ -178,6 +180,9 @@
             // dgvCadastro
             // 
             this.dgvCadastro.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dgvCadastro.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCadastro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -186,14 +191,14 @@
             this.dgvCadastro.BackgroundColor = System.Drawing.Color.DarkSlateGray;
             this.dgvCadastro.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvCadastro.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkCyan;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCadastro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCadastro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCadastro.ColumnHeadersHeight = 40;
             this.dgvCadastro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCadastro.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -215,36 +220,183 @@
             this.end_uf,
             this.end_id});
             this.dgvCadastro.DataSource = this.clienteBindingSource;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.MediumTurquoise;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCadastro.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCadastro.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCadastro.EnableHeadersVisualStyles = false;
             this.dgvCadastro.GridColor = System.Drawing.SystemColors.GrayText;
             this.dgvCadastro.Location = new System.Drawing.Point(12, 48);
             this.dgvCadastro.Name = "dgvCadastro";
             this.dgvCadastro.ReadOnly = true;
             this.dgvCadastro.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.DarkCyan;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCadastro.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCadastro.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvCadastro.RowHeadersWidth = 20;
             this.dgvCadastro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCadastro.Size = new System.Drawing.Size(607, 515);
             this.dgvCadastro.TabIndex = 0;
             this.dgvCadastro.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCadastro_CellDoubleClick);
             // 
+            // cli_id
+            // 
+            this.cli_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.cli_id.DataPropertyName = "cli_id";
+            this.cli_id.HeaderText = "Código";
+            this.cli_id.Name = "cli_id";
+            this.cli_id.ReadOnly = true;
+            this.cli_id.Width = 80;
+            // 
+            // cli_nome
+            // 
+            this.cli_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_nome.DataPropertyName = "cli_nome";
+            this.cli_nome.HeaderText = "Nome";
+            this.cli_nome.Name = "cli_nome";
+            this.cli_nome.ReadOnly = true;
+            this.cli_nome.Width = 73;
+            // 
+            // cli_sobrenome
+            // 
+            this.cli_sobrenome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_sobrenome.DataPropertyName = "cli_sobrenome";
+            this.cli_sobrenome.HeaderText = "Sobrenome";
+            this.cli_sobrenome.Name = "cli_sobrenome";
+            this.cli_sobrenome.ReadOnly = true;
+            this.cli_sobrenome.Width = 110;
+            // 
+            // cli_cpf
+            // 
+            this.cli_cpf.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_cpf.DataPropertyName = "cli_cpf";
+            this.cli_cpf.HeaderText = "CPF";
+            this.cli_cpf.Name = "cli_cpf";
+            this.cli_cpf.ReadOnly = true;
+            this.cli_cpf.Width = 62;
+            // 
+            // cli_rg
+            // 
+            this.cli_rg.DataPropertyName = "cli_rg";
+            this.cli_rg.HeaderText = "RG";
+            this.cli_rg.Name = "cli_rg";
+            this.cli_rg.ReadOnly = true;
+            // 
+            // cli_dtnasc
+            // 
+            this.cli_dtnasc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_dtnasc.DataPropertyName = "cli_dtnasc";
+            this.cli_dtnasc.HeaderText = "Data Nascimento";
+            this.cli_dtnasc.Name = "cli_dtnasc";
+            this.cli_dtnasc.ReadOnly = true;
+            this.cli_dtnasc.Width = 134;
+            // 
+            // cli_telefone1
+            // 
+            this.cli_telefone1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_telefone1.DataPropertyName = "cli_telefone1";
+            this.cli_telefone1.HeaderText = "Contato";
+            this.cli_telefone1.Name = "cli_telefone1";
+            this.cli_telefone1.ReadOnly = true;
+            this.cli_telefone1.Width = 85;
+            // 
+            // cli_telefone2
+            // 
+            this.cli_telefone2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_telefone2.DataPropertyName = "cli_telefone2";
+            this.cli_telefone2.HeaderText = "Contato";
+            this.cli_telefone2.Name = "cli_telefone2";
+            this.cli_telefone2.ReadOnly = true;
+            this.cli_telefone2.Width = 85;
+            // 
+            // cli_casado
+            // 
+            this.cli_casado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.cli_casado.DataPropertyName = "cli_casado";
+            this.cli_casado.HeaderText = "Casado";
+            this.cli_casado.Name = "cli_casado";
+            this.cli_casado.ReadOnly = true;
+            this.cli_casado.Width = 65;
+            // 
+            // cli_conjuge
+            // 
+            this.cli_conjuge.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_conjuge.DataPropertyName = "cli_conjuge";
+            this.cli_conjuge.HeaderText = "Nome Cônjuge";
+            this.cli_conjuge.Name = "cli_conjuge";
+            this.cli_conjuge.ReadOnly = true;
+            this.cli_conjuge.Width = 121;
+            // 
+            // cli_conjuge_cpf
+            // 
+            this.cli_conjuge_cpf.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cli_conjuge_cpf.DataPropertyName = "cli_conjuge_cpf";
+            this.cli_conjuge_cpf.HeaderText = "Cônjuge CPF";
+            this.cli_conjuge_cpf.Name = "cli_conjuge_cpf";
+            this.cli_conjuge_cpf.ReadOnly = true;
+            this.cli_conjuge_cpf.Width = 111;
+            // 
+            // cli_conjuge_rg
+            // 
+            this.cli_conjuge_rg.DataPropertyName = "cli_conjuge_rg";
+            this.cli_conjuge_rg.HeaderText = "Cônjuge RG";
+            this.cli_conjuge_rg.Name = "cli_conjuge_rg";
+            this.cli_conjuge_rg.ReadOnly = true;
+            // 
+            // end_logradouro
+            // 
+            this.end_logradouro.DataPropertyName = "end_logradouro";
+            this.end_logradouro.HeaderText = "Logradouro";
+            this.end_logradouro.Name = "end_logradouro";
+            this.end_logradouro.ReadOnly = true;
+            // 
+            // end_bairro
+            // 
+            this.end_bairro.DataPropertyName = "end_bairro";
+            this.end_bairro.HeaderText = "Bairro";
+            this.end_bairro.Name = "end_bairro";
+            this.end_bairro.ReadOnly = true;
+            // 
+            // cid_id
+            // 
+            this.cid_id.DataPropertyName = "cid_id";
+            this.cid_id.HeaderText = "cid_id";
+            this.cid_id.Name = "cid_id";
+            this.cid_id.ReadOnly = true;
+            this.cid_id.Visible = false;
+            // 
+            // end_uf
+            // 
+            this.end_uf.DataPropertyName = "end_uf";
+            this.end_uf.HeaderText = "end_uf";
+            this.end_uf.Name = "end_uf";
+            this.end_uf.ReadOnly = true;
+            this.end_uf.Visible = false;
+            // 
+            // end_id
+            // 
+            this.end_id.DataPropertyName = "end_id";
+            this.end_id.HeaderText = "end_id";
+            this.end_id.Name = "end_id";
+            this.end_id.ReadOnly = true;
+            this.end_id.Visible = false;
+            // 
+            // clienteBindingSource
+            // 
+            this.clienteBindingSource.DataSource = typeof(GPF.Model.Cliente);
+            // 
             // pButtons
             // 
-            this.pButtons.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.pButtons.BackColor = System.Drawing.Color.CadetBlue;
             this.pButtons.Controls.Add(this.bExcluir);
             this.pButtons.Controls.Add(this.bAlterar);
             this.pButtons.Controls.Add(this.bNovo);
@@ -322,10 +474,10 @@
             // 
             // pCrud
             // 
-            this.pCrud.BackColor = System.Drawing.Color.DarkCyan;
+            this.pCrud.BackColor = System.Drawing.Color.CadetBlue;
+            this.pCrud.Controls.Add(this.dtpDataNasc);
             this.pCrud.Controls.Add(this.txtRG);
             this.pCrud.Controls.Add(this.label17);
-            this.pCrud.Controls.Add(this.txtDataNasc);
             this.pCrud.Controls.Add(this.txtTelefone1);
             this.pCrud.Controls.Add(this.txtTelefone2);
             this.pCrud.Controls.Add(this.pCadastroEnd);
@@ -350,16 +502,38 @@
             this.pCrud.Size = new System.Drawing.Size(279, 611);
             this.pCrud.TabIndex = 7;
             // 
-            // txtDataNasc
+            // dtpDataNasc
             // 
-            this.txtDataNasc.BeepOnError = true;
-            this.txtDataNasc.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDataNasc.Location = new System.Drawing.Point(22, 181);
-            this.txtDataNasc.Mask = "00/00/0000";
-            this.txtDataNasc.Name = "txtDataNasc";
-            this.txtDataNasc.Size = new System.Drawing.Size(112, 22);
-            this.txtDataNasc.TabIndex = 6;
-            this.txtDataNasc.ValidatingType = typeof(System.DateTime);
+            this.dtpDataNasc.CustomFormat = "";
+            this.dtpDataNasc.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDataNasc.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDataNasc.Location = new System.Drawing.Point(22, 180);
+            this.dtpDataNasc.Name = "dtpDataNasc";
+            this.dtpDataNasc.Size = new System.Drawing.Size(112, 22);
+            this.dtpDataNasc.TabIndex = 6;
+            this.dtpDataNasc.Value = new System.DateTime(2020, 5, 18, 0, 0, 0, 0);
+            // 
+            // txtRG
+            // 
+            this.txtRG.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtRG.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRG.Location = new System.Drawing.Point(142, 139);
+            this.txtRG.MaxLength = 13;
+            this.txtRG.Name = "txtRG";
+            this.txtRG.Size = new System.Drawing.Size(112, 22);
+            this.txtRG.TabIndex = 5;
+            this.txtRG.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRG_KeyPress);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label17.Location = new System.Drawing.Point(141, 122);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(25, 16);
+            this.label17.TabIndex = 32;
+            this.label17.Text = "RG";
             // 
             // txtTelefone1
             // 
@@ -581,6 +755,28 @@
             this.pConjunge.Size = new System.Drawing.Size(260, 101);
             this.pConjunge.TabIndex = 31;
             // 
+            // txtConjugeRg
+            // 
+            this.txtConjugeRg.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtConjugeRg.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConjugeRg.Location = new System.Drawing.Point(133, 74);
+            this.txtConjugeRg.MaxLength = 13;
+            this.txtConjugeRg.Name = "txtConjugeRg";
+            this.txtConjugeRg.Size = new System.Drawing.Size(112, 22);
+            this.txtConjugeRg.TabIndex = 2;
+            this.txtConjugeRg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtConjugeRg_KeyPress);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label16.Location = new System.Drawing.Point(132, 58);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(25, 16);
+            this.label16.TabIndex = 29;
+            this.label16.Text = "RG";
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -660,7 +856,7 @@
             // cbCasado
             // 
             this.cbCasado.AutoSize = true;
-            this.cbCasado.BackColor = System.Drawing.Color.DarkCyan;
+            this.cbCasado.BackColor = System.Drawing.Color.CadetBlue;
             this.cbCasado.FlatAppearance.BorderSize = 0;
             this.cbCasado.Font = new System.Drawing.Font("MS Reference Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbCasado.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -801,204 +997,15 @@
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Visible = false;
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label16.Location = new System.Drawing.Point(132, 58);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(25, 16);
-            this.label16.TabIndex = 29;
-            this.label16.Text = "RG";
-            // 
-            // txtConjugeRg
-            // 
-            this.txtConjugeRg.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtConjugeRg.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConjugeRg.Location = new System.Drawing.Point(133, 74);
-            this.txtConjugeRg.MaxLength = 13;
-            this.txtConjugeRg.Name = "txtConjugeRg";
-            this.txtConjugeRg.Size = new System.Drawing.Size(112, 22);
-            this.txtConjugeRg.TabIndex = 2;
-            this.txtConjugeRg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtConjugeRg_KeyPress);
-            // 
-            // txtRG
-            // 
-            this.txtRG.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtRG.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRG.Location = new System.Drawing.Point(142, 139);
-            this.txtRG.MaxLength = 13;
-            this.txtRG.Name = "txtRG";
-            this.txtRG.Size = new System.Drawing.Size(112, 22);
-            this.txtRG.TabIndex = 5;
-            this.txtRG.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRG_KeyPress);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label17.Location = new System.Drawing.Point(141, 122);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(25, 16);
-            this.label17.TabIndex = 32;
-            this.label17.Text = "RG";
-            // 
             // enderecoBindingSource
             // 
             this.enderecoBindingSource.DataSource = typeof(GPF.Model.Endereco);
-            // 
-            // clienteBindingSource
-            // 
-            this.clienteBindingSource.DataSource = typeof(GPF.Model.Cliente);
-            // 
-            // cli_id
-            // 
-            this.cli_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.cli_id.DataPropertyName = "cli_id";
-            this.cli_id.HeaderText = "Código";
-            this.cli_id.Name = "cli_id";
-            this.cli_id.ReadOnly = true;
-            this.cli_id.Width = 80;
-            // 
-            // cli_nome
-            // 
-            this.cli_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_nome.DataPropertyName = "cli_nome";
-            this.cli_nome.HeaderText = "Nome";
-            this.cli_nome.Name = "cli_nome";
-            this.cli_nome.ReadOnly = true;
-            this.cli_nome.Width = 73;
-            // 
-            // cli_sobrenome
-            // 
-            this.cli_sobrenome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_sobrenome.DataPropertyName = "cli_sobrenome";
-            this.cli_sobrenome.HeaderText = "Sobrenome";
-            this.cli_sobrenome.Name = "cli_sobrenome";
-            this.cli_sobrenome.ReadOnly = true;
-            this.cli_sobrenome.Width = 110;
-            // 
-            // cli_cpf
-            // 
-            this.cli_cpf.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_cpf.DataPropertyName = "cli_cpf";
-            this.cli_cpf.HeaderText = "CPF";
-            this.cli_cpf.Name = "cli_cpf";
-            this.cli_cpf.ReadOnly = true;
-            this.cli_cpf.Width = 62;
-            // 
-            // cli_rg
-            // 
-            this.cli_rg.DataPropertyName = "cli_rg";
-            this.cli_rg.HeaderText = "RG";
-            this.cli_rg.Name = "cli_rg";
-            this.cli_rg.ReadOnly = true;
-            // 
-            // cli_dtnasc
-            // 
-            this.cli_dtnasc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_dtnasc.DataPropertyName = "cli_dtnasc";
-            this.cli_dtnasc.HeaderText = "Data Nascimento";
-            this.cli_dtnasc.Name = "cli_dtnasc";
-            this.cli_dtnasc.ReadOnly = true;
-            this.cli_dtnasc.Width = 134;
-            // 
-            // cli_telefone1
-            // 
-            this.cli_telefone1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_telefone1.DataPropertyName = "cli_telefone1";
-            this.cli_telefone1.HeaderText = "Contato";
-            this.cli_telefone1.Name = "cli_telefone1";
-            this.cli_telefone1.ReadOnly = true;
-            this.cli_telefone1.Width = 85;
-            // 
-            // cli_telefone2
-            // 
-            this.cli_telefone2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_telefone2.DataPropertyName = "cli_telefone2";
-            this.cli_telefone2.HeaderText = "Contato";
-            this.cli_telefone2.Name = "cli_telefone2";
-            this.cli_telefone2.ReadOnly = true;
-            this.cli_telefone2.Width = 85;
-            // 
-            // cli_casado
-            // 
-            this.cli_casado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.cli_casado.DataPropertyName = "cli_casado";
-            this.cli_casado.HeaderText = "Casado";
-            this.cli_casado.Name = "cli_casado";
-            this.cli_casado.ReadOnly = true;
-            this.cli_casado.Width = 65;
-            // 
-            // cli_conjuge
-            // 
-            this.cli_conjuge.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_conjuge.DataPropertyName = "cli_conjuge";
-            this.cli_conjuge.HeaderText = "Nome Cônjuge";
-            this.cli_conjuge.Name = "cli_conjuge";
-            this.cli_conjuge.ReadOnly = true;
-            this.cli_conjuge.Width = 121;
-            // 
-            // cli_conjuge_cpf
-            // 
-            this.cli_conjuge_cpf.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cli_conjuge_cpf.DataPropertyName = "cli_conjuge_cpf";
-            this.cli_conjuge_cpf.HeaderText = "Cônjuge CPF";
-            this.cli_conjuge_cpf.Name = "cli_conjuge_cpf";
-            this.cli_conjuge_cpf.ReadOnly = true;
-            this.cli_conjuge_cpf.Width = 111;
-            // 
-            // cli_conjuge_rg
-            // 
-            this.cli_conjuge_rg.DataPropertyName = "cli_conjuge_rg";
-            this.cli_conjuge_rg.HeaderText = "Cônjuge RG";
-            this.cli_conjuge_rg.Name = "cli_conjuge_rg";
-            this.cli_conjuge_rg.ReadOnly = true;
-            // 
-            // end_logradouro
-            // 
-            this.end_logradouro.DataPropertyName = "end_logradouro";
-            this.end_logradouro.HeaderText = "Logradouro";
-            this.end_logradouro.Name = "end_logradouro";
-            this.end_logradouro.ReadOnly = true;
-            // 
-            // end_bairro
-            // 
-            this.end_bairro.DataPropertyName = "end_bairro";
-            this.end_bairro.HeaderText = "Bairro";
-            this.end_bairro.Name = "end_bairro";
-            this.end_bairro.ReadOnly = true;
-            // 
-            // cid_id
-            // 
-            this.cid_id.DataPropertyName = "cid_id";
-            this.cid_id.HeaderText = "cid_id";
-            this.cid_id.Name = "cid_id";
-            this.cid_id.ReadOnly = true;
-            this.cid_id.Visible = false;
-            // 
-            // end_uf
-            // 
-            this.end_uf.DataPropertyName = "end_uf";
-            this.end_uf.HeaderText = "end_uf";
-            this.end_uf.Name = "end_uf";
-            this.end_uf.ReadOnly = true;
-            this.end_uf.Visible = false;
-            // 
-            // end_id
-            // 
-            this.end_id.DataPropertyName = "end_id";
-            this.end_id.HeaderText = "end_id";
-            this.end_id.Name = "end_id";
-            this.end_id.ReadOnly = true;
-            this.end_id.Visible = false;
             // 
             // fCadCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightSlateGray;
             this.ClientSize = new System.Drawing.Size(904, 611);
             this.Controls.Add(this.pDgvLocaliza);
             this.Controls.Add(this.pButtons);
@@ -1012,6 +1019,7 @@
             this.pBuscas.ResumeLayout(false);
             this.pBuscas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCadastro)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).EndInit();
             this.pButtons.ResumeLayout(false);
             this.pCrud.ResumeLayout(false);
             this.pCrud.PerformLayout();
@@ -1022,7 +1030,6 @@
             this.pConjunge.ResumeLayout(false);
             this.pConjunge.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.enderecoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1073,7 +1080,6 @@
         private System.Windows.Forms.ComboBox CbbUf;
         private System.Windows.Forms.Panel pBotoes;
         private FontAwesome.Sharp.IconButton bSalvar;
-        private System.Windows.Forms.MaskedTextBox txtDataNasc;
         private FontAwesome.Sharp.IconButton bCancelar;
         private System.Windows.Forms.BindingSource enderecoBindingSource;
         private System.Windows.Forms.BindingSource clienteBindingSource;
@@ -1099,5 +1105,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cid_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn end_uf;
         private System.Windows.Forms.DataGridViewTextBoxColumn end_id;
+        private System.Windows.Forms.DateTimePicker dtpDataNasc;
     }
 }

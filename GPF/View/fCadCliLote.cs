@@ -4,10 +4,10 @@ using GPF.Repository;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Configuration;
 using System.Linq;
 using GPF.Cache;
-using System.Data.SqlTypes;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace GPF.View
 {
@@ -17,6 +17,7 @@ namespace GPF.View
         public Projeto Projeto { get; set; }
         public Cliente Cliente { get; set; }
         public Orcamento Orcamento { get; set; }
+        public Receber Receber { get; set; }
 
         private bool editar = false;
         private int lot_id;
@@ -26,6 +27,7 @@ namespace GPF.View
         LoteRepository repLote = new LoteRepository();
         ClienteRepository repCli = new ClienteRepository();
         ProjetoRepository repPro = new ProjetoRepository();
+        ReceberRepository receberRepository = new ReceberRepository();
         public fCadCliLote()
         {
             InitializeComponent();
@@ -38,32 +40,28 @@ namespace GPF.View
             Projeto = new Projeto();
             Cliente = new Cliente();
             Orcamento = new Orcamento();
+            Receber = new Receber();
             carregarProjeto();
             carregarProjetoBusca();
             carregarCliente();
-            PreencherDataVencimento();
             AplicarEventos(txtValorTotal);
             AplicarEventos(txtEntrada);
-            AplicarEventos(txtSaldoTotal);
             AplicarEventos(txtValorParcela);
             AplicarEventos(txtValorParcEntrada);
-            AplicarEventos(txtSomaTotal);
-            cbbVencimento.SelectedItem = null;
             cbbProjeto.SelectedItem = null;
             cbbCliente.SelectedItem = null;
             cbbBuscaProjeto.SelectedItem = null;
+            dtpEntrada.Value = DateTime.Now;
+            dtpDataVencimento.Value = DateTime.Now;
             cbbProjeto.Focus();
             AtualizarInterface();
-            txtDescTotal.Text = "0";
-            txtDescEntrada.Text = "0";
-            txtValorParcela.Text = "R$ 0,00";
-            txtValorParcEntrada.Text = "R$ 0,00";
             txtAddLote.Text = "0";
-            txtSomaTotal.Text = "R$ 0,00";
-            txtSaldoTotal.Text = "R$ 0,00";
+            txtDescEntrada.Text = "0";
+            txtDescTotal.Text = "0";
             txtValorTotal.Enabled = false;
             txtEntrada.Enabled = false;
             pDadosLote.Visible = false;
+            bGerarLotes.Visible = false;
             // HabilitarControles();
         }
 
@@ -74,6 +72,7 @@ namespace GPF.View
 
         private void CarregaDgv()
         {
+            int qtdlote, qtdGerado, i = 0;
             try
             {
                 LoteRepository acc = new LoteRepository();
@@ -82,21 +81,40 @@ namespace GPF.View
                 dgvCadastro.Columns[1].Width = 200;
                 dgvCadastro.Columns[2].Visible = false;
                 dgvCadastro.Columns[3].Visible = false;
+                if (dgvCadastro.RowCount > 0)
+                {
+                    foreach (DataGridViewRow dgvRow in dgvCadastro.Rows)
+                    {
+                        cli_id = Convert.ToInt32(dgvRow.Cells["cli_id"].Value);
+                        qtdGerado = receberRepository.ClienteGerados(cli_id, 1);
+                        qtdlote = repLote.ContaLote(cli_id);
+                        if (qtdGerado == qtdlote)
+                        {
+                            dgvCadastro.Update();
+                            dgvCadastro.Select();
+                            dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.LightGreen;
+                        }
+                        else if (qtdGerado < qtdlote)
+                        {
+                            dgvCadastro.Update();
+                            dgvCadastro.Select();
+                            dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.Yellow;
+                        }
+                        else
+                        {
+                            dgvCadastro.Update();
+                            dgvCadastro.Select();
+                            dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.Red;
+                        }
+                        i++;
+                    }
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
-        }
-
-        public void PreencherDataVencimento()
-        {
-
-            for (int i = 1; i <= 31; i++)
-            {
-                cbbVencimento.Items.Add(i);
-            }
         }
 
         #region Mascára dinheiro 
@@ -242,56 +260,6 @@ namespace GPF.View
             }
         }
 
-        private double CalcularSaldo()
-        {
-            double valorParcela, entrada, saldo, porcSaldo;
-            int qtdentrada, qtdevalor;
-
-            try
-            {
-                valorParcela = Convert.ToDouble(txtValorParcela.Text.Replace("R$", "").Trim());
-                qtdevalor = Convert.ToInt32(numParcelas.Value);
-
-                entrada = Convert.ToDouble(txtValorParcEntrada.Text.Replace("R$", "").Trim());
-                qtdentrada = Convert.ToInt32(numParcEntrada.Value);
-
-                saldo = (valorParcela * qtdevalor) + (entrada * qtdentrada);
-                if (txtDescTotal.Text != "0")
-                {
-                    porcSaldo = Convert.ToDouble(txtDescTotal.Text) / 100;
-                    saldo = (saldo - (saldo * porcSaldo));
-                    txtSaldoTotal.Text = double.Parse(Convert.ToString(saldo)).ToString("C2");
-                    return saldo;
-                }
-                else
-                {
-                    txtSaldoTotal.Text = double.Parse(Convert.ToString(saldo)).ToString("C2");
-                    return saldo;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
-
-        private void SaldoTotal()
-        {
-            double saldo, resultado;
-            int qtd;
-            qtd = Convert.ToInt32(txtQtdLote.Text);
-            saldo = CalcularSaldo();
-            if (qtd > 0)
-            {
-                resultado = saldo * qtd;
-                txtSomaTotal.Text = double.Parse(Convert.ToString(resultado)).ToString("C2");
-            }
-            else
-            {
-                txtSomaTotal.Text = double.Parse(Convert.ToString(saldo)).ToString("C2");
-            }
-        }
 
         private void txtEntrada_Leave(object sender, EventArgs e)
         {
@@ -344,53 +312,20 @@ namespace GPF.View
             }
         }
 
-        private void txtDescTotal_Leave(object sender, EventArgs e)
-        {
-            if (txtDescTotal.Text != "")
-            {
-                try
-                {
-                    CalcularSaldo();
-                    SaldoTotal();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-            else
-            {
-                txtDescTotal.Text = "0";
-            }
-        }
-
-        private void numParcelas_Leave(object sender, EventArgs e)
-        {
-            try
-            {
-                CalcularSaldo();
-                SaldoTotal();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         private void txtQtdLote_Enter(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(txtQtdLote.Text))
+            if (!String.IsNullOrEmpty(txtLotid.Text))
             {
-                txtQtdLote.SelectionStart = 0;
-                txtQtdLote.SelectionLength = txtQtdLote.Text.Length;
+                txtLotid.SelectionStart = 0;
+                txtLotid.SelectionLength = txtLotid.Text.Length;
             }
         }
 
         private void txtQtdLote_Leave(object sender, EventArgs e)
         {
-            if (txtQtdLote.Text == "")
+            if (txtLotid.Text == "")
             {
-                txtQtdLote.Text = "0";
+                txtLotid.Text = "0";
             }
         }
 
@@ -402,10 +337,13 @@ namespace GPF.View
                 txtDescEntrada.SelectionLength = txtDescEntrada.Text.Length;
             }
         }
-
-        private void numParcEntrada_Enter_1(object sender, EventArgs e)
+        private void txtDescTotal_Enter(object sender, EventArgs e)
         {
-
+            if (!String.IsNullOrEmpty(txtDescTotal.Text))
+            {
+                txtDescTotal.SelectionStart = 0;
+                txtDescTotal.SelectionLength = txtDescTotal.Text.Length;
+            }
         }
 
         private void numParcelas_ValueChanged(object sender, EventArgs e)
@@ -427,11 +365,6 @@ namespace GPF.View
             {
                 txtValorTotal.Text = "";
             }
-        }
-
-        private void txtValorTotal_TextChanged(object sender, EventArgs e)
-        {
-            txtValorParcela.Text = txtValorTotal.Text;
         }
 
         private void numParcelas_Enter(object sender, EventArgs e)
@@ -478,11 +411,6 @@ namespace GPF.View
             }
         }
 
-        private void txtEntrada_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtEntrada_Enter(object sender, EventArgs e)
         {
             if (txtEntrada.Text == "0")
@@ -504,15 +432,21 @@ namespace GPF.View
             txtNroQuadra.Text = "";
             txtCodLote.Text = "";
             txtMatricula.Text = "";
-           // cbbProjeto.SelectedItem = null;
-           // cbbCliente.SelectedItem = null;
+            txtLotid.Text = "";
+            numParcelas.Value = 1;
+            numParcEntrada.Value = 1;
+            txtDescTotal.Text = "0";
+            txtDescEntrada.Text = "0";
+            dtpDataVencimento.Value = DateTime.Now;
+            dtpEntrada.Value = DateTime.Now;
+            // cbbProjeto.SelectedItem = null;
+            // cbbCliente.SelectedItem = null;
         }
         private void carregarProjeto()
         {
             try
             {
-                cbbProjeto.DataSource = repPro.GetAll("");// GetAll("").ToList();
-                cbbProjeto.Text = "[Selecione]";
+                cbbProjeto.DataSource = repPro.GetAll("");// GetAll("").ToList();                
                 cbbProjeto.DisplayMember = "pro_nome";
                 cbbProjeto.ValueMember = "pro_id";
             }
@@ -525,8 +459,7 @@ namespace GPF.View
         {
             try
             {
-                cbbBuscaProjeto.DataSource = repPro.GetAll("");// GetAll("").ToList();
-                cbbBuscaProjeto.Text = "[Selecione]";
+                cbbBuscaProjeto.DataSource = repPro.GetAll("");// GetAll("").ToList();               
                 cbbBuscaProjeto.DisplayMember = "pro_nome";
                 cbbBuscaProjeto.ValueMember = "pro_id";
             }
@@ -540,8 +473,7 @@ namespace GPF.View
         {
             try
             {
-                cbbCliente.DataSource = repCli.GetAll("");// GetAll("").ToList();
-                cbbCliente.Text = "[Selecione]";
+                cbbCliente.DataSource = repCli.GetAll("");// GetAll("").ToList();               
                 cbbCliente.DisplayMember = "cli";
                 cbbCliente.ValueMember = "cli_id";
             }
@@ -564,6 +496,9 @@ namespace GPF.View
                 txtNroLote.Text = Lote.lot_numero.ToString();
                 txtNroQuadra.Text = Lote.lot_quadra.ToString();
                 txtMatricula.Text = Lote.lot_matricula.ToString();
+
+                txtEntrada.Text = Orcamento.orc_valorEntrada.ToString("C2");
+                txtValorTotal.Text = Orcamento.orc_valor.ToString("C2");
                 try
                 {
                     cbbProjeto.SelectedValue = Projeto.pro_id;
@@ -678,132 +613,8 @@ namespace GPF.View
             return true;
         }
 
-        private void bSalvar_Click(object sender, EventArgs e)
-        {
-            if (editar == false)//Salvar
-            {
-                try
-                {
-                    if (validaObjeto())
-                    {
-                        AtualizarObjeto();
-                        if (repLote.VerificaCliente(Convert.ToInt32(cbbProjeto.SelectedValue), Convert.ToInt32(cbbCliente.SelectedValue)))
-                        {
-                            repLote.Cadastrar(Lote, Projeto, Cliente);
-                            cbbBuscaProjeto.SelectedValue = cbbProjeto.SelectedValue;
-                            //CarregaDgv();
-                        }
-                        else
-                        {
-                            DialogHelper.Informacao("Cliente já vinculado a esse projeto.");
-                        }
-
-                        //------------------------
-
-                        // if (repLote.VerificaSeTemLote(Convert.ToInt32(cbbProjeto.SelectedValue)))
-                        //   {
-                        //       if (repLote.ProcurarLote(txtNroLote.Text, txtNroQuadra.Text, Convert.ToInt32(cbbProjeto.SelectedValue)))
-                        //       {
-                        //           DialogHelper.Informacao("Já existe lote para está quadra com esse número verifique o número e quadra do lote.");//Login já Cadastrado
-                        //           txtNroLote.Focus();
-                        //          return;
-                        //       }
-                        // repCli.cadastrar(Cliente);
-                        //  repLote.Cadastrar(Lote, Projeto, Cliente);
-                        //  CarregaDgv();//---> Atualiza Data grid view
-                        // DialogHelper.Informacao("Usuário incluido com sucesso.");
-                        //  Inicializar();
-                        //  LimpaTela();
-                        //  }
-                        //  else
-                        //   {
-                        //       DialogHelper.Informacao("Quantidade de lotes desse Projeto já esta completa.");
-                        //   }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-            if (editar == true)//alterar
-            {
-                try
-                {
-                    if (validaObjeto())
-                    {
-                        AtualizarObjeto();
-                        repLote.alterar(Lote, Projeto, Cliente);
-                        CarregaDgv();//---> Atualiza Data grid view
-                                     // DialogHelper.Informacao("Usuário alterado com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        Inicializar();
-                        LimpaTela();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
-            }
-        }
-
-        private void bAlterar_Click(object sender, EventArgs e)
-        {
-            if (dgvCadastro.SelectedRows.Count > 0)
-            {
-                editar = true;
-                txtNroLote.Text = dgvCadastro.CurrentRow.Cells["Lote"].Value.ToString();
-                txtNroQuadra.Text = dgvCadastro.CurrentRow.Cells["Quadra"].Value.ToString();
-                txtMatricula.Text = dgvCadastro.CurrentRow.Cells["Matrícula"].Value.ToString();
-                Projeto.pro_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["pro_id"].Value);
-                Cliente.cli_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["cli_id"].Value);
-                Lote.lot_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["lot_id"].Value);
-
-                try
-                {
-
-                    cbbProjeto.DataSource = repPro.GetAll("");
-                    cbbProjeto.DisplayMember = "pro_nome";
-                    cbbProjeto.ValueMember = "pro_id";
-                    cbbProjeto.SelectedValue = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["pro_id"].Value.ToString());
-
-                    cbbCliente.DataSource = repCli.GetAll("");// GetAll("").ToList();
-                    cbbCliente.DisplayMember = "cli";
-                    cbbCliente.ValueMember = "cli_id";
-                    cbbCliente.SelectedValue = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["cli_id"].Value.ToString());
-                }
-                catch (Exception ex)
-                {
-                    cbbProjeto.SelectedItem = null;
-                    //MessageBox.Show(ex.Message);                    
-                }
-            }
-            else
-            {
-                DialogHelper.Informacao("Selecione um registro para alterar.");
-            }
-        }
-
-        private void bNovo_Click(object sender, EventArgs e)
-        {
-            Inicializar();
-        }
-
-        private void bExcluir_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void bCancelar_Click(object sender, EventArgs e)
-        {
-            Inicializar();
-        }
-
         private void dgvCadastro_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            LoteRepository loteRepository = new LoteRepository();
-
             if (dgvCadastro.SelectedRows.Count > 0)
             {
                 cli_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["cli_id"].Value);
@@ -823,6 +634,7 @@ namespace GPF.View
 
                 CarregarDgvLotes(pro_id, cli_id);
                 CarregarGridComFiltros(pro_id, cli_id);
+                dgvCadastro.CurrentRow.Selected = true;
                 if (repPro.carregarValoresProjeto(pro_id))
                 {
                     Projeto.pro_vlrPorLote = Convert.ToDouble(ProjetoCache.pro_vlrPorLote);
@@ -837,11 +649,49 @@ namespace GPF.View
         }
         private void CarregarDgvLotes(int pro_id, int cli_id)
         {
+            int i = 0;
             LoteRepository loteRepository = new LoteRepository();
             dgvLoteCliente.DataSource = loteRepository.GetDataViewLote(cli_id, pro_id);
             dgvLoteCliente.Columns[0].Width = 60;
             dgvLoteCliente.Columns[1].Width = 60;
             dgvLoteCliente.Columns[5].Visible = false;
+            if (dgvLoteCliente.RowCount > 0)
+            {
+                foreach (DataGridViewRow dgvRow in dgvLoteCliente.Rows)
+                {
+                    lot_id = Convert.ToInt32(dgvRow.Cells["CodLote"].Value);
+                    if ((receberRepository.Gerados(lot_id, 1) && receberRepository.Gerados(lot_id, 0)) == false)
+                    {
+                        if (receberRepository.Gerados(lot_id, 1))
+                        {
+                            dgvLoteCliente.Update();
+                            dgvLoteCliente.Select();
+                            dgvLoteCliente.Rows[i].Cells["CodLote"].Style.BackColor = Color.Yellow;
+                        }
+                        else if (receberRepository.Gerados(lot_id, 0))
+                        {
+                            dgvLoteCliente.Update();
+                            dgvLoteCliente.Select();
+                            dgvLoteCliente.Rows[i].Cells["CodLote"].Style.BackColor = Color.LightGreen;
+                        }
+                        else
+                        {
+                            dgvLoteCliente.Update();
+                            dgvLoteCliente.Select();
+                            dgvLoteCliente.Rows[i].Cells["CodLote"].Style.BackColor = Color.Red;
+                        }
+
+                    }
+                    else
+                    {
+                        dgvLoteCliente.Update();
+                        dgvLoteCliente.Select();
+                        dgvLoteCliente.Rows[i].Cells["CodLote"].Style.BackColor = Color.White;
+                    }
+
+                    i++;
+                }
+            }
         }
 
         private void txtDescricao_Enter(object sender, EventArgs e)
@@ -862,7 +712,7 @@ namespace GPF.View
         {
             string nome;
 
-            int projeto;
+            int projeto, qtdlote, qtdGerado, i = 0;
             nome = txtDescricao.Text;
             if (nome == "Nome Cliente")
                 nome = "";
@@ -871,6 +721,38 @@ namespace GPF.View
             try
             {
                 dgvCadastro.DataSource = repLote.GetDataView(nome, projeto);
+                dgvCadastro.Columns[0].Width = 150;
+                dgvCadastro.Columns[1].Width = 200;
+                dgvCadastro.Columns[2].Visible = false;
+                dgvCadastro.Columns[3].Visible = false;
+                if (dgvCadastro.RowCount > 0)
+                {
+                    foreach (DataGridViewRow dgvRow in dgvCadastro.Rows)
+                    {
+                        cli_id = Convert.ToInt32(dgvRow.Cells["cli_id"].Value);
+                        qtdGerado = receberRepository.ClienteGerados(cli_id, 1);
+                        qtdlote = repLote.ContaLote(cli_id);
+                        if (qtdGerado == qtdlote)
+                        {
+                            dgvCadastro.Update();
+                            dgvCadastro.Select();
+                            dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.LightGreen;
+                        }
+                        else if (qtdGerado < qtdlote)
+                        {
+                            dgvCadastro.Update();
+                            dgvCadastro.Select();
+                            dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.Yellow;
+                        }
+                        else
+                        {
+                            dgvCadastro.Update();
+                            dgvCadastro.Select();
+                            dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.Red;
+                        }
+                        i++;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -913,8 +795,18 @@ namespace GPF.View
 
         private void bTodos_Click(object sender, EventArgs e)
         {
+            if (pDadosLote.Visible == true)
+            {
+                pDadosLote.Visible = false;
+            }
             cbbBuscaProjeto.SelectedItem = null;
+            if (dgvLoteCliente.Rows.Count > 0)
+            {
+                dgvLoteCliente.DataSource = null;
+            }
+
             CarregaDgv();
+            LimpaTela();
         }
 
         private void bGerarLote_Click(object sender, EventArgs e)
@@ -928,8 +820,8 @@ namespace GPF.View
                 cli_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["cli_id"].Value);
                 pro_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["pro_id"].Value);
 
-                var qtd = repLote.ContaLote(pro_id, cli_id);
-                txtQtdLote.Text = Convert.ToString(qtd);
+                // var qtd = repLote.ContaLote(pro_id, cli_id);
+                // txtQtdLote.Text = Convert.ToString(qtd);
                 //busca na tabela projeto, valor projeto e valor entrada;
                 if (repPro.carregarValoresProjeto(pro_id))
                 {
@@ -939,10 +831,15 @@ namespace GPF.View
                     // carregar nos campos 
                     txtValorTotal.Text = Projeto.pro_vlrPorLote.ToString("C2");
                     txtEntrada.Text = Projeto.pro_vlrEntrada.ToString("C2");
+                    numParcelas.Value = 1;
+                    numParcEntrada.Value = 1;
+                    dtpDataVencimento.Value = DateTime.Now;
+                    dtpEntrada.Value = DateTime.Now;
+                    txtDescEntrada.Text = "0";
+                    txtDescTotal.Text = "0";
                 }
                 CalculaParcEntrada();
                 CalcularParcelas();
-                CalcularSaldo();
                 // MessageBox.Show(Convert.ToString( cli_id), Convert.ToString(pro_id));
             }
             else
@@ -977,7 +874,7 @@ namespace GPF.View
                     pro_id = Convert.ToInt32(dgvCadastro.CurrentRow.Cells["pro_id"].Value);
                     try
                     {
-                        repLote.excluirCliente(cli_id, pro_id);
+                        repLote.ExcluirCliente(cli_id, pro_id);
 
                         DialogHelper.Informacao("Cliente removido com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         CarregaDgv();//---> Atualiza Data grid view
@@ -988,7 +885,8 @@ namespace GPF.View
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Cliente não pode ser removido." + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        // MessageBox.Show("Cliente não pode ser removido." + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DialogHelper.Alerta("Cliente não pode ser removido. Existem contas a receber para o cliente!");
                     }
                 }
             }
@@ -1028,27 +926,129 @@ namespace GPF.View
 
         private void bGerarLotes_Click(object sender, EventArgs e)
         {
+            // Receber Receber = new Receber();
+            foreach (DataGridViewRow dgvRow in dgvLoteCliente.Rows)// percorrer lotes ----- preciso do id cliente e id do lote e id do projeto
+            {
+
+                Receber.lot_id = Convert.ToInt32(dgvRow.Cells["CodLote"].Value);
+                Receber.cli_id = Convert.ToInt32(dgvRow.Cells["CodCli"].Value);
+                Receber.pro_id = Convert.ToInt32(dgvRow.Cells["pro_id"].Value);
+
+                DateTime dataPrimeiroVencimento = dtpDataVencimento.Value;
+                //dia do vencimento inicial 18/05 - somar 30 dias .. verificar datas de vencimento
+                double geralEntrada = 0;
+                double geralLote = 0;
+                decimal valorTotal = Convert.ToDecimal(txtEntrada.Text.Replace("R$", "").Trim());
+                decimal entrada = Convert.ToDecimal(txtEntrada.Text.Replace("R$", "").Trim());
+                decimal desconto = Convert.ToDecimal(txtDescEntrada.Text) / 100;
+                valorTotal -= valorTotal * desconto;
+                decimal valorParcela = Math.Round(valorTotal / numParcEntrada.Value, 2);
+                decimal valorDiferenca = valorTotal - valorParcela * numParcEntrada.Value;
+
+                for (int i = 0; i < numParcEntrada.Value; i++)//parcela de entrada
+                {
+                    Receber.parcela = Convert.ToInt32((i + 1).ToString());
+                    string valor = !(i + 1 == numParcEntrada.Value) ? valorParcela.ToString() : (valorParcela + valorDiferenca).ToString();
+                    string dataVencimento = dataPrimeiroVencimento.AddMonths(i).ToShortDateString();
+                    //-------
+                    Receber.dtemissao = DateTime.Now;
+                    Receber.dtvencimento = Convert.ToDateTime(dataVencimento);
+                    Receber.valor = Convert.ToDouble(valor);
+                    geralEntrada += Convert.ToDouble(valor);
+                    Receber.entrada = 1;
+                    // MessageBox.Show(Receber.parcela +"||"+ Receber.dtvencimento.Value.Day + "/" + Receber.dtvencimento.Value.Month + "|| " + Receber.valor);
+                    //insert na receber
+                    //entrada = 1
+                }
+               // MessageBox.Show(geralEntrada.ToString());
+                decimal valorcheio = Convert.ToDecimal(txtValorTotal.Text.Replace("R$", "").Trim());
+                decimal valorTotalRestante = valorcheio - valorTotal - (entrada * desconto);
+                decimal descontoRestante = Convert.ToDecimal(txtDescTotal.Text) / 100;
+                valorTotalRestante -= valorTotalRestante * descontoRestante;
+                decimal valorParcelaRestante = Math.Round(valorTotalRestante / numParcelas.Value, 2);
+                decimal valorDiferencaRestante = valorTotalRestante - valorParcelaRestante * numParcelas.Value;
+                int j = Convert.ToInt32(numParcEntrada.Value);
+                for (int i = 0; i < numParcelas.Value; i++, j++)//parcela restante da divida
+                {
+                    Receber.parcela = Convert.ToInt32((i + 1).ToString());
+                    string valor = !(i + 1 == numParcEntrada.Value) ? valorParcelaRestante.ToString() : (valorParcelaRestante + valorDiferencaRestante).ToString();
+                    string dataVencimento = dataPrimeiroVencimento.AddMonths(j).ToShortDateString();
+                    //-------
+                    Receber.dtemissao = DateTime.Now;
+                    Receber.dtvencimento = Convert.ToDateTime(dataVencimento);
+                    Receber.valor = Convert.ToDouble(valor);
+                    geralLote += Convert.ToDouble(valor);
+                    Receber.entrada = 0;
+                    //  MessageBox.Show(Receber.parcela + "||" + Receber.dtvencimento.Value.Day + "/" + Receber.dtvencimento.Value.Month + "|| " + Receber.valor);
+                    //insert na receber
+                    //entrada = 0;
+                }
+                // MessageBox.Show(geralLote.ToString());
+                // geralTotal += geralEntrada + geralLote;
+                // MessageBox.Show(geralTotal.ToString());
+            }
             // Salvar lotes com Id cliente e projeto, Se for menos de 1 não precisa, Mais de um lote Gerar qtd -1 
-            DialogHelper.Informacao("Falta fazer! gerar pagamentos para todos os lotes desse cliente");
+
+            //DialogHelper.Informacao("Falta fazer! gerar pagamentos para todos os lotes desse cliente");
         }
 
         private void bCancelarLote_Click(object sender, EventArgs e)
         {
+
             pDadosLote.Visible = false;
+            if (dgvLoteCliente.Rows.Count > 0)
+            {
+                dgvLoteCliente.DataSource = null;
+            }
         }
 
         private void bAlteraLote_Click(object sender, EventArgs e)
         {
-            if (dgvCadastro.SelectedRows.Count > 0)
+            if (dgvLoteCliente.SelectedRows.Count > 0)
             {
                 editar = true;
                 txtCodLote.Text = dgvLoteCliente.CurrentRow.Cells["CodLote"].Value.ToString();
+                txtLotid.Text = dgvLoteCliente.CurrentRow.Cells["CodLote"].Value.ToString();
                 txtNroLote.Text = dgvLoteCliente.CurrentRow.Cells["Lote"].Value.ToString();
                 txtNroQuadra.Text = dgvLoteCliente.CurrentRow.Cells["Quadra"].Value.ToString();
                 txtMatricula.Text = dgvLoteCliente.CurrentRow.Cells["Matrícula"].Value.ToString();
                 Projeto.pro_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["pro_id"].Value);
                 Cliente.cli_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodCli"].Value);
                 Lote.lot_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodLote"].Value);
+                lot_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodLote"].Value);
+
+                try
+                {
+                    var reader = receberRepository.Valor(cli_id, lot_id, pro_id, 1);
+                    var read = receberRepository.Valor(cli_id, lot_id, pro_id, 0);
+                    if (read == null && reader == null)
+                    {
+                        bGerarLote.PerformClick();
+                    }
+
+                    if (reader != null)
+                    {
+                        numParcEntrada.Value = reader.total_parcela;
+                        txtDescEntrada.Text = reader.descontoEntrada.ToString();
+                        txtEntrada.Text = reader.valorEntrada.ToString("C2");
+                        txtValorTotal.Text = reader.valorLote.ToString("C2");
+                        dtpEntrada.Value = reader.dtvencimento.Value;
+                    }
+                    if (read != null)
+                    {
+                        numParcelas.Value = read.total_parcela;
+                        txtDescTotal.Text = read.descontoSaldo.ToString();
+                        txtEntrada.Text = reader.valorEntrada.ToString("C2");
+                        txtValorTotal.Text = reader.valorLote.ToString("C2");
+                        dtpDataVencimento.Value = reader.dtvencimento.Value;
+                    }
+                    CalculaParcEntrada();
+                    CalcularParcelas();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
             else
             {
@@ -1059,22 +1059,31 @@ namespace GPF.View
         private void bAddLotes_Click(object sender, EventArgs e)
         {
             int qtd = Convert.ToInt32(txtAddLote.Text);
-            try
+            if (qtd == 0)
             {
-                //  if (validaObjeto())
-                //   {
-                AtualizarObjetoLote();
-                for (int i = 0; i <= qtd - 1; i++)
+                DialogHelper.Informacao("Quantidade de lotes não pode ser zero.");
+                txtAddLote.Focus();
+            }
+            else
+            {
+                try
                 {
-                    repLote.CadastrarValoresLote(Lote, Projeto, Cliente, Orcamento);
-                    CarregarDgvLotes(pro_id, cli_id);
+                    //  if (validaObjeto())
+                    //   {
+                    AtualizarObjetoLote();
+                    for (int i = 0; i <= qtd - 1; i++)
+                    {
+                        repLote.CadastrarValoresLote(Lote, Projeto, Cliente, Orcamento);
+                        CarregarDgvLotes(pro_id, cli_id);
+                    }
+                    //   }
                 }
-                //   }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+
         }
 
         private void txtAddLote_KeyPress(object sender, KeyPressEventArgs e)
@@ -1108,17 +1117,17 @@ namespace GPF.View
                     lot_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodLote"].Value);
                     try
                     {
-                        if (repLote.excluir(lot_id, pro_id, cli_id))
+                        if (repLote.Excluir(lot_id, pro_id, cli_id))
                         {
                             CarregarDgvLotes(pro_id, cli_id);//---> Atualiza Data grid view
                             DialogHelper.Informacao("Lote excluido com sucesso.");//, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            Inicializar();
+                                                                                  // Inicializar();
                         }
                         else
                         {
                             DialogHelper.Informacao("Não foi possível excluir o lote.");
                         }
-                        
+
 
                     }
                     catch (Exception ex)
@@ -1131,33 +1140,6 @@ namespace GPF.View
 
         private void bSalvarLote_Click(object sender, EventArgs e)
         {
-           /* if (editar == false)//Salvar
-            {
-                try
-                {
-                    if (validaObjeto())
-                    {
-                        //AtualizarObjeto();
-                        AtualizarObjetoLote();
-                        if (repLote.ProcurarLote(txtNroLote.Text, txtNroQuadra.Text, Convert.ToInt32(cbbProjeto.SelectedValue)))
-                        {
-                            DialogHelper.Informacao("Já existe lote para está quadra com esse número verifique o número e quadra do lote.");//Lote já Cadastrado
-                            txtNroLote.Focus();
-                            return;
-                        }
-                        // repLote.Cadastrar(Lote, Projeto, Cliente);
-                        repLote.CadastrarValoresLote(Lote, Projeto, Cliente, Orcamento);
-                        CarregarDgvLotes(pro_id, cli_id);
-                        CarregaDgv();
-                        cbbBuscaProjeto.SelectedValue = cbbProjeto.SelectedValue;//atualizar a grid com o Id do projeto 
-                        LimpaTela();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }*/
             if (editar == true)//alterar
             {
                 try
@@ -1175,18 +1157,317 @@ namespace GPF.View
                         {
                             repLote.alterar(Lote, Projeto, Cliente);
                             CarregarDgvLotes(pro_id, cli_id);
-                            CarregaDgv();
-                            cbbBuscaProjeto.SelectedValue = cbbProjeto.SelectedValue;
+                           // CarregaDgv();
+                            //cbbBuscaProjeto.SelectedValue = cbbProjeto.SelectedValue;
                         }
                         //atualizar a grid com o Id do projeto                       
-                       // Inicializar();
-                       LimpaTela();
+                        // Inicializar();
+                        LimpaTela();
+                       
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
+            }
+        }
+
+        private void GerarEntrada()
+        {
+            List<Receber> recebers = new List<Receber>();
+            if (dgvLoteCliente.SelectedRows.Count > 0)
+            {
+                pro_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["pro_id"].Value);
+                cli_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodCli"].Value);
+                lot_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodLote"].Value);
+
+                if (!receberRepository.BuscaEntrada(cli_id, lot_id, pro_id, 1))
+                {
+                    DateTime dataPrimeiroVencimento = dtpEntrada.Value;
+                    //dia do vencimento inicial 18/05 - somar 30 dias .. verificar datas de vencimento            
+                    decimal valorTotal = Convert.ToDecimal(txtEntrada.Text.Replace("R$", "").Trim());
+                    decimal entrada = Convert.ToDecimal(txtEntrada.Text.Replace("R$", "").Trim());
+                    decimal desconto = Convert.ToDecimal(txtDescEntrada.Text) / 100;
+                    valorTotal -= valorTotal * desconto;
+                    decimal valorParcela = Math.Round(valorTotal / numParcEntrada.Value, 2);
+                    decimal valorDiferenca = valorTotal - valorParcela * numParcEntrada.Value;
+
+                    for (int i = 0; i < numParcEntrada.Value; i++)//parcela de entrada
+                    {
+                        string valor = !(i + 1 == numParcEntrada.Value) ? valorParcela.ToString() : (valorParcela + valorDiferenca).ToString();
+                        string dataVencimento = dataPrimeiroVencimento.AddMonths(i).ToShortDateString();
+                        var parcelas = new Receber()
+                        {
+                            lot_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodLote"].Value),
+                            cli_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodCli"].Value),
+                            pro_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["pro_id"].Value),
+                            parcela = Convert.ToInt32((i + 1).ToString()),
+                            total_parcela = Convert.ToInt32(numParcEntrada.Value),
+                            dtemissao = DateTime.Now,
+                            dtvencimento = Convert.ToDateTime(dataVencimento),
+                            valor = Convert.ToDouble(valor),
+                            descontoEntrada = Convert.ToDouble(txtDescEntrada.Text),
+                            valorEntrada = Convert.ToDouble(entrada),
+                            valorLote = Convert.ToDouble(txtValorTotal.Text.Replace("R$", "").Trim()),
+                            //valorpago = Convert.ToDouble(valor),
+                            entrada = 1,
+                        };
+                        recebers.Add(parcelas);
+                    }
+
+                    if (receberRepository.Insert(recebers))
+                    {
+                        DialogHelper.Informacao("Entrada cadastrada com sucesso!");
+                        LimpaTela();
+                        CarregarDgvLotes(pro_id, cli_id);
+                    }
+                    else
+                    {
+                        DialogHelper.Erro("Não foi possível cadastrar entradas para esse lote");
+                    }
+                }
+                else
+                {
+                    DialogHelper.Alerta("Não foi possível cadastrar entradas lote já possui entradas cadastradas!");
+                }
+
+
+            }
+            else
+            {
+                DialogHelper.Alerta("Selecione um registro.");
+            }
+        }
+
+        private void GerarSaldo()
+        {
+            List<Receber> recebers = new List<Receber>();
+            if (dgvLoteCliente.SelectedRows.Count > 0)
+            {
+                pro_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["pro_id"].Value);
+                cli_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodCli"].Value);
+                lot_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodLote"].Value);
+
+                if (!receberRepository.BuscaEntrada(cli_id, lot_id, pro_id, 0))
+                {
+                    decimal valorTotal = Convert.ToDecimal(txtEntrada.Text.Replace("R$", "").Trim());
+                    decimal entrada = Convert.ToDecimal(txtEntrada.Text.Replace("R$", "").Trim());
+                    decimal desconto = Convert.ToDecimal(txtDescEntrada.Text) / 100;
+                    DateTime dataPrimeiroVencimento = dtpDataVencimento.Value;
+                    //dia do vencimento inicial 18/05 - somar 30 dias .. verificar datas de vencimento            
+                    decimal valorcheio = Convert.ToDecimal(txtValorTotal.Text.Replace("R$", "").Trim());
+                    decimal valorTotalRestante = valorcheio - valorTotal - (entrada * desconto);
+                    decimal descontoRestante = Convert.ToDecimal(txtDescTotal.Text) / 100;
+                    valorTotalRestante -= valorTotalRestante * descontoRestante;
+                    decimal valorParcelaRestante = Math.Round(valorTotalRestante / numParcelas.Value, 2);
+                    decimal valorDiferencaRestante = valorTotalRestante - valorParcelaRestante * numParcelas.Value;
+
+                    for (int i = 0; i < numParcelas.Value; i++)//parcela de entrada
+                    {
+                        string valor = !(i + 1 == numParcelas.Value) ? valorParcelaRestante.ToString() : (valorParcelaRestante + valorDiferencaRestante).ToString();
+                        string dataVencimento = dataPrimeiroVencimento.AddMonths(i).ToShortDateString();
+                        var parcelas = new Receber()
+                        {
+                            lot_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodLote"].Value),
+                            cli_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodCli"].Value),
+                            pro_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["pro_id"].Value),
+                            parcela = Convert.ToInt32((i + 1).ToString()),
+                            total_parcela = Convert.ToInt32(numParcelas.Value),
+                            dtemissao = DateTime.Now,
+                            dtvencimento = Convert.ToDateTime(dataVencimento),
+                            valor = Convert.ToDouble(valor),
+                            descontoSaldo = Convert.ToDouble(txtDescTotal.Text),
+                            valorEntrada = Convert.ToDouble(entrada),
+                            valorLote = Convert.ToDouble(txtValorTotal.Text.Replace("R$", "").Trim()),
+                            //valorpago = Convert.ToDouble(valor),
+                            entrada = 0,
+                        };
+                        recebers.Add(parcelas);
+                    }
+
+                    if (receberRepository.Insert(recebers))
+                    {
+                        DialogHelper.Informacao("Recebimentos cadastrados com sucesso!");
+                        LimpaTela();
+                        CarregarDgvLotes(pro_id, cli_id);
+                    }
+                    else
+                    {
+                        DialogHelper.Erro("Não foi possível cadastrar recebimentos para esse lote");
+                    }
+                }
+                else
+                {
+                    DialogHelper.Alerta("Não foi possível cadastrar parcelas para o lote já possui saldo cadastrado!");
+                }
+
+
+            }
+            else
+            {
+                DialogHelper.Informacao("Selecione um registro.");
+            }
+        }
+
+        private void bGerarEntrada_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                GerarEntrada();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void bGerarSaldo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                GerarSaldo();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dgvCadastro_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridView gridView;
+            gridView = (DataGridView)sender;
+            gridView.ClearSelection();
+        }
+
+        private void dgvLoteCliente_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            DataGridView gridView;
+            gridView = (DataGridView)sender;
+            gridView.ClearSelection();
+        }
+
+        private void bAlterarEntrada_Click(object sender, EventArgs e)
+        {
+            if (txtLotid.Text == "")
+            {
+                DialogHelper.Alerta("Selecione um lote para excluir pagamentos");
+            }
+            else
+            {
+                lot_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodLote"].Value);
+                DialogResult resultado = MessageBox.Show("Confirma exclusão de pagamentos deste lote ?", "Confirma Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
+                {
+                    if (receberRepository.TemPagamento(lot_id, 1))
+                    {
+                        DialogHelper.Alerta("Não foi possível exluir pagamentos já há pagamentos efetuados");
+                    }
+                    else
+                    {
+                        if (receberRepository.ExcluirParcelas(cli_id, lot_id, pro_id, 1))//excluir tudo com o cli_id, lot_id, pro_id, entrada = 1
+                        {
+                            DialogHelper.Informacao("Pagamentos excluidos com sucesso. Gerar um novo pagamento!");
+                            CarregarDgvLotes(pro_id, cli_id);
+                        }
+                        else
+                        {
+                            DialogHelper.Informacao("Não foi possível exluir pagamentos");
+                        }
+                    }
+
+                }
+            }
+        }
+
+        private void bAlterarSaldo_Click(object sender, EventArgs e)
+        {
+            if (txtLotid.Text == "")
+            {
+                DialogHelper.Alerta("Selecione um lote para excluir pagamentos");
+            }
+            else
+            {
+                lot_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodLote"].Value);
+                DialogResult resultado = MessageBox.Show("Confirma exclusão de pagamentos deste lote ?", "Confirma Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
+                {
+                    //Conferir se tem recebimento se não tiver 
+                    if (receberRepository.TemPagamento(lot_id, 0))
+                    {
+                        DialogHelper.Informacao("Não foi possível exluir pagamentos já há pagamentos efetuados");
+                    }
+                    else
+                    {
+                        if (receberRepository.ExcluirParcelas(cli_id, lot_id, pro_id, 0))//excluir tudo com o cli_id, lot_id, pro_id, entrada = 0
+                        {
+                            DialogHelper.Informacao("Pagamentos excluidos com sucesso. Gerar um novo pagamento!");
+                            CarregarDgvLotes(pro_id, cli_id);
+                        }
+                        else
+                        {
+                            DialogHelper.Informacao("Não foi possível exluir pagamentos");
+                        }
+                    }
+
+
+                }
+            }
+        }
+
+        private void dgvLoteCliente_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {            
+            if (dgvLoteCliente.SelectedRows.Count > 0)
+            {
+                editar = true;
+                txtCodLote.Text = dgvLoteCliente.CurrentRow.Cells["CodLote"].Value.ToString();
+                txtLotid.Text = dgvLoteCliente.CurrentRow.Cells["CodLote"].Value.ToString();
+                txtNroLote.Text = dgvLoteCliente.CurrentRow.Cells["Lote"].Value.ToString();
+                txtNroQuadra.Text = dgvLoteCliente.CurrentRow.Cells["Quadra"].Value.ToString();
+                txtMatricula.Text = dgvLoteCliente.CurrentRow.Cells["Matrícula"].Value.ToString();
+                Projeto.pro_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["pro_id"].Value);
+                Cliente.cli_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodCli"].Value);
+                Lote.lot_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodLote"].Value);
+                lot_id = Convert.ToInt32(dgvLoteCliente.CurrentRow.Cells["CodLote"].Value);
+
+                try
+                {
+                    var reader = receberRepository.Valor(cli_id, lot_id, pro_id, 1);
+                    var read = receberRepository.Valor(cli_id, lot_id, pro_id, 0);
+                    if (read == null && reader == null)
+                    {
+                        bGerarLote.PerformClick();
+                    }
+
+                    if (reader != null)
+                    {
+                        numParcEntrada.Value = reader.total_parcela;
+                        txtDescEntrada.Text = reader.descontoEntrada.ToString();
+                        txtEntrada.Text = reader.valorEntrada.ToString("C2");
+                        txtValorTotal.Text = reader.valorLote.ToString("C2");
+                        dtpEntrada.Value = reader.dtvencimento.Value;
+                    }
+                    if (read != null)
+                    {
+                        numParcelas.Value = read.total_parcela;
+                        txtDescTotal.Text = read.descontoSaldo.ToString();
+                        txtEntrada.Text = reader.valorEntrada.ToString("C2");
+                        txtValorTotal.Text = reader.valorLote.ToString("C2");
+                        dtpDataVencimento.Value = reader.dtvencimento.Value;
+                    }
+                    CalculaParcEntrada();
+                    CalcularParcelas();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                DialogHelper.Informacao("Selecione um registro para alterar.");
             }
         }
     }

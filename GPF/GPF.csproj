@@ -86,6 +86,7 @@
     <Compile Include="Model\Parametrizacao.cs" />
     <Compile Include="Model\Perfil.cs" />
     <Compile Include="Model\Projeto.cs" />
+    <Compile Include="Model\Receber.cs" />
     <Compile Include="Model\Uf.cs" />
     <Compile Include="Model\Usuario.cs" />
     <Compile Include="Repository\AcessoHelper.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Repository\ParametrizacaoRepository.cs" />
     <Compile Include="Repository\PerfilRepository.cs" />
     <Compile Include="Repository\ProjetoRepository.cs" />
+    <Compile Include="Repository\ReceberRepository.cs" />
     <Compile Include="Repository\UfRepository.cs" />
     <Compile Include="Repository\UsuarioRepository.cs" />
     <Compile Include="View\fCadCliente.cs">
@@ -113,11 +115,11 @@
     <Compile Include="View\fCadCliLote.Designer.cs">
       <DependentUpon>fCadCliLote.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\fCadOrcamento.cs">
+    <Compile Include="View\fCadRecebimento.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\fCadOrcamento.Designer.cs">
-      <DependentUpon>fCadOrcamento.cs</DependentUpon>
+    <Compile Include="View\fCadRecebimento.Designer.cs">
+      <DependentUpon>fCadRecebimento.cs</DependentUpon>
     </Compile>
     <Compile Include="View\fCadParametrizacao.cs">
       <SubType>Form</SubType>
@@ -130,6 +132,12 @@
     </Compile>
     <Compile Include="View\fCadPerfil.Designer.cs">
       <DependentUpon>fCadPerfil.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\fCadProjeto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\fCadProjeto.Designer.cs">
+      <DependentUpon>fCadProjeto.cs</DependentUpon>
     </Compile>
     <Compile Include="View\fCadUsuario.cs">
       <SubType>Form</SubType>
@@ -157,14 +165,17 @@
     <EmbeddedResource Include="View\fCadCliLote.resx">
       <DependentUpon>fCadCliLote.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\fCadOrcamento.resx">
-      <DependentUpon>fCadOrcamento.cs</DependentUpon>
+    <EmbeddedResource Include="View\fCadRecebimento.resx">
+      <DependentUpon>fCadRecebimento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\fCadParametrizacao.resx">
       <DependentUpon>fCadParametrizacao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\fCadPerfil.resx">
       <DependentUpon>fCadPerfil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\fCadProjeto.resx">
+      <DependentUpon>fCadProjeto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\fCadUsuario.resx">
       <DependentUpon>fCadUsuario.cs</DependentUpon>

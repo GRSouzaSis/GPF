@@ -36,7 +36,8 @@ namespace GPF.Repository
 
         public string GetStringConnection()
         {
-            string strConexao = "";
+           string strConexao = @"";
+           // string strConexao = @"Server=LAPTOP-FS6QDR67\SQLEXPRESS; Database=GPF; User=admin; Password= Autenticação do SQL Server";
             // Retorna a string de conexão
             return strConexao;
         }

@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pDgvLocaliza = new System.Windows.Forms.Panel();
             this.pBuscas = new System.Windows.Forms.Panel();
             this.bBuscar = new FontAwesome.Sharp.IconButton();
@@ -64,7 +65,7 @@
             // 
             // pDgvLocaliza
             // 
-            this.pDgvLocaliza.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.pDgvLocaliza.BackColor = System.Drawing.Color.CadetBlue;
             this.pDgvLocaliza.Controls.Add(this.pBuscas);
             this.pDgvLocaliza.Controls.Add(this.dgvCadastro);
             this.pDgvLocaliza.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -125,6 +126,9 @@
             // dgvCadastro
             // 
             this.dgvCadastro.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.dgvCadastro.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCadastro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -133,14 +137,14 @@
             this.dgvCadastro.BackgroundColor = System.Drawing.Color.DarkSlateGray;
             this.dgvCadastro.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvCadastro.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkCyan;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCadastro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCadastro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCadastro.ColumnHeadersHeight = 30;
             this.dgvCadastro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCadastro.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -148,35 +152,36 @@
             this.per_nome,
             this.per_ativo});
             this.dgvCadastro.DataSource = this.perfilBindingSource;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.MediumTurquoise;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCadastro.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCadastro.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCadastro.EnableHeadersVisualStyles = false;
             this.dgvCadastro.GridColor = System.Drawing.SystemColors.GrayText;
             this.dgvCadastro.Location = new System.Drawing.Point(12, 48);
             this.dgvCadastro.Name = "dgvCadastro";
             this.dgvCadastro.ReadOnly = true;
             this.dgvCadastro.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.DarkCyan;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCadastro.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCadastro.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvCadastro.RowHeadersWidth = 20;
             this.dgvCadastro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCadastro.Size = new System.Drawing.Size(378, 365);
             this.dgvCadastro.TabIndex = 0;
             // 
             // pButtons
             // 
-            this.pButtons.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.pButtons.BackColor = System.Drawing.Color.CadetBlue;
             this.pButtons.Controls.Add(this.bExcluir);
             this.pButtons.Controls.Add(this.bAlterar);
             this.pButtons.Controls.Add(this.bNovo);
@@ -254,7 +259,7 @@
             // 
             // pCrud
             // 
-            this.pCrud.BackColor = System.Drawing.Color.DarkCyan;
+            this.pCrud.BackColor = System.Drawing.Color.CadetBlue;
             this.pCrud.Controls.Add(this.bMinimizar);
             this.pCrud.Controls.Add(this.bFechar);
             this.pCrud.Controls.Add(this.bCancelar);
@@ -338,7 +343,7 @@
             // cbAtivo
             // 
             this.cbAtivo.AutoSize = true;
-            this.cbAtivo.BackColor = System.Drawing.Color.DarkCyan;
+            this.cbAtivo.BackColor = System.Drawing.Color.CadetBlue;
             this.cbAtivo.Checked = true;
             this.cbAtivo.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbAtivo.FlatAppearance.BorderSize = 0;

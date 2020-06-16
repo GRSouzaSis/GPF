@@ -52,7 +52,7 @@
             this.pSubGerProjeto = new System.Windows.Forms.Panel();
             this.bOrcamento = new FontAwesome.Sharp.IconButton();
             this.bClienteXLote = new FontAwesome.Sharp.IconButton();
-            this.iconButton3 = new FontAwesome.Sharp.IconButton();
+            this.bNovoProjeto = new FontAwesome.Sharp.IconButton();
             this.iconButton2 = new FontAwesome.Sharp.IconButton();
             this.bGerProjeto = new FontAwesome.Sharp.IconButton();
             this.pLogo = new System.Windows.Forms.Panel();
@@ -517,7 +517,7 @@
             this.pSubGerProjeto.BackColor = System.Drawing.Color.PaleTurquoise;
             this.pSubGerProjeto.Controls.Add(this.bOrcamento);
             this.pSubGerProjeto.Controls.Add(this.bClienteXLote);
-            this.pSubGerProjeto.Controls.Add(this.iconButton3);
+            this.pSubGerProjeto.Controls.Add(this.bNovoProjeto);
             this.pSubGerProjeto.Controls.Add(this.iconButton2);
             this.pSubGerProjeto.Dock = System.Windows.Forms.DockStyle.Top;
             this.pSubGerProjeto.Location = new System.Drawing.Point(0, 145);
@@ -544,7 +544,7 @@
             this.bOrcamento.Rotation = 0D;
             this.bOrcamento.Size = new System.Drawing.Size(257, 30);
             this.bOrcamento.TabIndex = 3;
-            this.bOrcamento.Text = "Orçamento Lotes";
+            this.bOrcamento.Text = "Valores Parcelas";
             this.bOrcamento.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bOrcamento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.bOrcamento.UseVisualStyleBackColor = false;
@@ -569,33 +569,35 @@
             this.bClienteXLote.Rotation = 0D;
             this.bClienteXLote.Size = new System.Drawing.Size(257, 30);
             this.bClienteXLote.TabIndex = 2;
-            this.bClienteXLote.Text = "Lote X Cliente";
+            this.bClienteXLote.Text = "Projeto X Cliente";
             this.bClienteXLote.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bClienteXLote.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.bClienteXLote.UseVisualStyleBackColor = false;
             this.bClienteXLote.Click += new System.EventHandler(this.bClienteXLote_Click);
             // 
-            // iconButton3
+            // bNovoProjeto
             // 
-            this.iconButton3.BackColor = System.Drawing.Color.Teal;
-            this.iconButton3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.iconButton3.FlatAppearance.BorderSize = 0;
-            this.iconButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton3.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.iconButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButton3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.iconButton3.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.iconButton3.IconColor = System.Drawing.Color.Black;
-            this.iconButton3.IconSize = 16;
-            this.iconButton3.Location = new System.Drawing.Point(0, 30);
-            this.iconButton3.Name = "iconButton3";
-            this.iconButton3.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.iconButton3.Rotation = 0D;
-            this.iconButton3.Size = new System.Drawing.Size(257, 30);
-            this.iconButton3.TabIndex = 1;
-            this.iconButton3.Text = "iconButton3";
-            this.iconButton3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButton3.UseVisualStyleBackColor = false;
+            this.bNovoProjeto.BackColor = System.Drawing.Color.Teal;
+            this.bNovoProjeto.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bNovoProjeto.FlatAppearance.BorderSize = 0;
+            this.bNovoProjeto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bNovoProjeto.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.bNovoProjeto.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bNovoProjeto.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.bNovoProjeto.IconChar = FontAwesome.Sharp.IconChar.ListAlt;
+            this.bNovoProjeto.IconColor = System.Drawing.Color.WhiteSmoke;
+            this.bNovoProjeto.IconSize = 20;
+            this.bNovoProjeto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bNovoProjeto.Location = new System.Drawing.Point(0, 30);
+            this.bNovoProjeto.Name = "bNovoProjeto";
+            this.bNovoProjeto.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.bNovoProjeto.Rotation = 0D;
+            this.bNovoProjeto.Size = new System.Drawing.Size(257, 30);
+            this.bNovoProjeto.TabIndex = 1;
+            this.bNovoProjeto.Text = "Novo Projeto";
+            this.bNovoProjeto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.bNovoProjeto.UseVisualStyleBackColor = false;
+            this.bNovoProjeto.Click += new System.EventHandler(this.bNovoProjeto_Click);
             // 
             // iconButton2
             // 
@@ -797,7 +799,7 @@
         private System.Windows.Forms.Panel pSubGerProjeto;
         private FontAwesome.Sharp.IconButton bOrcamento;
         private FontAwesome.Sharp.IconButton bClienteXLote;
-        private FontAwesome.Sharp.IconButton iconButton3;
+        private FontAwesome.Sharp.IconButton bNovoProjeto;
         private FontAwesome.Sharp.IconButton iconButton2;
         private FontAwesome.Sharp.IconButton bGerProjeto;
         private System.Windows.Forms.Panel pLogo;

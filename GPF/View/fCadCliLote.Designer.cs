@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbProjetoCliente = new System.Windows.Forms.GroupBox();
             this.bGerarLote = new FontAwesome.Sharp.IconButton();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -81,7 +81,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.numParcEntrada = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
-            this.txtValorParcEntrada = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.txtDescEntrada = new System.Windows.Forms.TextBox();
@@ -91,7 +90,6 @@
             this.bGerarSaldo = new FontAwesome.Sharp.IconButton();
             this.dtpDataVencimento = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtValorParcela = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.numParcelas = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
@@ -101,9 +99,7 @@
             this.txtLotid = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.cbValores = new System.Windows.Forms.CheckBox();
-            this.txtEntrada = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.txtValorTotal = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.pDgvLocaliza = new System.Windows.Forms.Panel();
             this.bLegenda = new FontAwesome.Sharp.IconButton();
@@ -113,6 +109,10 @@
             this.bMinimizar = new FontAwesome.Sharp.IconButton();
             this.bFechar = new FontAwesome.Sharp.IconButton();
             this.lbTitulo = new System.Windows.Forms.Label();
+            this.txtValorTotal = new GPF.Helper.txtValor();
+            this.txtEntrada = new GPF.Helper.txtValor();
+            this.txtValorParcEntrada = new GPF.Helper.txtValor();
+            this.txtValorParcela = new GPF.Helper.txtValor();
             this.gbProjetoCliente.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCadastro)).BeginInit();
@@ -377,31 +377,31 @@
             // dgvCadastro
             // 
             this.dgvCadastro.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dgvCadastro.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dgvCadastro.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle17;
             this.dgvCadastro.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvCadastro.BackgroundColor = System.Drawing.Color.DarkSlateGray;
             this.dgvCadastro.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvCadastro.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCadastro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCadastro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.dgvCadastro.ColumnHeadersHeight = 30;
             this.dgvCadastro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCadastro.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCadastro.DefaultCellStyle = dataGridViewCellStyle19;
             this.dgvCadastro.EnableHeadersVisualStyles = false;
             this.dgvCadastro.GridColor = System.Drawing.SystemColors.GrayText;
             this.dgvCadastro.Location = new System.Drawing.Point(6, 115);
@@ -409,14 +409,14 @@
             this.dgvCadastro.Name = "dgvCadastro";
             this.dgvCadastro.ReadOnly = true;
             this.dgvCadastro.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCadastro.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCadastro.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
             this.dgvCadastro.RowHeadersWidth = 20;
             this.dgvCadastro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCadastro.Size = new System.Drawing.Size(411, 305);
@@ -698,32 +698,32 @@
             // dgvLoteCliente
             // 
             this.dgvLoteCliente.AllowUserToAddRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dgvLoteCliente.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dgvLoteCliente.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
             this.dgvLoteCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.dgvLoteCliente.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvLoteCliente.BackgroundColor = System.Drawing.Color.DarkSlateGray;
             this.dgvLoteCliente.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvLoteCliente.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvLoteCliente.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvLoteCliente.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
             this.dgvLoteCliente.ColumnHeadersHeight = 25;
             this.dgvLoteCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvLoteCliente.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvLoteCliente.DefaultCellStyle = dataGridViewCellStyle23;
             this.dgvLoteCliente.EnableHeadersVisualStyles = false;
             this.dgvLoteCliente.GridColor = System.Drawing.SystemColors.GrayText;
             this.dgvLoteCliente.Location = new System.Drawing.Point(6, 18);
@@ -731,14 +731,14 @@
             this.dgvLoteCliente.Name = "dgvLoteCliente";
             this.dgvLoteCliente.ReadOnly = true;
             this.dgvLoteCliente.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvLoteCliente.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvLoteCliente.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
             this.dgvLoteCliente.RowHeadersWidth = 20;
             this.dgvLoteCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvLoteCliente.Size = new System.Drawing.Size(468, 106);
@@ -759,15 +759,15 @@
             // 
             this.gbPagamento.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbPagamento.Controls.Add(this.txtEntrada);
+            this.gbPagamento.Controls.Add(this.txtValorTotal);
             this.gbPagamento.Controls.Add(this.bGerarLotes);
             this.gbPagamento.Controls.Add(this.gbEntrada);
             this.gbPagamento.Controls.Add(this.gbRestante);
             this.gbPagamento.Controls.Add(this.txtLotid);
             this.gbPagamento.Controls.Add(this.label24);
             this.gbPagamento.Controls.Add(this.cbValores);
-            this.gbPagamento.Controls.Add(this.txtEntrada);
             this.gbPagamento.Controls.Add(this.label16);
-            this.gbPagamento.Controls.Add(this.txtValorTotal);
             this.gbPagamento.Controls.Add(this.label14);
             this.gbPagamento.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.gbPagamento.Location = new System.Drawing.Point(8, 6);
@@ -802,13 +802,13 @@
             // 
             // gbEntrada
             // 
+            this.gbEntrada.Controls.Add(this.txtValorParcEntrada);
             this.gbEntrada.Controls.Add(this.bAlterarEntrada);
             this.gbEntrada.Controls.Add(this.bGerarEntrada);
             this.gbEntrada.Controls.Add(this.dtpEntrada);
             this.gbEntrada.Controls.Add(this.label8);
             this.gbEntrada.Controls.Add(this.numParcEntrada);
             this.gbEntrada.Controls.Add(this.label18);
-            this.gbEntrada.Controls.Add(this.txtValorParcEntrada);
             this.gbEntrada.Controls.Add(this.label17);
             this.gbEntrada.Controls.Add(this.label23);
             this.gbEntrada.Controls.Add(this.txtDescEntrada);
@@ -927,16 +927,6 @@
             this.label18.TabIndex = 136;
             this.label18.Text = "Parcelas Entrada";
             // 
-            // txtValorParcEntrada
-            // 
-            this.txtValorParcEntrada.Enabled = false;
-            this.txtValorParcEntrada.Font = new System.Drawing.Font("MS Reference Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtValorParcEntrada.Location = new System.Drawing.Point(79, 82);
-            this.txtValorParcEntrada.Name = "txtValorParcEntrada";
-            this.txtValorParcEntrada.ReadOnly = true;
-            this.txtValorParcEntrada.Size = new System.Drawing.Size(104, 20);
-            this.txtValorParcEntrada.TabIndex = 4;
-            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -983,11 +973,11 @@
             // 
             // gbRestante
             // 
+            this.gbRestante.Controls.Add(this.txtValorParcela);
             this.gbRestante.Controls.Add(this.bAlterarSaldo);
             this.gbRestante.Controls.Add(this.bGerarSaldo);
             this.gbRestante.Controls.Add(this.dtpDataVencimento);
             this.gbRestante.Controls.Add(this.label9);
-            this.gbRestante.Controls.Add(this.txtValorParcela);
             this.gbRestante.Controls.Add(this.label13);
             this.gbRestante.Controls.Add(this.numParcelas);
             this.gbRestante.Controls.Add(this.label12);
@@ -1069,16 +1059,6 @@
             this.label9.Size = new System.Drawing.Size(93, 16);
             this.label9.TabIndex = 135;
             this.label9.Text = "Inicío do Pag.";
-            // 
-            // txtValorParcela
-            // 
-            this.txtValorParcela.Enabled = false;
-            this.txtValorParcela.Font = new System.Drawing.Font("MS Reference Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtValorParcela.Location = new System.Drawing.Point(78, 84);
-            this.txtValorParcela.Name = "txtValorParcela";
-            this.txtValorParcela.ReadOnly = true;
-            this.txtValorParcela.Size = new System.Drawing.Size(104, 20);
-            this.txtValorParcela.TabIndex = 6;
             // 
             // label13
             // 
@@ -1197,36 +1177,16 @@
             this.cbValores.UseVisualStyleBackColor = true;
             this.cbValores.CheckedChanged += new System.EventHandler(this.cbValores_CheckedChanged);
             // 
-            // txtEntrada
-            // 
-            this.txtEntrada.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEntrada.Location = new System.Drawing.Point(214, 40);
-            this.txtEntrada.Name = "txtEntrada";
-            this.txtEntrada.Size = new System.Drawing.Size(104, 22);
-            this.txtEntrada.TabIndex = 3;
-            this.txtEntrada.Enter += new System.EventHandler(this.txtEntrada_Enter);
-            this.txtEntrada.Leave += new System.EventHandler(this.txtEntrada_Leave);
-            // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label16.Location = new System.Drawing.Point(211, 24);
+            this.label16.Location = new System.Drawing.Point(211, 21);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(58, 16);
             this.label16.TabIndex = 134;
             this.label16.Text = "Entrada";
-            // 
-            // txtValorTotal
-            // 
-            this.txtValorTotal.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtValorTotal.Location = new System.Drawing.Point(99, 40);
-            this.txtValorTotal.Name = "txtValorTotal";
-            this.txtValorTotal.Size = new System.Drawing.Size(104, 22);
-            this.txtValorTotal.TabIndex = 2;
-            this.txtValorTotal.Enter += new System.EventHandler(this.txtValorTotal_Enter);
-            this.txtValorTotal.Leave += new System.EventHandler(this.txtValorTotal_Leave);
             // 
             // label14
             // 
@@ -1282,14 +1242,14 @@
             // lbLegendaPagOk
             // 
             this.lbLegendaPagOk.AutoSize = true;
-            this.lbLegendaPagOk.BackColor = System.Drawing.Color.LightGreen;
+            this.lbLegendaPagOk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.lbLegendaPagOk.Font = new System.Drawing.Font("MS Reference Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbLegendaPagOk.ForeColor = System.Drawing.Color.Black;
-            this.lbLegendaPagOk.Location = new System.Drawing.Point(240, 13);
+            this.lbLegendaPagOk.Location = new System.Drawing.Point(205, 13);
             this.lbLegendaPagOk.Name = "lbLegendaPagOk";
-            this.lbLegendaPagOk.Size = new System.Drawing.Size(175, 13);
+            this.lbLegendaPagOk.Size = new System.Drawing.Size(211, 13);
             this.lbLegendaPagOk.TabIndex = 144;
-            this.lbLegendaPagOk.Text = "Entrada e Pagamentos ok";
+            this.lbLegendaPagOk.Text = "Entrada e Pagamentos gerados";
             this.lbLegendaPagOk.Visible = false;
             // 
             // lbLegendaEntrada
@@ -1360,6 +1320,46 @@
             this.lbTitulo.Size = new System.Drawing.Size(209, 29);
             this.lbTitulo.TabIndex = 51;
             this.lbTitulo.Text = "Cliente x Projeto";
+            // 
+            // txtValorTotal
+            // 
+            this.txtValorTotal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtValorTotal.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValorTotal.Location = new System.Drawing.Point(97, 40);
+            this.txtValorTotal.Name = "txtValorTotal";
+            this.txtValorTotal.Size = new System.Drawing.Size(106, 22);
+            this.txtValorTotal.TabIndex = 132;
+            this.txtValorTotal.Leave += new System.EventHandler(this.txtValorTotal_Leave_1);
+            // 
+            // txtEntrada
+            // 
+            this.txtEntrada.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtEntrada.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEntrada.Location = new System.Drawing.Point(214, 40);
+            this.txtEntrada.Name = "txtEntrada";
+            this.txtEntrada.Size = new System.Drawing.Size(106, 22);
+            this.txtEntrada.TabIndex = 147;
+            this.txtEntrada.Leave += new System.EventHandler(this.txtEntrada_Leave_1);
+            // 
+            // txtValorParcEntrada
+            // 
+            this.txtValorParcEntrada.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtValorParcEntrada.Enabled = false;
+            this.txtValorParcEntrada.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValorParcEntrada.Location = new System.Drawing.Point(79, 81);
+            this.txtValorParcEntrada.Name = "txtValorParcEntrada";
+            this.txtValorParcEntrada.Size = new System.Drawing.Size(106, 22);
+            this.txtValorParcEntrada.TabIndex = 147;
+            // 
+            // txtValorParcela
+            // 
+            this.txtValorParcela.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtValorParcela.Enabled = false;
+            this.txtValorParcela.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtValorParcela.Location = new System.Drawing.Point(78, 83);
+            this.txtValorParcela.Name = "txtValorParcela";
+            this.txtValorParcela.Size = new System.Drawing.Size(106, 22);
+            this.txtValorParcela.TabIndex = 148;
             // 
             // fCadCliLote
             // 
@@ -1436,18 +1436,14 @@
         private System.Windows.Forms.TextBox txtDescEntrada;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox txtValorParcEntrada;
         private System.Windows.Forms.NumericUpDown numParcEntrada;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox txtEntrada;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox txtValorParcela;
         private System.Windows.Forms.TextBox txtDescTotal;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numParcelas;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox txtValorTotal;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.GroupBox gbDadosLote;
         private System.Windows.Forms.TextBox txtMatricula;
@@ -1476,5 +1472,9 @@
         private System.Windows.Forms.Label lbLegendaSempagamentos;
         private System.Windows.Forms.Label lbLegendaPagOk;
         private FontAwesome.Sharp.IconButton bLegenda;
+        private Helper.txtValor txtValorTotal;
+        private Helper.txtValor txtEntrada;
+        private Helper.txtValor txtValorParcEntrada;
+        private Helper.txtValor txtValorParcela;
     }
 }

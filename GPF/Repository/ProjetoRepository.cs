@@ -63,14 +63,14 @@ namespace GPF.Repository
                     //command.ExecuteNonQuery();
                     var IdInserido = Convert.ToInt32(command.ExecuteScalar());
 
-                    string sqlCliente = @"Insert Into cliente(end_id,pro_nome,pro_vlrtotal,pro_qtdelotes,pro_dtinicio,pro_ativo,pro_finalizado,
-                                                              pro_vlrPorLote,pro_vlrEntrada) 
-                                                      values (@end_id, @pro_nome, @pro_vlrtotal, @pro_qtdelotes, @pro_dtinicio, @pro_ativo, @pro_finalizado,
-                                                              @pro_vlrPorLote,@pro_vlrEntrada)";
+                    string sqlCliente = @"Insert Into projeto(end_id, pro_nome, pro_vlrtotal, pro_qtdelotes, pro_dtinicio, pro_ativo, pro_finalizado, pro_vlrPorLote, pro_vlrEntrada) 
+values (@end_id, @pro_nome, @pro_vlrtotal, @pro_qtdelotes, @pro_dtinicio, @pro_ativo, @pro_finalizado, @pro_vlrPorLote, @pro_vlrEntrada)";
+
                     command.CommandText = sqlCliente; // insert cliente 
                     command.Parameters.AddWithValue("@end_id", IdInserido);
                     command.Parameters.AddWithValue("@pro_nome", projeto.pro_nome);
                     command.Parameters.AddWithValue("@pro_vlrtotal", projeto.pro_vlrtotal);
+                    command.Parameters.AddWithValue("@pro_qtdelotes", projeto.qtdlotes);
                     command.Parameters.AddWithValue("@pro_dtinicio", projeto.dtinicio);
                     command.Parameters.AddWithValue("@pro_ativo", projeto.pro_ativo);
                     command.Parameters.AddWithValue("@pro_finalizado", projeto.pro_finalizado);
@@ -89,6 +89,7 @@ namespace GPF.Repository
                     try
                     {
                         transaction.Rollback();
+                        connection.Close();
                     }
                     catch (Exception ex2)
                     {
@@ -250,11 +251,17 @@ namespace GPF.Repository
             try
             {
                 // string sql = "select * from cliente";
-                string sql = @"select TOP (50) p.pro_id, e.end_id, p.pro_nome as Projeto, p.pro_vlrPorLote as VlrLote, p.pro_vlrEntrada as Entrada, c.cid_nome as Cidade, 
-                                e.end_uf as UF, p.pro_ativo as Ativo, p.pro_finalizado as Finalizado , e.cid_id , e.end_logradouro, e.end_bairro, p.pro_dtinicio
-                                from projeto p
-                                inner join endereco e on p.end_id = e.end_id
-                                inner join cidade c on e.cid_id = c.cid_id";
+                string sql = @"select TOP (50) p.pro_id, e.end_id,e.cid_id , p.pro_nome as Projeto, p.pro_vlrPorLote as VlrLote, p.pro_vlrEntrada as VlrEntrada,p.pro_dtinicio as Início, c.cid_nome as Cidade,  
+e.end_uf as UF,e.end_logradouro as Logradouro, e.end_bairro as Bairro ,
+CASE 
+WHEN p.pro_ativo = 1 THEN 'SIM'
+ELSE 'NÃO' END as Ativo, 
+CASE 
+WHEN p.pro_finalizado = 1 THEN 'SIM'
+ELSE 'NÃO' END  as Finalizado
+from projeto p
+inner join endereco e on p.end_id = e.end_id
+inner join cidade c on e.cid_id = c.cid_id";
                 SqlDataAdapter da = new SqlDataAdapter(sql, db.GetStringConnection());
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -283,6 +290,40 @@ namespace GPF.Repository
             {
                 throw ex;
             }
+        }
+
+        public DataView GetDataView(string nome)
+        {
+
+            try
+            {
+                string par = "'%" + nome + "%'";
+                string sql = @"select TOP (50) p.pro_id, e.end_id,e.cid_id , p.pro_nome as Projeto, p.pro_vlrPorLote as VlrLote, p.pro_vlrEntrada as VlrEntrada,p.pro_dtinicio as Início, c.cid_nome as Cidade,  
+e.end_uf as UF,e.end_logradouro as Logradouro, e.end_bairro as Bairro ,
+CASE 
+WHEN p.pro_ativo = 1 THEN 'SIM'
+ELSE 'NÃO' END as Ativo, 
+CASE 
+WHEN p.pro_finalizado = 1 THEN 'SIM'
+ELSE 'NÃO' END  as Finalizado
+from projeto p
+inner join endereco e on p.end_id = e.end_id
+inner join cidade c on e.cid_id = c.cid_id
+where (p.pro_nome like" + par + ")";
+
+                SqlDataAdapter da = new SqlDataAdapter(sql, db.GetStringConnection());
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                DataView dv = new DataView(dt);
+                dv.Sort = dt.Columns[0].ColumnName;
+                return dv;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

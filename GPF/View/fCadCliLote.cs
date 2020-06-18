@@ -46,10 +46,6 @@ namespace GPF.View
             carregarProjeto();
             carregarProjetoBusca();
             carregarCliente();
-            AplicarEventos(txtValorTotal);
-            AplicarEventos(txtEntrada);
-            AplicarEventos(txtValorParcela);
-            AplicarEventos(txtValorParcEntrada);
             cbbProjeto.SelectedItem = null;
             cbbCliente.SelectedItem = null;
             cbbBuscaProjeto.SelectedItem = null;
@@ -94,14 +90,21 @@ namespace GPF.View
                         if (qtdGerado == qtdlote)
                         {
                             dgvCadastro.Update();
-                            dgvCadastro.Select();
-                            dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.LightGreen;
+                            dgvCadastro.Select();                            
+                            if (i % 2 == 0)
+                            {
+                                dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.White;
+                            }
+                            else
+                            {
+                                dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.FromArgb(240, 240, 240);
+                            }
                         }
                         else if (qtdGerado < qtdlote)
                         {
                             dgvCadastro.Update();
                             dgvCadastro.Select();
-                            dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.FromArgb(255,255,119);
+                            dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.FromArgb(255, 255, 119);
                         }
                         else
                         {
@@ -120,83 +123,6 @@ namespace GPF.View
 
         }
 
-        #region Mascára dinheiro 
-
-        private void RetornarMascara(object sender, EventArgs e)
-        {
-            TextBox txt = (TextBox)sender;
-            if (txt.Text == "")
-            {
-
-            }
-            else
-            {
-                try
-                {
-                    txt.Text = double.Parse(txt.Text).ToString("C2");
-                }
-                catch (Exception ex)
-                {
-                    DialogHelper.Alerta(ex.Message);
-                    txtValorTotal.Focus();
-                    // throw ex;
-                }
-            }
-        }
-        private void TirarMascara(object sender, EventArgs e)
-        {
-            try
-            {
-                TextBox txt = (TextBox)sender;
-                txt.Text = txt.Text.Replace("R$", "").Trim();
-            }
-            catch (Exception ex)
-            {
-                DialogHelper.Alerta(ex.Message);
-                txtValorTotal.Focus();
-                // throw ex;
-            }
-
-
-        }
-        private void ApenasValorNumerico(object sender, KeyPressEventArgs e)
-        {
-            try
-            {
-                TextBox txt = (TextBox)sender;
-                if (!char.IsDigit(e.KeyChar) && e.KeyChar != Convert.ToChar(Keys.Back))
-                {
-                    if (e.KeyChar == ',')
-                    {
-                        e.Handled = (txt.Text.Contains(','));
-                    }
-                    else
-                        e.Handled = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
-        private void AplicarEventos(TextBox txt)
-        {
-            try
-            {
-                txt.Enter += TirarMascara;
-                txt.Leave += RetornarMascara;
-                txt.KeyPress += ApenasValorNumerico;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
-
-
-        #endregion
         #region CalcularCampos
         private double CalcularParcelas()
         {
@@ -301,20 +227,6 @@ namespace GPF.View
             }
         }
 
-        private void txtValorTotal_Leave(object sender, EventArgs e)
-        {
-            try
-            {
-                CalculaParcEntrada();
-                CalcularParcelas();
-            }
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         private void txtQtdLote_Enter(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(txtLotid.Text))
@@ -362,14 +274,6 @@ namespace GPF.View
             }
         }
 
-        private void txtValorTotal_Enter(object sender, EventArgs e)
-        {
-            if (txtValorTotal.Text == "0")
-            {
-                txtValorTotal.Text = "";
-            }
-        }
-
         private void numParcelas_Enter(object sender, EventArgs e)
         {
             try
@@ -414,19 +318,6 @@ namespace GPF.View
             }
         }
 
-        private void txtEntrada_Enter(object sender, EventArgs e)
-        {
-            if (txtEntrada.Text == "0")
-            {
-                txtEntrada.Text = "";
-                txtDescEntrada.Text = "0";
-            }
-            if (!String.IsNullOrEmpty(txtEntrada.Text))
-            {
-                txtEntrada.SelectionStart = 0;
-                txtEntrada.SelectionLength = txtEntrada.Text.Length;
-            }
-        }
         #endregion
 
         private void LimpaTela()
@@ -669,7 +560,7 @@ namespace GPF.View
                         {
                             dgvLoteCliente.Update();
                             dgvLoteCliente.Select();
-                            dgvLoteCliente.Rows[i].Cells["CodLote"].Style.BackColor = Color.Yellow;
+                            dgvLoteCliente.Rows[i].Cells["CodLote"].Style.BackColor = Color.FromArgb(255, 255, 119);
                         }
                         else if (receberRepository.Gerados(lot_id, 0))
                         {
@@ -689,7 +580,15 @@ namespace GPF.View
                     {
                         dgvLoteCliente.Update();
                         dgvLoteCliente.Select();
-                        dgvLoteCliente.Rows[i].Cells["CodLote"].Style.BackColor = Color.White;
+                        if (i % 2 == 0)
+                        {
+                            dgvLoteCliente.Rows[i].Cells["CodLote"].Style.BackColor = Color.White;
+                        }
+                        else
+                        {
+                            dgvLoteCliente.Rows[i].Cells["CodLote"].Style.BackColor = Color.FromArgb(240, 240, 240);
+                        }
+
                     }
 
                     i++;
@@ -963,7 +862,7 @@ namespace GPF.View
                     //insert na receber
                     //entrada = 1
                 }
-               // MessageBox.Show(geralEntrada.ToString());
+                // MessageBox.Show(geralEntrada.ToString());
                 decimal valorcheio = Convert.ToDecimal(txtValorTotal.Text.Replace("R$", "").Trim());
                 decimal valorTotalRestante = valorcheio - valorTotal - (entrada * desconto);
                 decimal descontoRestante = Convert.ToDecimal(txtDescTotal.Text) / 100;
@@ -1022,14 +921,14 @@ namespace GPF.View
 
                 try
                 {
-                    var reader = receberRepository.Valor(cli_id, lot_id, pro_id, 1);
-                    var read = receberRepository.Valor(cli_id, lot_id, pro_id, 0);
+                    var reader = receberRepository.Valor(cli_id, lot_id, pro_id, 1);//busca valores entrada
+                    var read = receberRepository.Valor(cli_id, lot_id, pro_id, 0);//busca valores parcelas
                     if (read == null && reader == null)
                     {
                         bGerarLote.PerformClick();
                     }
 
-                    if (reader != null)
+                    if (reader != null)//Campos entrada
                     {
                         numParcEntrada.Value = reader.total_parcela;
                         txtDescEntrada.Text = reader.descontoEntrada.ToString();
@@ -1037,7 +936,7 @@ namespace GPF.View
                         txtValorTotal.Text = reader.valorLote.ToString("C2");
                         dtpEntrada.Value = reader.dtvencimento.Value;
                     }
-                    if (read != null)
+                    if (read != null)//Campos parcelas
                     {
                         numParcelas.Value = read.total_parcela;
                         txtDescTotal.Text = read.descontoSaldo.ToString();
@@ -1160,13 +1059,13 @@ namespace GPF.View
                         {
                             repLote.alterar(Lote, Projeto, Cliente);
                             CarregarDgvLotes(pro_id, cli_id);
-                           // CarregaDgv();
+                            // CarregaDgv();
                             //cbbBuscaProjeto.SelectedValue = cbbProjeto.SelectedValue;
                         }
                         //atualizar a grid com o Id do projeto                       
                         // Inicializar();
                         LimpaTela();
-                       
+
                     }
                 }
                 catch (Exception ex)
@@ -1421,7 +1320,7 @@ namespace GPF.View
         }
 
         private void dgvLoteCliente_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {            
+        {
             if (dgvLoteCliente.SelectedRows.Count > 0)
             {
                 editar = true;
@@ -1476,7 +1375,7 @@ namespace GPF.View
 
         private void bLegenda_Click(object sender, EventArgs e)
         {
-            if(lbLegendaEntrada.Visible == false && lbLegendaPagOk.Visible == false && lbLegendaSempagamentos.Visible == false)
+            if (lbLegendaEntrada.Visible == false && lbLegendaPagOk.Visible == false && lbLegendaSempagamentos.Visible == false)
             {
                 lbLegendaSempagamentos.Visible = true;
                 lbLegendaPagOk.Visible = true;
@@ -1486,7 +1385,7 @@ namespace GPF.View
                 bLegenda.Enabled = false;
                 timer.Tick += timer_Tick;
             }
-            
+
         }
         private void timer_Tick(object sender, EventArgs e)
         {
@@ -1496,6 +1395,36 @@ namespace GPF.View
             lbTitulo.Visible = true;
             bLegenda.Enabled = true;// Aqui deve-se abrir o Form2
             timer.Stop(); // Parar o timer, porque isso só é necessário uma vez
+        }
+
+        private void txtValorTotal_Leave_1(object sender, EventArgs e)
+        {
+            try
+            {
+                CalculaParcEntrada();
+                CalcularParcelas();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void txtEntrada_Leave_1(object sender, EventArgs e)
+        {
+            if (txtEntrada.Text != "0" && txtEntrada.Text != "")
+            {
+                try
+                {
+                    CalculaParcEntrada();
+                    CalcularParcelas();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
         }
     }
 }

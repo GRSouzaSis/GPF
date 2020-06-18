@@ -543,6 +543,7 @@ namespace GPF.View
                     }
                     else
                     {
+                        txtValorPago.Enabled = true;
                         txtValorTotal.Text = dgvLotes.CurrentRow.Cells["Valor"].Value.ToString();
                         txtLotid.Text = dgvLotes.CurrentRow.Cells["CodLote"].Value.ToString();
                         Cliente.cli_id = Convert.ToInt32(dgvLotes.CurrentRow.Cells["CodCli"].Value);
@@ -627,7 +628,6 @@ namespace GPF.View
                         {
                             DialogHelper.Erro("Erro!");
                         }
-
                     }
                     else
                     {
@@ -641,7 +641,6 @@ namespace GPF.View
             {
                 throw ex;
             }
-
         }
 
         private void txtValorPago_KeyUp(object sender, KeyEventArgs e)

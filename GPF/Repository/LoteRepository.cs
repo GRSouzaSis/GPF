@@ -59,26 +59,8 @@ namespace GPF.Repository
                     command.Parameters.AddWithValue("@cli_id", cliente.cli_id);
                     var IdInserido = Convert.ToInt32(command.ExecuteScalar());
 
-                    string sqlOrcamento = @"insert into orcamento(cli_id,
-                                                                  lot_id,
-                                                                pro_id,
-                                                                orc_valor,
-                                                                orc_valorEntrada,
-                                                                orc_descEntrada,
-                                                                orc_descRestante,
-                                                                orc_qtdParcelaEntrada,
-                                                                orc_qtdParcelaRestante,
-                                                                orc_dtorcamento)                                                               
-                                                              values (@cliente_id,
-                                                                    @lot_id,
-                                                                    @projeto_id,
-                                                                    @orc_valor,
-                                                                    @orc_valorEntrada,
-                                                                    @orc_descEntrada,
-                                                                    @orc_descRestante,
-                                                                    @orc_qtdParcelaEntrada,
-                                                                    @orc_qtdParcelaRestante,
-                                                                    @orc_dtorcamento)";//,
+                    string sqlOrcamento = @"insert into orcamento(cli_id, lot_id,pro_id, orc_valor, orc_valorEntrada,orc_descEntrada, orc_descRestante,orc_qtdParcelaEntrada,orc_qtdParcelaRestante,orc_dtorcamento)                                                               
+                       values (@cliente_id, @lot_id, @projeto_id, @orc_valor, @orc_valorEntrada, @orc_descEntrada, @orc_descRestante,@orc_qtdParcelaEntrada, @orc_qtdParcelaRestante, @orc_dtorcamento)";//,
                                                                    // @orc_dtvencimento,
                                                                    // @orc_dtiniciopag)";
 
@@ -146,16 +128,13 @@ namespace GPF.Repository
                         else
                         {
                             return true;
-                        }                   
-                   
-
+                        } 
                 }
             }
         }
 
         public int ContaLote(int cli_id)
         {
-           
             using (SqlConnection connection = new SqlConnection(db.GetStringConnection()))
             {
                 connection.Open();
@@ -184,18 +163,16 @@ namespace GPF.Repository
                     command.Connection = connection;
                     command.CommandText = @"select count(*) as contador
                                             from lote l
-                                            inner join projeto p on p.pro_id = l.pro_id";
-                    command.CommandType = CommandType.Text;
-                    var reader = command.ExecuteScalar();
-                    command.CommandText = "select pro_qtdelotes from projeto where pro_id =@pro_id";
+                                            inner join projeto p on p.pro_id = l.pro_id
+                                            where p.pro_id =@pro_id";
+                    
                     command.Parameters.AddWithValue("@pro_id", projeto);
-                    command.CommandType = CommandType.Text;
                     SqlDataReader lotes = command.ExecuteReader();                   
                     if (lotes.HasRows)
                     {
                         lotes.Read();
                         int l = lotes.GetInt32(0);
-                        if (Convert.ToInt32(reader) < l)
+                        if (l > 0)
                         {
                             return true;
                         }

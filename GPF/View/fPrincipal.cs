@@ -177,7 +177,7 @@ namespace GPF
 
         private void bOrcamento_Click(object sender, EventArgs e)
         {
-            AbrirForm<fCadRecebimento>();
+           // AbrirForm<fCadRecebimento>();
         }
 
         private void bClienteXLote_Click(object sender, EventArgs e)
@@ -188,6 +188,11 @@ namespace GPF
         private void bNovoProjeto_Click(object sender, EventArgs e)
         {
             AbrirForm<fCadProjeto>();
+        }
+
+        private void bBaixaRecebimento_Click(object sender, EventArgs e)
+        {
+            AbrirForm<fCadRecebimento>();
         }
     }
 }

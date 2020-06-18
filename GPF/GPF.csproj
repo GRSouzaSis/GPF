@@ -77,6 +77,9 @@
     <Compile Include="Cache\UsuarioLoginCache.cs" />
     <Compile Include="Helper\DialogHelper.cs" />
     <Compile Include="Helper\Ajudas.cs" />
+    <Compile Include="Helper\txtValor.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model\Cidade.cs" />
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\Lote.cs" />

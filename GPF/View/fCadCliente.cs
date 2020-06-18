@@ -600,7 +600,7 @@ namespace GPF.View
 
         private void txtRG_KeyPress(object sender, KeyPressEventArgs e)
         {
-           // var tecla =(Convert.ToByte( e.KeyChar));
+            //var tecla =(Convert.ToByte( e.KeyChar));
            // MessageBox.Show(tecla.ToString());
 
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != 08 && e.KeyChar != 46 && e.KeyChar != 45 && e.KeyChar != 88 && e.KeyChar != 120)

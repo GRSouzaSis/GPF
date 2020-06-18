@@ -41,7 +41,7 @@
             this.iconButton10 = new FontAwesome.Sharp.IconButton();
             this.iconButton11 = new FontAwesome.Sharp.IconButton();
             this.iconButton12 = new FontAwesome.Sharp.IconButton();
-            this.iconButton13 = new FontAwesome.Sharp.IconButton();
+            this.bBaixaRecebimento = new FontAwesome.Sharp.IconButton();
             this.bPagamento = new FontAwesome.Sharp.IconButton();
             this.pSubCadastro = new System.Windows.Forms.Panel();
             this.bCadFuncionario = new FontAwesome.Sharp.IconButton();
@@ -56,6 +56,7 @@
             this.bCronograma = new FontAwesome.Sharp.IconButton();
             this.bGerProjeto = new FontAwesome.Sharp.IconButton();
             this.pLogo = new System.Windows.Forms.Panel();
+            this.lbData = new System.Windows.Forms.Label();
             this.lbNomeUsuario = new System.Windows.Forms.Label();
             this.lbCnpj = new System.Windows.Forms.Label();
             this.lbNomeEmpresa = new System.Windows.Forms.Label();
@@ -66,7 +67,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbRelogio = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.lbData = new System.Windows.Forms.Label();
             this.pSlideMenu.SuspendLayout();
             this.pSubConfiguracoes.SuspendLayout();
             this.pSubPagamento.SuspendLayout();
@@ -260,7 +260,7 @@
             this.pSubPagamento.Controls.Add(this.iconButton10);
             this.pSubPagamento.Controls.Add(this.iconButton11);
             this.pSubPagamento.Controls.Add(this.iconButton12);
-            this.pSubPagamento.Controls.Add(this.iconButton13);
+            this.pSubPagamento.Controls.Add(this.bBaixaRecebimento);
             this.pSubPagamento.Dock = System.Windows.Forms.DockStyle.Top;
             this.pSubPagamento.Location = new System.Drawing.Point(0, 479);
             this.pSubPagamento.Name = "pSubPagamento";
@@ -333,27 +333,30 @@
             this.iconButton12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.iconButton12.UseVisualStyleBackColor = false;
             // 
-            // iconButton13
+            // bBaixaRecebimento
             // 
-            this.iconButton13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
-            this.iconButton13.Dock = System.Windows.Forms.DockStyle.Top;
-            this.iconButton13.FlatAppearance.BorderSize = 0;
-            this.iconButton13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton13.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.iconButton13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButton13.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.iconButton13.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.iconButton13.IconColor = System.Drawing.Color.Black;
-            this.iconButton13.IconSize = 16;
-            this.iconButton13.Location = new System.Drawing.Point(0, 0);
-            this.iconButton13.Name = "iconButton13";
-            this.iconButton13.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.iconButton13.Rotation = 0D;
-            this.iconButton13.Size = new System.Drawing.Size(257, 30);
-            this.iconButton13.TabIndex = 0;
-            this.iconButton13.Text = "iconButton13";
-            this.iconButton13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButton13.UseVisualStyleBackColor = false;
+            this.bBaixaRecebimento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
+            this.bBaixaRecebimento.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bBaixaRecebimento.FlatAppearance.BorderSize = 0;
+            this.bBaixaRecebimento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bBaixaRecebimento.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.bBaixaRecebimento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bBaixaRecebimento.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.bBaixaRecebimento.IconChar = FontAwesome.Sharp.IconChar.Download;
+            this.bBaixaRecebimento.IconColor = System.Drawing.Color.WhiteSmoke;
+            this.bBaixaRecebimento.IconSize = 20;
+            this.bBaixaRecebimento.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bBaixaRecebimento.Location = new System.Drawing.Point(0, 0);
+            this.bBaixaRecebimento.Name = "bBaixaRecebimento";
+            this.bBaixaRecebimento.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.bBaixaRecebimento.Rotation = 0D;
+            this.bBaixaRecebimento.Size = new System.Drawing.Size(257, 30);
+            this.bBaixaRecebimento.TabIndex = 0;
+            this.bBaixaRecebimento.Text = "Baixa Recebimento";
+            this.bBaixaRecebimento.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bBaixaRecebimento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.bBaixaRecebimento.UseVisualStyleBackColor = false;
+            this.bBaixaRecebimento.Click += new System.EventHandler(this.bBaixaRecebimento_Click);
             // 
             // bPagamento
             // 
@@ -535,7 +538,7 @@
             this.bOrcamento.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.bOrcamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bOrcamento.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.bOrcamento.IconChar = FontAwesome.Sharp.IconChar.CommentDollar;
+            this.bOrcamento.IconChar = FontAwesome.Sharp.IconChar.FolderPlus;
             this.bOrcamento.IconColor = System.Drawing.Color.WhiteSmoke;
             this.bOrcamento.IconSize = 20;
             this.bOrcamento.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -545,7 +548,7 @@
             this.bOrcamento.Rotation = 0D;
             this.bOrcamento.Size = new System.Drawing.Size(257, 30);
             this.bOrcamento.TabIndex = 3;
-            this.bOrcamento.Text = "Valores Parcelas";
+            this.bOrcamento.Text = "Cadastrar Etapas";
             this.bOrcamento.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bOrcamento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.bOrcamento.UseVisualStyleBackColor = false;
@@ -661,6 +664,17 @@
             this.pLogo.Size = new System.Drawing.Size(257, 100);
             this.pLogo.TabIndex = 0;
             // 
+            // lbData
+            // 
+            this.lbData.AutoSize = true;
+            this.lbData.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbData.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lbData.Location = new System.Drawing.Point(110, 77);
+            this.lbData.Name = "lbData";
+            this.lbData.Size = new System.Drawing.Size(92, 16);
+            this.lbData.TabIndex = 4;
+            this.lbData.Text = "18/06/2020";
+            // 
             // lbNomeUsuario
             // 
             this.lbNomeUsuario.AutoSize = true;
@@ -768,17 +782,6 @@
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // lbData
-            // 
-            this.lbData.AutoSize = true;
-            this.lbData.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbData.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lbData.Location = new System.Drawing.Point(110, 77);
-            this.lbData.Name = "lbData";
-            this.lbData.Size = new System.Drawing.Size(92, 16);
-            this.lbData.TabIndex = 4;
-            this.lbData.Text = "18/06/2020";
-            // 
             // fPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -823,7 +826,7 @@
         private FontAwesome.Sharp.IconButton iconButton10;
         private FontAwesome.Sharp.IconButton iconButton11;
         private FontAwesome.Sharp.IconButton iconButton12;
-        private FontAwesome.Sharp.IconButton iconButton13;
+        private FontAwesome.Sharp.IconButton bBaixaRecebimento;
         private FontAwesome.Sharp.IconButton bPagamento;
         private System.Windows.Forms.Panel pSubCadastro;
         private FontAwesome.Sharp.IconButton bCadFuncionario;

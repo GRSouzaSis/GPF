@@ -53,7 +53,7 @@
             this.bOrcamento = new FontAwesome.Sharp.IconButton();
             this.bClienteXLote = new FontAwesome.Sharp.IconButton();
             this.bNovoProjeto = new FontAwesome.Sharp.IconButton();
-            this.iconButton2 = new FontAwesome.Sharp.IconButton();
+            this.bCronograma = new FontAwesome.Sharp.IconButton();
             this.bGerProjeto = new FontAwesome.Sharp.IconButton();
             this.pLogo = new System.Windows.Forms.Panel();
             this.lbNomeUsuario = new System.Windows.Forms.Label();
@@ -66,6 +66,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbRelogio = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lbData = new System.Windows.Forms.Label();
             this.pSlideMenu.SuspendLayout();
             this.pSubConfiguracoes.SuspendLayout();
             this.pSubPagamento.SuspendLayout();
@@ -81,7 +82,7 @@
             // pSlideMenu
             // 
             this.pSlideMenu.AutoScroll = true;
-            this.pSlideMenu.BackColor = System.Drawing.Color.DarkCyan;
+            this.pSlideMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.pSlideMenu.Controls.Add(this.pSubConfiguracoes);
             this.pSlideMenu.Controls.Add(this.bLogout);
             this.pSlideMenu.Controls.Add(this.bConfiguracoes);
@@ -113,7 +114,7 @@
             // 
             // iconButton1
             // 
-            this.iconButton1.BackColor = System.Drawing.Color.Teal;
+            this.iconButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.iconButton1.Dock = System.Windows.Forms.DockStyle.Top;
             this.iconButton1.FlatAppearance.BorderSize = 0;
             this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -136,7 +137,7 @@
             // 
             // iconButton6
             // 
-            this.iconButton6.BackColor = System.Drawing.Color.Teal;
+            this.iconButton6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.iconButton6.Dock = System.Windows.Forms.DockStyle.Top;
             this.iconButton6.FlatAppearance.BorderSize = 0;
             this.iconButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -160,7 +161,7 @@
             // 
             // bCadPermissoes
             // 
-            this.bCadPermissoes.BackColor = System.Drawing.Color.Teal;
+            this.bCadPermissoes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.bCadPermissoes.Dock = System.Windows.Forms.DockStyle.Top;
             this.bCadPermissoes.FlatAppearance.BorderSize = 0;
             this.bCadPermissoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -184,7 +185,7 @@
             // 
             // bCadParametrizacao
             // 
-            this.bCadParametrizacao.BackColor = System.Drawing.Color.Teal;
+            this.bCadParametrizacao.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.bCadParametrizacao.Dock = System.Windows.Forms.DockStyle.Top;
             this.bCadParametrizacao.FlatAppearance.BorderSize = 0;
             this.bCadParametrizacao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -268,7 +269,7 @@
             // 
             // iconButton10
             // 
-            this.iconButton10.BackColor = System.Drawing.Color.Teal;
+            this.iconButton10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.iconButton10.Dock = System.Windows.Forms.DockStyle.Top;
             this.iconButton10.FlatAppearance.BorderSize = 0;
             this.iconButton10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -290,7 +291,7 @@
             // 
             // iconButton11
             // 
-            this.iconButton11.BackColor = System.Drawing.Color.Teal;
+            this.iconButton11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.iconButton11.Dock = System.Windows.Forms.DockStyle.Top;
             this.iconButton11.FlatAppearance.BorderSize = 0;
             this.iconButton11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -312,7 +313,7 @@
             // 
             // iconButton12
             // 
-            this.iconButton12.BackColor = System.Drawing.Color.Teal;
+            this.iconButton12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.iconButton12.Dock = System.Windows.Forms.DockStyle.Top;
             this.iconButton12.FlatAppearance.BorderSize = 0;
             this.iconButton12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -334,7 +335,7 @@
             // 
             // iconButton13
             // 
-            this.iconButton13.BackColor = System.Drawing.Color.Teal;
+            this.iconButton13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.iconButton13.Dock = System.Windows.Forms.DockStyle.Top;
             this.iconButton13.FlatAppearance.BorderSize = 0;
             this.iconButton13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -392,7 +393,7 @@
             // 
             // bCadFuncionario
             // 
-            this.bCadFuncionario.BackColor = System.Drawing.Color.Teal;
+            this.bCadFuncionario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.bCadFuncionario.Dock = System.Windows.Forms.DockStyle.Top;
             this.bCadFuncionario.FlatAppearance.BorderSize = 0;
             this.bCadFuncionario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -416,7 +417,7 @@
             // 
             // bCadCliente
             // 
-            this.bCadCliente.BackColor = System.Drawing.Color.Teal;
+            this.bCadCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.bCadCliente.Dock = System.Windows.Forms.DockStyle.Top;
             this.bCadCliente.FlatAppearance.BorderSize = 0;
             this.bCadCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -441,7 +442,7 @@
             // 
             // bCadPerfil
             // 
-            this.bCadPerfil.BackColor = System.Drawing.Color.Teal;
+            this.bCadPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.bCadPerfil.Dock = System.Windows.Forms.DockStyle.Top;
             this.bCadPerfil.FlatAppearance.BorderSize = 0;
             this.bCadPerfil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -466,7 +467,7 @@
             // 
             // bCadUsuario
             // 
-            this.bCadUsuario.BackColor = System.Drawing.Color.Teal;
+            this.bCadUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.bCadUsuario.Dock = System.Windows.Forms.DockStyle.Top;
             this.bCadUsuario.FlatAppearance.BorderSize = 0;
             this.bCadUsuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -518,7 +519,7 @@
             this.pSubGerProjeto.Controls.Add(this.bOrcamento);
             this.pSubGerProjeto.Controls.Add(this.bClienteXLote);
             this.pSubGerProjeto.Controls.Add(this.bNovoProjeto);
-            this.pSubGerProjeto.Controls.Add(this.iconButton2);
+            this.pSubGerProjeto.Controls.Add(this.bCronograma);
             this.pSubGerProjeto.Dock = System.Windows.Forms.DockStyle.Top;
             this.pSubGerProjeto.Location = new System.Drawing.Point(0, 145);
             this.pSubGerProjeto.Name = "pSubGerProjeto";
@@ -527,7 +528,7 @@
             // 
             // bOrcamento
             // 
-            this.bOrcamento.BackColor = System.Drawing.Color.Teal;
+            this.bOrcamento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.bOrcamento.Dock = System.Windows.Forms.DockStyle.Top;
             this.bOrcamento.FlatAppearance.BorderSize = 0;
             this.bOrcamento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -552,7 +553,7 @@
             // 
             // bClienteXLote
             // 
-            this.bClienteXLote.BackColor = System.Drawing.Color.Teal;
+            this.bClienteXLote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.bClienteXLote.Dock = System.Windows.Forms.DockStyle.Top;
             this.bClienteXLote.FlatAppearance.BorderSize = 0;
             this.bClienteXLote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -577,14 +578,14 @@
             // 
             // bNovoProjeto
             // 
-            this.bNovoProjeto.BackColor = System.Drawing.Color.Teal;
+            this.bNovoProjeto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.bNovoProjeto.Dock = System.Windows.Forms.DockStyle.Top;
             this.bNovoProjeto.FlatAppearance.BorderSize = 0;
             this.bNovoProjeto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bNovoProjeto.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
             this.bNovoProjeto.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bNovoProjeto.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.bNovoProjeto.IconChar = FontAwesome.Sharp.IconChar.ListAlt;
+            this.bNovoProjeto.IconChar = FontAwesome.Sharp.IconChar.Folder;
             this.bNovoProjeto.IconColor = System.Drawing.Color.WhiteSmoke;
             this.bNovoProjeto.IconSize = 20;
             this.bNovoProjeto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -599,27 +600,29 @@
             this.bNovoProjeto.UseVisualStyleBackColor = false;
             this.bNovoProjeto.Click += new System.EventHandler(this.bNovoProjeto_Click);
             // 
-            // iconButton2
+            // bCronograma
             // 
-            this.iconButton2.BackColor = System.Drawing.Color.Teal;
-            this.iconButton2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.iconButton2.FlatAppearance.BorderSize = 0;
-            this.iconButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton2.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.iconButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButton2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.iconButton2.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.iconButton2.IconColor = System.Drawing.Color.Black;
-            this.iconButton2.IconSize = 16;
-            this.iconButton2.Location = new System.Drawing.Point(0, 0);
-            this.iconButton2.Name = "iconButton2";
-            this.iconButton2.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.iconButton2.Rotation = 0D;
-            this.iconButton2.Size = new System.Drawing.Size(257, 30);
-            this.iconButton2.TabIndex = 0;
-            this.iconButton2.Text = "iconButton2";
-            this.iconButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButton2.UseVisualStyleBackColor = false;
+            this.bCronograma.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
+            this.bCronograma.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bCronograma.FlatAppearance.BorderSize = 0;
+            this.bCronograma.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bCronograma.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.bCronograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bCronograma.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.bCronograma.IconChar = FontAwesome.Sharp.IconChar.ClipboardList;
+            this.bCronograma.IconColor = System.Drawing.Color.WhiteSmoke;
+            this.bCronograma.IconSize = 20;
+            this.bCronograma.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bCronograma.Location = new System.Drawing.Point(0, 0);
+            this.bCronograma.Name = "bCronograma";
+            this.bCronograma.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.bCronograma.Rotation = 0D;
+            this.bCronograma.Size = new System.Drawing.Size(257, 30);
+            this.bCronograma.TabIndex = 0;
+            this.bCronograma.Text = "Cronograma";
+            this.bCronograma.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bCronograma.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.bCronograma.UseVisualStyleBackColor = false;
             // 
             // bGerProjeto
             // 
@@ -646,6 +649,8 @@
             // 
             // pLogo
             // 
+            this.pLogo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
+            this.pLogo.Controls.Add(this.lbData);
             this.pLogo.Controls.Add(this.lbNomeUsuario);
             this.pLogo.Controls.Add(this.lbCnpj);
             this.pLogo.Controls.Add(this.lbNomeEmpresa);
@@ -700,7 +705,7 @@
             // 
             // pCabecalho
             // 
-            this.pCabecalho.BackColor = System.Drawing.Color.DarkCyan;
+            this.pCabecalho.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(47)))));
             this.pCabecalho.Dock = System.Windows.Forms.DockStyle.Top;
             this.pCabecalho.Location = new System.Drawing.Point(274, 0);
             this.pCabecalho.Name = "pCabecalho";
@@ -710,7 +715,7 @@
             // 
             // pFilhoForm
             // 
-            this.pFilhoForm.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.pFilhoForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.pFilhoForm.Controls.Add(this.picFundo);
             this.pFilhoForm.Controls.Add(this.panel1);
             this.pFilhoForm.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -750,18 +755,29 @@
             this.lbRelogio.Font = new System.Drawing.Font("MS Reference Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbRelogio.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lbRelogio.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lbRelogio.Location = new System.Drawing.Point(617, 0);
+            this.lbRelogio.Location = new System.Drawing.Point(711, 0);
             this.lbRelogio.Name = "lbRelogio";
             this.lbRelogio.Padding = new System.Windows.Forms.Padding(35, 0, 0, 2);
-            this.lbRelogio.Size = new System.Drawing.Size(203, 20);
+            this.lbRelogio.Size = new System.Drawing.Size(109, 20);
             this.lbRelogio.TabIndex = 2;
-            this.lbRelogio.Text = "13/04/ 2020 16:08:25";
+            this.lbRelogio.Text = "16:08:25";
             this.lbRelogio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // lbData
+            // 
+            this.lbData.AutoSize = true;
+            this.lbData.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbData.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lbData.Location = new System.Drawing.Point(110, 77);
+            this.lbData.Name = "lbData";
+            this.lbData.Size = new System.Drawing.Size(92, 16);
+            this.lbData.TabIndex = 4;
+            this.lbData.Text = "18/06/2020";
             // 
             // fPrincipal
             // 
@@ -800,7 +816,7 @@
         private FontAwesome.Sharp.IconButton bOrcamento;
         private FontAwesome.Sharp.IconButton bClienteXLote;
         private FontAwesome.Sharp.IconButton bNovoProjeto;
-        private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton bCronograma;
         private FontAwesome.Sharp.IconButton bGerProjeto;
         private System.Windows.Forms.Panel pLogo;
         private System.Windows.Forms.Panel pSubPagamento;
@@ -832,5 +848,6 @@
         private FontAwesome.Sharp.IconButton iconButton6;
         private FontAwesome.Sharp.IconButton bCadPermissoes;
         private FontAwesome.Sharp.IconButton bCadParametrizacao;
+        private System.Windows.Forms.Label lbData;
     }
 }

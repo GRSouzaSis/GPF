@@ -24,6 +24,8 @@ namespace GPF.View
         private int cli_id;
         private int pro_id;
 
+        private readonly Timer timer = new Timer();
+
         LoteRepository repLote = new LoteRepository();
         ClienteRepository repCli = new ClienteRepository();
         ProjetoRepository repPro = new ProjetoRepository();
@@ -62,6 +64,7 @@ namespace GPF.View
             txtEntrada.Enabled = false;
             pDadosLote.Visible = false;
             bGerarLotes.Visible = false;
+            timer.Interval = 5000;
             // HabilitarControles();
         }
 
@@ -98,7 +101,7 @@ namespace GPF.View
                         {
                             dgvCadastro.Update();
                             dgvCadastro.Select();
-                            dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.Yellow;
+                            dgvCadastro.Rows[i].Cells["Cliente"].Style.BackColor = Color.FromArgb(255,255,119);
                         }
                         else
                         {
@@ -1469,6 +1472,30 @@ namespace GPF.View
             {
                 DialogHelper.Informacao("Selecione um registro para alterar.");
             }
+        }
+
+        private void bLegenda_Click(object sender, EventArgs e)
+        {
+            if(lbLegendaEntrada.Visible == false && lbLegendaPagOk.Visible == false && lbLegendaSempagamentos.Visible == false)
+            {
+                lbLegendaSempagamentos.Visible = true;
+                lbLegendaPagOk.Visible = true;
+                lbLegendaEntrada.Visible = true;
+                lbTitulo.Visible = false;
+                timer.Start();
+                bLegenda.Enabled = false;
+                timer.Tick += timer_Tick;
+            }
+            
+        }
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            lbLegendaSempagamentos.Visible = false;
+            lbLegendaPagOk.Visible = false;
+            lbLegendaEntrada.Visible = false;
+            lbTitulo.Visible = true;
+            bLegenda.Enabled = true;// Aqui deve-se abrir o Form2
+            timer.Stop(); // Parar o timer, porque isso só é necessário uma vez
         }
     }
 }

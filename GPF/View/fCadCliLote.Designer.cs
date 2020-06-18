@@ -106,9 +106,13 @@
             this.txtValorTotal = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.pDgvLocaliza = new System.Windows.Forms.Panel();
+            this.bLegenda = new FontAwesome.Sharp.IconButton();
+            this.lbLegendaPagOk = new System.Windows.Forms.Label();
+            this.lbLegendaEntrada = new System.Windows.Forms.Label();
+            this.lbLegendaSempagamentos = new System.Windows.Forms.Label();
             this.bMinimizar = new FontAwesome.Sharp.IconButton();
             this.bFechar = new FontAwesome.Sharp.IconButton();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbTitulo = new System.Windows.Forms.Label();
             this.gbProjetoCliente.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCadastro)).BeginInit();
@@ -627,7 +631,7 @@
             this.txtMatricula.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMatricula.Location = new System.Drawing.Point(341, 28);
             this.txtMatricula.Name = "txtMatricula";
-            this.txtMatricula.Size = new System.Drawing.Size(100, 22);
+            this.txtMatricula.Size = new System.Drawing.Size(125, 22);
             this.txtMatricula.TabIndex = 136;
             // 
             // label5
@@ -646,7 +650,7 @@
             this.txtNroQuadra.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNroQuadra.Location = new System.Drawing.Point(216, 28);
             this.txtNroQuadra.Name = "txtNroQuadra";
-            this.txtNroQuadra.Size = new System.Drawing.Size(100, 22);
+            this.txtNroQuadra.Size = new System.Drawing.Size(119, 22);
             this.txtNroQuadra.TabIndex = 135;
             // 
             // label4
@@ -663,7 +667,7 @@
             // txtNroLote
             // 
             this.txtNroLote.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNroLote.Location = new System.Drawing.Point(95, 28);
+            this.txtNroLote.Location = new System.Drawing.Point(109, 28);
             this.txtNroLote.Name = "txtNroLote";
             this.txtNroLote.Size = new System.Drawing.Size(100, 22);
             this.txtNroLote.TabIndex = 134;
@@ -673,7 +677,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label10.Location = new System.Drawing.Point(92, 11);
+            this.label10.Location = new System.Drawing.Point(106, 11);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(103, 16);
             this.label10.TabIndex = 137;
@@ -1238,9 +1242,13 @@
             // pDgvLocaliza
             // 
             this.pDgvLocaliza.BackColor = System.Drawing.Color.CadetBlue;
+            this.pDgvLocaliza.Controls.Add(this.bLegenda);
+            this.pDgvLocaliza.Controls.Add(this.lbLegendaPagOk);
+            this.pDgvLocaliza.Controls.Add(this.lbLegendaEntrada);
+            this.pDgvLocaliza.Controls.Add(this.lbLegendaSempagamentos);
             this.pDgvLocaliza.Controls.Add(this.bMinimizar);
             this.pDgvLocaliza.Controls.Add(this.bFechar);
-            this.pDgvLocaliza.Controls.Add(this.label2);
+            this.pDgvLocaliza.Controls.Add(this.lbTitulo);
             this.pDgvLocaliza.Controls.Add(this.groupBox2);
             this.pDgvLocaliza.Controls.Add(this.gbProjetoCliente);
             this.pDgvLocaliza.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1248,6 +1256,67 @@
             this.pDgvLocaliza.Name = "pDgvLocaliza";
             this.pDgvLocaliza.Size = new System.Drawing.Size(958, 596);
             this.pDgvLocaliza.TabIndex = 15;
+            // 
+            // bLegenda
+            // 
+            this.bLegenda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bLegenda.BackColor = System.Drawing.SystemColors.Highlight;
+            this.bLegenda.FlatAppearance.BorderSize = 0;
+            this.bLegenda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bLegenda.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.bLegenda.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bLegenda.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.bLegenda.IconChar = FontAwesome.Sharp.IconChar.InfoCircle;
+            this.bLegenda.IconColor = System.Drawing.Color.WhiteSmoke;
+            this.bLegenda.IconSize = 24;
+            this.bLegenda.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bLegenda.Location = new System.Drawing.Point(853, 10);
+            this.bLegenda.Name = "bLegenda";
+            this.bLegenda.Rotation = 0D;
+            this.bLegenda.Size = new System.Drawing.Size(32, 24);
+            this.bLegenda.TabIndex = 146;
+            this.bLegenda.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.bLegenda.UseVisualStyleBackColor = false;
+            this.bLegenda.Click += new System.EventHandler(this.bLegenda_Click);
+            // 
+            // lbLegendaPagOk
+            // 
+            this.lbLegendaPagOk.AutoSize = true;
+            this.lbLegendaPagOk.BackColor = System.Drawing.Color.LightGreen;
+            this.lbLegendaPagOk.Font = new System.Drawing.Font("MS Reference Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLegendaPagOk.ForeColor = System.Drawing.Color.Black;
+            this.lbLegendaPagOk.Location = new System.Drawing.Point(240, 13);
+            this.lbLegendaPagOk.Name = "lbLegendaPagOk";
+            this.lbLegendaPagOk.Size = new System.Drawing.Size(175, 13);
+            this.lbLegendaPagOk.TabIndex = 144;
+            this.lbLegendaPagOk.Text = "Entrada e Pagamentos ok";
+            this.lbLegendaPagOk.Visible = false;
+            // 
+            // lbLegendaEntrada
+            // 
+            this.lbLegendaEntrada.AutoSize = true;
+            this.lbLegendaEntrada.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(119)))));
+            this.lbLegendaEntrada.Font = new System.Drawing.Font("MS Reference Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLegendaEntrada.ForeColor = System.Drawing.Color.Black;
+            this.lbLegendaEntrada.Location = new System.Drawing.Point(629, 13);
+            this.lbLegendaEntrada.Name = "lbLegendaEntrada";
+            this.lbLegendaEntrada.Size = new System.Drawing.Size(185, 13);
+            this.lbLegendaEntrada.TabIndex = 143;
+            this.lbLegendaEntrada.Text = "Somente entrada vinculada";
+            this.lbLegendaEntrada.Visible = false;
+            // 
+            // lbLegendaSempagamentos
+            // 
+            this.lbLegendaSempagamentos.AutoSize = true;
+            this.lbLegendaSempagamentos.BackColor = System.Drawing.Color.Red;
+            this.lbLegendaSempagamentos.Font = new System.Drawing.Font("MS Reference Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLegendaSempagamentos.ForeColor = System.Drawing.Color.White;
+            this.lbLegendaSempagamentos.Location = new System.Drawing.Point(426, 13);
+            this.lbLegendaSempagamentos.Name = "lbLegendaSempagamentos";
+            this.lbLegendaSempagamentos.Size = new System.Drawing.Size(193, 13);
+            this.lbLegendaSempagamentos.TabIndex = 142;
+            this.lbLegendaSempagamentos.Text = "Sem pagamentos vinculados";
+            this.lbLegendaSempagamentos.Visible = false;
             // 
             // bMinimizar
             // 
@@ -1281,16 +1350,16 @@
             this.bFechar.TabIndex = 53;
             this.bFechar.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // lbTitulo
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("MS Reference Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label2.Location = new System.Drawing.Point(342, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(209, 29);
-            this.label2.TabIndex = 51;
-            this.label2.Text = "Cliente x Projeto";
+            this.lbTitulo.AutoSize = true;
+            this.lbTitulo.Font = new System.Drawing.Font("MS Reference Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTitulo.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lbTitulo.Location = new System.Drawing.Point(410, 4);
+            this.lbTitulo.Name = "lbTitulo";
+            this.lbTitulo.Size = new System.Drawing.Size(209, 29);
+            this.lbTitulo.TabIndex = 51;
+            this.lbTitulo.Text = "Cliente x Projeto";
             // 
             // fCadCliLote
             // 
@@ -1298,6 +1367,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 596);
             this.Controls.Add(this.pDgvLocaliza);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "fCadCliLote";
             this.Text = "Cliente x Projeto";
             this.Load += new System.EventHandler(this.fCadCliLote_Load);
@@ -1342,7 +1412,7 @@
         private FontAwesome.Sharp.IconButton bTodos;
         private FontAwesome.Sharp.IconButton bMinimizar;
         private FontAwesome.Sharp.IconButton bFechar;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbTitulo;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbbBuscaProjeto;
@@ -1402,5 +1472,9 @@
         private FontAwesome.Sharp.IconButton bGerarSaldo;
         private FontAwesome.Sharp.IconButton bAlterarEntrada;
         private FontAwesome.Sharp.IconButton bAlterarSaldo;
+        private System.Windows.Forms.Label lbLegendaEntrada;
+        private System.Windows.Forms.Label lbLegendaSempagamentos;
+        private System.Windows.Forms.Label lbLegendaPagOk;
+        private FontAwesome.Sharp.IconButton bLegenda;
     }
 }

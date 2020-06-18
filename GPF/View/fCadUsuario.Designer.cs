@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pCrud = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.CbbFuncionario = new System.Windows.Forms.ComboBox();
@@ -51,15 +52,15 @@
             this.bBuscar = new FontAwesome.Sharp.IconButton();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.dgvCadastro = new System.Windows.Forms.DataGridView();
+            this.Login = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Usuário = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ativo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.pButtons = new System.Windows.Forms.Panel();
             this.bExcluir = new FontAwesome.Sharp.IconButton();
             this.bAlterar = new FontAwesome.Sharp.IconButton();
             this.bNovo = new FontAwesome.Sharp.IconButton();
             this.uso_login = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Login = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Usuário = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ativo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.pCrud.SuspendLayout();
             this.pDgvLocaliza.SuspendLayout();
             this.pBuscas.SuspendLayout();
@@ -69,7 +70,7 @@
             // 
             // pCrud
             // 
-            this.pCrud.BackColor = System.Drawing.Color.DarkCyan;
+            this.pCrud.BackColor = System.Drawing.Color.CadetBlue;
             this.pCrud.Controls.Add(this.label15);
             this.pCrud.Controls.Add(this.CbbFuncionario);
             this.pCrud.Controls.Add(this.bMinimizar);
@@ -147,7 +148,7 @@
             // bCancelar
             // 
             this.bCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bCancelar.BackColor = System.Drawing.Color.OrangeRed;
+            this.bCancelar.BackColor = System.Drawing.Color.DarkCyan;
             this.bCancelar.FlatAppearance.BorderSize = 0;
             this.bCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bCancelar.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
@@ -224,7 +225,7 @@
             // cbAtivo
             // 
             this.cbAtivo.AutoSize = true;
-            this.cbAtivo.BackColor = System.Drawing.Color.DarkCyan;
+            this.cbAtivo.BackColor = System.Drawing.Color.CadetBlue;
             this.cbAtivo.Checked = true;
             this.cbAtivo.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbAtivo.FlatAppearance.BorderSize = 0;
@@ -277,7 +278,7 @@
             // 
             // pDgvLocaliza
             // 
-            this.pDgvLocaliza.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.pDgvLocaliza.BackColor = System.Drawing.Color.CadetBlue;
             this.pDgvLocaliza.Controls.Add(this.pBuscas);
             this.pDgvLocaliza.Controls.Add(this.dgvCadastro);
             this.pDgvLocaliza.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -288,6 +289,7 @@
             // 
             // pBuscas
             // 
+            this.pBuscas.BackColor = System.Drawing.Color.CadetBlue;
             this.pBuscas.Controls.Add(this.bBuscar);
             this.pBuscas.Controls.Add(this.txtDescricao);
             this.pBuscas.Dock = System.Windows.Forms.DockStyle.Top;
@@ -338,6 +340,9 @@
             // dgvCadastro
             // 
             this.dgvCadastro.AllowUserToAddRows = false;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
+            this.dgvCadastro.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvCadastro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -345,50 +350,72 @@
             this.dgvCadastro.BackgroundColor = System.Drawing.Color.DarkSlateGray;
             this.dgvCadastro.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvCadastro.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkCyan;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCadastro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCadastro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dgvCadastro.ColumnHeadersHeight = 30;
             this.dgvCadastro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCadastro.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Login,
             this.Usuário,
             this.Ativo});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.MediumTurquoise;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCadastro.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCadastro.DefaultCellStyle = dataGridViewCellStyle11;
             this.dgvCadastro.EnableHeadersVisualStyles = false;
             this.dgvCadastro.GridColor = System.Drawing.SystemColors.GrayText;
             this.dgvCadastro.Location = new System.Drawing.Point(12, 48);
             this.dgvCadastro.Name = "dgvCadastro";
             this.dgvCadastro.ReadOnly = true;
             this.dgvCadastro.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.DarkCyan;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCadastro.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCadastro.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.dgvCadastro.RowHeadersWidth = 20;
             this.dgvCadastro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCadastro.Size = new System.Drawing.Size(487, 342);
             this.dgvCadastro.TabIndex = 0;
             this.dgvCadastro.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCadastro_CellDoubleClick);
             // 
+            // Login
+            // 
+            this.Login.DataPropertyName = "Login";
+            this.Login.HeaderText = "Login";
+            this.Login.Name = "Login";
+            this.Login.ReadOnly = true;
+            // 
+            // Usuário
+            // 
+            this.Usuário.DataPropertyName = "Usuário";
+            this.Usuário.HeaderText = "Usuário";
+            this.Usuário.Name = "Usuário";
+            this.Usuário.ReadOnly = true;
+            // 
+            // Ativo
+            // 
+            this.Ativo.DataPropertyName = "Ativo";
+            this.Ativo.HeaderText = "Ativo";
+            this.Ativo.Name = "Ativo";
+            this.Ativo.ReadOnly = true;
+            // 
             // pButtons
             // 
-            this.pButtons.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.pButtons.BackColor = System.Drawing.Color.CadetBlue;
             this.pButtons.Controls.Add(this.bExcluir);
             this.pButtons.Controls.Add(this.bAlterar);
             this.pButtons.Controls.Add(this.bNovo);
@@ -401,7 +428,7 @@
             // bExcluir
             // 
             this.bExcluir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bExcluir.BackColor = System.Drawing.Color.Maroon;
+            this.bExcluir.BackColor = System.Drawing.Color.DarkCyan;
             this.bExcluir.FlatAppearance.BorderSize = 0;
             this.bExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bExcluir.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
@@ -423,7 +450,7 @@
             // bAlterar
             // 
             this.bAlterar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bAlterar.BackColor = System.Drawing.Color.Orange;
+            this.bAlterar.BackColor = System.Drawing.Color.DarkCyan;
             this.bAlterar.FlatAppearance.BorderSize = 0;
             this.bAlterar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bAlterar.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
@@ -445,7 +472,7 @@
             // bNovo
             // 
             this.bNovo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bNovo.BackColor = System.Drawing.Color.Green;
+            this.bNovo.BackColor = System.Drawing.Color.SeaGreen;
             this.bNovo.FlatAppearance.BorderSize = 0;
             this.bNovo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bNovo.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
@@ -475,27 +502,6 @@
             this.dataGridViewTextBoxColumn1.DataPropertyName = "funcionario";
             this.dataGridViewTextBoxColumn1.HeaderText = "funcionario";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // Login
-            // 
-            this.Login.DataPropertyName = "Login";
-            this.Login.HeaderText = "Login";
-            this.Login.Name = "Login";
-            this.Login.ReadOnly = true;
-            // 
-            // Usuário
-            // 
-            this.Usuário.DataPropertyName = "Usuário";
-            this.Usuário.HeaderText = "Usuário";
-            this.Usuário.Name = "Usuário";
-            this.Usuário.ReadOnly = true;
-            // 
-            // Ativo
-            // 
-            this.Ativo.DataPropertyName = "Ativo";
-            this.Ativo.HeaderText = "Ativo";
-            this.Ativo.Name = "Ativo";
-            this.Ativo.ReadOnly = true;
             // 
             // fCadUsuario
             // 

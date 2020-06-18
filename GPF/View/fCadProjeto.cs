@@ -436,7 +436,7 @@ namespace GPF.View
                 editar = true;
                 txtNomeProjeto.Text = dgvCadastro.CurrentRow.Cells["Projeto"].Value.ToString();
                 txtValorPorLote.Text = dgvCadastro.CurrentRow.Cells["VlrLote"].Value.ToString();
-                txtEntrada.Text = dgvCadastro.CurrentRow.Cells["Entrada"].Value.ToString();               
+                txtEntrada.Text = dgvCadastro.CurrentRow.Cells["Entrada"].Value.ToString();
                 cbAtivo.Checked = Convert.ToBoolean(dgvCadastro.CurrentRow.Cells["Ativo"].Value);
                 cbFinalizado.Checked = Convert.ToBoolean(dgvCadastro.CurrentRow.Cells["Finalizado"].Value);
                 dtpDataInicio.Value = Convert.ToDateTime( dgvCadastro.CurrentRow.Cells["pro_dtinicio"].Value);

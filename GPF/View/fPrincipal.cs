@@ -146,7 +146,8 @@ namespace GPF
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            lbRelogio.Text = DateTime.Now.ToString("d/M/yyyy HH:mm:ss");
+            lbRelogio.Text = DateTime.Now.ToString("HH:mm:ss");//d/M/yyyy 
+            lbData.Text = DateTime.Now.ToString("dd/MM/yyyy");
         }
 
         private void bLogout_Click(object sender, EventArgs e)

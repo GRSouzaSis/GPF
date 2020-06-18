@@ -69,7 +69,7 @@
             // 
             // txtLogin
             // 
-            this.txtLogin.BackColor = System.Drawing.Color.DarkCyan;
+            this.txtLogin.BackColor = System.Drawing.Color.CadetBlue;
             this.txtLogin.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtLogin.Font = new System.Drawing.Font("MS Reference Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLogin.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -100,7 +100,7 @@
             // 
             // txtSenha
             // 
-            this.txtSenha.BackColor = System.Drawing.Color.DarkCyan;
+            this.txtSenha.BackColor = System.Drawing.Color.CadetBlue;
             this.txtSenha.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSenha.Font = new System.Drawing.Font("MS Reference Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSenha.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -114,7 +114,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.DarkCyan;
+            this.panel3.BackColor = System.Drawing.Color.CadetBlue;
             this.panel3.Controls.Add(this.pictureBox3);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
@@ -124,6 +124,7 @@
             // 
             // pictureBox3
             // 
+            this.pictureBox3.BackColor = System.Drawing.Color.CadetBlue;
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
             this.pictureBox3.Location = new System.Drawing.Point(12, 12);
             this.pictureBox3.Name = "pictureBox3";
@@ -145,7 +146,7 @@
             // 
             // bEntrar
             // 
-            this.bEntrar.BackColor = System.Drawing.Color.MediumSpringGreen;
+            this.bEntrar.BackColor = System.Drawing.Color.SeaGreen;
             this.bEntrar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.bEntrar.FlatAppearance.BorderSize = 0;
             this.bEntrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -203,7 +204,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DarkCyan;
+            this.BackColor = System.Drawing.Color.CadetBlue;
             this.CancelButton = this.bSair;
             this.ClientSize = new System.Drawing.Size(300, 450);
             this.Controls.Add(this.lbErroMessage);

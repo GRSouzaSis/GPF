@@ -2,15 +2,8 @@
 using GPF.Model;
 using GPF.Repository;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Channels;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GPF.View
@@ -20,10 +13,11 @@ namespace GPF.View
         public Lote Lote { get; set; }
         public Projeto Projeto { get; set; }
         public Cliente Cliente { get; set; }
+        public Receber Receber { get; set; }
+        public Usuario Usuario { get; set; }
 
-        private int recebimento_id;
+        private int pos;
 
-        LoteRepository repLote = new LoteRepository();
         ClienteRepository repCli = new ClienteRepository();
         ProjetoRepository repPro = new ProjetoRepository();
         ReceberRepository receberRepository = new ReceberRepository();
@@ -78,16 +72,18 @@ namespace GPF.View
             Lote = new Lote();
             Projeto = new Projeto();
             Cliente = new Cliente();
+            Receber = new Receber();
             carregarProjeto();
+
             carregarTipos();
             dtpVencInicial.Value = DateTime.Now;
             dtpVencFinal.Value = DateTime.Now;
             cbbProjeto.SelectedItem = null;
             cbbCliente.SelectedItem = null;
             cbbTipoMovimento.SelectedIndex = 0;
+            bEstornar.Enabled = false;
+            bBaixa.Enabled = true;
         }
-
-
 
         private void carregarTipos()
         {
@@ -95,6 +91,7 @@ namespace GPF.View
             // cbbTipoMovimento.Items.Insert(1, "Entrada");
             cbbTipoMovimento.Items.Insert(1, "Em aberto");
             cbbTipoMovimento.Items.Insert(2, "Vencidos");
+            cbbTipoMovimento.Items.Insert(3, "Recebidos");
         }
 
 
@@ -128,8 +125,16 @@ namespace GPF.View
 
             dgvReceber.Columns.Insert(0, col);
 
+            if (cbbTipoMovimento.SelectedIndex == 3)//vencidos
+            {
+                dgvReceber.DataSource = receberRepository.FiltroRecebidos(onde);
+                dgvReceber.Columns[11].Width = 120;
+            }
+            else
+            {
+                dgvReceber.DataSource = receberRepository.FiltroRecebimentos(onde);
+            }
 
-            dgvReceber.DataSource = receberRepository.FiltroRecebimentos(onde);
             dgvReceber.Columns[1].Width = 60;
             dgvReceber.Columns[2].Width = 60;
             dgvReceber.Columns[3].Visible = false;
@@ -138,6 +143,8 @@ namespace GPF.View
             dgvReceber.Columns[6].Width = 150;
             dgvReceber.Columns[7].Width = 60;
             dgvReceber.Columns[8].DefaultCellStyle.Format = "C2";
+            dgvReceber.Columns[9].Width = 77;
+            dgvReceber.Columns[10].Width = 77;
 
             foreach (DataGridViewColumn dc in dgvReceber.Columns)
             {
@@ -171,7 +178,17 @@ namespace GPF.View
 
             dgvReceber.Columns.Insert(0, col);
 
-            dgvReceber.DataSource = receberRepository.GetRecebimentos(onde, cli_id);
+            if (cbbTipoMovimento.SelectedIndex == 3)//vencidos
+            {
+                dgvReceber.DataSource = receberRepository.FiltroRecebidos(onde, cli_id);
+                dgvReceber.Columns[11].Width = 120;
+            }
+            else
+            {
+                dgvReceber.DataSource = receberRepository.GetRecebimentos(onde, cli_id);
+            }
+
+
             dgvReceber.Columns[1].Width = 60;
             dgvReceber.Columns[2].Width = 60;
             dgvReceber.Columns[3].Visible = false;
@@ -180,6 +197,8 @@ namespace GPF.View
             dgvReceber.Columns[6].Width = 150;
             dgvReceber.Columns[7].Width = 60;
             dgvReceber.Columns[8].DefaultCellStyle.Format = "C2";
+            dgvReceber.Columns[9].Width = 77;
+            dgvReceber.Columns[10].Width = 77;
 
             foreach (DataGridViewColumn dc in dgvReceber.Columns)
             {
@@ -258,30 +277,52 @@ namespace GPF.View
                 {
                     opcao = 3;
                 }
+                if (cbbTipoMovimento.SelectedIndex == 3)//vencidos
+                {
+                    opcao = 4;
+                }
 
                 switch (opcao)
                 {
                     case 1:
                         {
                             sql.Clear();
+                            bEstornar.Enabled = false;
+                            bBaixa.Enabled = true;
                             sql.Append(" where r.pro_id = " + cbbProjeto.SelectedValue + " and dtvencimento >= " + "'" + dtpVencInicial.Value + "'" + " and dtvencimento <= " + "'" + dtpVencFinal.Value + "'");
+                            FiltroPagamentos(sql.ToString());
                         }
                         break;
                     case 2:
                         {
                             sql.Clear();
+                            bEstornar.Enabled = false;
+                            bBaixa.Enabled = true;
                             sql.Append(" where r.pro_id = " + cbbProjeto.SelectedValue + " and valorpago = 0");
+                            FiltroPagamentos(sql.ToString());
                         }
                         break;
 
                     case 3:
                         {
                             sql.Clear();
+                            bEstornar.Enabled = false;
+                            bBaixa.Enabled = true;
                             sql.Append(" where r.pro_id = " + cbbProjeto.SelectedValue + " and dtvencimento <=  " + "'" + dtpVencFinal.Value + "'" + " and valorpago = 0");
+                            FiltroPagamentos(sql.ToString());
+                        }
+                        break;
+                    case 4:
+                        {
+                            sql.Clear();
+                            bEstornar.Enabled = true;
+                            bBaixa.Enabled = false;
+                            sql.Append(" where r.pro_id = " + cbbProjeto.SelectedValue + " and re.dtpagamento >= " + "'" + dtpVencInicial.Value + "'" + " and re.dtpagamento <= " + "'" + dtpVencFinal.Value + "'");
+                            FiltroPagamentos(sql.ToString());
                         }
                         break;
                 }
-                FiltroPagamentos(sql.ToString());
+
                 carregarClientes();
                 cbbCliente.SelectedItem = null;
                 SomarValor();
@@ -372,6 +413,9 @@ namespace GPF.View
             lbTotal.Text = "0.000,00";
             lbSomaSelect.Text = "0.000,00";
             lbTotalSelecionado.Text = "0";
+            bEstornar.Enabled = false;
+            bBaixa.Enabled = true;
+            LimparLabels();
             dgvLotes.Rows.Clear();
             LimpaTela();
             cbbProjeto.Focus();
@@ -384,7 +428,10 @@ namespace GPF.View
             {
                 try
                 {
+                    dgvLotes.Rows.Clear();
+                    LimparLabels();
                     var cli_id = Convert.ToInt32(cbbCliente.SelectedValue);
+
                     FiltroPagamentosCliente(sql.ToString(), cli_id);
                     SomarValor();
                 }
@@ -397,73 +444,277 @@ namespace GPF.View
 
         private void bTodos_Click(object sender, EventArgs e)
         {
-            if (bFiltro.Enabled == true)
+            try
             {
-                cbbCliente.SelectedItem = null;
-                bFiltro.PerformClick();
+                if (bFiltro.Enabled == true)
+                {
+                    cbbCliente.SelectedItem = null;
+                    bFiltro.PerformClick();
+                }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         private void dgvReceber_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
-            if (dgvReceber.Columns[0].Selected == true)
+            try
             {
-                dgvReceber.Columns[0].CellTemplate.Value = false;
-                dgvReceber.Columns[0].CellTemplate.Style.NullValue = false;
-                //  dgvReceber.CurrentRow.Selected = false;
+                if (dgvReceber.Columns[0].Selected == true)
+                {
+                    dgvReceber.Columns[0].CellTemplate.Value = false;
+                    dgvReceber.Columns[0].CellTemplate.Style.NullValue = false;
+                }
+                else
+                {
+                    dgvReceber.Columns[0].CellTemplate.Value = true;
+                    dgvReceber.Columns[0].CellTemplate.Style.NullValue = true;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                dgvReceber.Columns[0].CellTemplate.Value = true;
-                dgvReceber.Columns[0].CellTemplate.Style.NullValue = true;
-                // dgvReceber.CurrentRow.Selected = true;               
+                throw ex;
             }
+        }
 
+        private void LimparLabels()
+        {
+            lbSomaSelect.Text = "0.000,00";
+            lbTotalSelecionado.Text = "0";
+            lbTroco.Text = "0,00";
+            txtLotid.Text = "";
+            txtValorTotal.Text = "";
+            txtValorPago.Text = "";
         }
 
         private void bCalcular_Click(object sender, EventArgs e)
         {
-            lbSomaSelect.Text = "0.000,00";
-            lbTotalSelecionado.Text = "0";
-            dgvLotes.Rows.Clear();
-            selecionados.Clear();
-            CalcularSelecionado();
+            try
+            {
+                LimparLabels();
+                dgvLotes.Rows.Clear();
+                selecionados.Clear();
+                CalcularSelecionado();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         private void bDetalhes_Click(object sender, EventArgs e)
         {
-            dgvLotes.Rows.Clear();
-
-            foreach (Dados dados in selecionados)
+            try
             {
-                dgvLotes.Rows.Add(dados.codRec, dados.codLote, dados.codPro, dados.codCli, dados.valor);
+                dgvLotes.Rows.Clear();
+
+                foreach (Dados dados in selecionados)
+                {
+                    dgvLotes.Rows.Add(dados.codRec, dados.codLote, dados.codPro, dados.codCli, dados.valor);
+                }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
 
         }
 
         private void dgvLotes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvLotes.SelectedRows.Count > 0)
+            try
             {
-                txtValorTotal.Text = dgvLotes.CurrentRow.Cells["Valor"].Value.ToString();
-                txtLotid.Text = dgvLotes.CurrentRow.Cells["CodLote"].Value.ToString();
-                Projeto.pro_id = Convert.ToInt32(dgvLotes.CurrentRow.Cells["CodPro"].Value);
-                Cliente.cli_id = Convert.ToInt32(dgvLotes.CurrentRow.Cells["CodCli"].Value);
-                Lote.lot_id = Convert.ToInt32(dgvLotes.CurrentRow.Cells["CodLote"].Value);
-                recebimento_id = Convert.ToInt32(dgvLotes.CurrentRow.Cells["CodRec"].Value);               
+                if (dgvLotes.SelectedRows.Count > 0)
+                {
+                    if (cbbTipoMovimento.SelectedIndex == 3)//vencidos
+                    {
+                        txtValorTotal.Text = dgvLotes.CurrentRow.Cells["Valor"].Value.ToString();
+                        txtValorPago.Text = dgvLotes.CurrentRow.Cells["Valor"].Value.ToString();
+                        txtValorPago.Enabled = false;
+                        txtLotid.Text = dgvLotes.CurrentRow.Cells["CodLote"].Value.ToString();
+                        Cliente.cli_id = Convert.ToInt32(dgvLotes.CurrentRow.Cells["CodCli"].Value);
+                        Receber.id_receber = Convert.ToInt32(dgvLotes.CurrentRow.Cells["CodRec"].Value);
+                        pos = dgvLotes.CurrentRow.Index;
+                    }
+                    else
+                    {
+                        txtValorTotal.Text = dgvLotes.CurrentRow.Cells["Valor"].Value.ToString();
+                        txtLotid.Text = dgvLotes.CurrentRow.Cells["CodLote"].Value.ToString();
+                        Cliente.cli_id = Convert.ToInt32(dgvLotes.CurrentRow.Cells["CodCli"].Value);
+                        Receber.id_receber = Convert.ToInt32(dgvLotes.CurrentRow.Cells["CodRec"].Value);
+                        pos = dgvLotes.CurrentRow.Index;
+                    }
+
+                }
+                else
+                {
+                    DialogHelper.Informacao("Selecione um registro.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                DialogHelper.Informacao("Selecione um registro.");
+                throw ex;
             }
+
         }
 
         private void txtValorPago_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
             {
-                e.Handled = true;               
+                e.Handled = true;
+            }
+        }
+
+        private bool ValidaPagamento()
+        {
+            try
+            {
+                decimal v1, v2;
+                v1 = Convert.ToDecimal(txtValorTotal.Text);
+                v2 = Convert.ToDecimal(txtValorPago.Text);
+                if (v1 > v2)
+                {
+                    return false;
+                }
+                else if (v2 >= v1)
+                {
+                    Receber.valorpago = Convert.ToDouble(txtValorTotal.Text);
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        private void bBaixa_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtLotid.Text.Length == 0)
+                {
+                    DialogHelper.Alerta("Selecione um pagamento para dar baixa");
+                    dgvLotes.Focus();
+                    //
+                }
+                else
+                {
+                    if (ValidaPagamento())
+                    {
+                        if (receberRepository.BaixaRecebimento(Receber, Cliente))
+                        {
+                            txtLotid.Text = "";
+                            txtValorPago.Text = "";
+                            txtValorTotal.Text = "";
+                            var selec = cbbCliente.SelectedIndex;
+                            bFiltro.PerformClick();
+                            cbbCliente.SelectedIndex = selec;
+                            dgvLotes.Rows.RemoveAt(pos);
+
+                            DialogHelper.Informacao("Recebimento Efetuado");
+                            LimparLabels();
+                        }
+                        else
+                        {
+                            DialogHelper.Erro("Erro!");
+                        }
+
+                    }
+                    else
+                    {
+                        DialogHelper.Alerta("Valor pago inferior");
+                        txtValorPago.Focus();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        private void txtValorPago_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (txtValorPago.Text != "")
+                {
+                    decimal v1, v2;
+                    v1 = Convert.ToDecimal(txtValorTotal.Text);
+                    v2 = Convert.ToDecimal(txtValorPago.Text);
+                    if (v1 > v2)
+                    {
+                        var diferenca = v1 - v2;
+                        lbTrocoTxt.Text = "Faltando";
+                        lbTroco.Text = diferenca.ToString("C2");
+                    }
+                    else if (v2 >= v1)
+                    {
+                        var troco = v2 - v1;
+                        lbTrocoTxt.Text = "Troco";
+                        lbTroco.Text = troco.ToString("C2");
+                    }
+                }
+                else if (txtValorPago.Text == "")
+                {
+                    lbTroco.Text = "0,00";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        private void bEstornar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtLotid.Text.Length == 0)
+                {
+                    DialogHelper.Alerta("Selecione um pagamento para estornar o pagamento");
+                    dgvLotes.Focus();
+                    //
+                }
+                else
+                {
+                    if (DialogHelper.Confirmacao("Confirma estorno do pagamento?"))
+                    {                                             
+                        if (receberRepository.EstornarRecebimento(Receber))
+                        {
+                            txtLotid.Text = "";
+                            txtValorPago.Text = "";
+                            txtValorTotal.Text = "";
+                            var selec = cbbCliente.SelectedIndex;
+                            bFiltro.PerformClick();
+                            cbbCliente.SelectedIndex = selec;
+                            dgvLotes.Rows.RemoveAt(pos);
+
+                            DialogHelper.Informacao("Estorno concluído");
+                            LimparLabels();
+                        }
+                        else
+                        {
+                            DialogHelper.Erro("Erro!");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

@@ -21,7 +21,7 @@ namespace GPF.Helper
 
         public static bool Confirmacao(string texto)
         {
-            return MessageBox.Show(texto, "Pergunta", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) == DialogResult.Yes;
+            return MessageBox.Show(texto, "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes;
         }
     }
 }

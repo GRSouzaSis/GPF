@@ -64,7 +64,7 @@
             // 
             // pDgvLocaliza
             // 
-            this.pDgvLocaliza.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.pDgvLocaliza.BackColor = System.Drawing.Color.CadetBlue;
             this.pDgvLocaliza.Controls.Add(this.label6);
             this.pDgvLocaliza.Controls.Add(this.label5);
             this.pDgvLocaliza.Controls.Add(this.label3);
@@ -184,7 +184,7 @@
             // 
             // pButtons
             // 
-            this.pButtons.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.pButtons.BackColor = System.Drawing.Color.CadetBlue;
             this.pButtons.Controls.Add(this.bExcluir);
             this.pButtons.Controls.Add(this.bAlterar);
             this.pButtons.Controls.Add(this.bNovo);
@@ -261,7 +261,7 @@
             // 
             // pCrud
             // 
-            this.pCrud.BackColor = System.Drawing.Color.DarkCyan;
+            this.pCrud.BackColor = System.Drawing.Color.CadetBlue;
             this.pCrud.Controls.Add(this.txtCnpj);
             this.pCrud.Controls.Add(this.label1);
             this.pCrud.Controls.Add(this.bMinimizar);
@@ -418,6 +418,7 @@
             this.Controls.Add(this.pDgvLocaliza);
             this.Controls.Add(this.pButtons);
             this.Controls.Add(this.pCrud);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximumSize = new System.Drawing.Size(709, 474);
             this.MinimumSize = new System.Drawing.Size(709, 474);
             this.Name = "fCadParametrizacao";

@@ -25,7 +25,7 @@ namespace GPF.Repository
                         command.Connection = connection;
                         command.Transaction = transaction;
                         var sql = @"insert into receber (cli_id,pro_id,lot_id,parcela,total_parcela,dtemissao,dtvencimento,valor,valorpago,entrada,valorlote,valorentrada,descontoentrada,descontosaldo)
-                                    values (@cli_id,@pro_id,@lot_id,@parcela,@total_parcela,@dtemissao,@dtvencimento,@valor,@valorpago,@entrada,@valorlote,@valorentrada,@descontoentrada,@descontosaldo)";
+values (@cli_id,@pro_id,@lot_id,@parcela,@total_parcela,@dtemissao,@dtvencimento,@valor,@valorpago,@entrada,@valorlote,@valorentrada,@descontoentrada,@descontosaldo)";
                         command.CommandType = CommandType.Text;
                         command.CommandText = sql;
                         command.Parameters.Add("@cli_id", SqlDbType.Int);
@@ -75,6 +75,149 @@ namespace GPF.Repository
                     }
                 }
 
+            }
+        }
+
+        public bool BaixaRecebimento(Receber receber, Cliente cliente)
+        {
+
+            using (SqlConnection connection = new SqlConnection(db.GetStringConnection()))
+            {
+                connection.Open();
+
+                SqlCommand command = connection.CreateCommand();
+                SqlTransaction transaction;
+                transaction = connection.BeginTransaction("SampleTransaction");
+                command.Connection = connection;
+                command.Transaction = transaction;
+
+                string updateReceber = @"Update receber set valorpago =@valorpago where id_receber =@id_receber";
+
+                string insertRecebido = @"Insert Into recebido(cli_id,valor,desconto,acrescimo,dtpagamento) 
+OUTPUT INSERTED.id_recebido
+values (@cli_id,@valor1,@desconto1,@acrescimo1,@dtpagamento)";
+
+                string insertReceber_recebido = @"Insert Into receber_recebido(id_receber, id_recebido, valor, desconto, acrescimo) 
+values(@idreceber,@id_recebido,@valor,@desconto,@acrescimo)";
+
+                try
+                {
+                    command.CommandText = updateReceber;  //update receber
+                    command.Parameters.AddWithValue("@valorpago", receber.valorpago);
+                    command.Parameters.AddWithValue("@id_receber", receber.id_receber);
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = insertRecebido;
+                    command.Parameters.AddWithValue("@cli_id", cliente.cli_id);
+                    command.Parameters.AddWithValue("@valor1", receber.valorpago);
+                    command.Parameters.AddWithValue("@desconto1", 0);
+                    command.Parameters.AddWithValue("@acrescimo1", 0);
+                    command.Parameters.AddWithValue("@dtpagamento", DateTime.Now);
+                    //command.ExecuteNonQuery();
+                    var IdInserido = Convert.ToInt32(command.ExecuteScalar());
+
+                    command.CommandText = insertReceber_recebido;  //update receber
+                    command.Parameters.AddWithValue("@idreceber", receber.id_receber);
+                    command.Parameters.AddWithValue("@id_recebido", IdInserido);
+                    command.Parameters.AddWithValue("@valor", receber.valorpago);
+                    command.Parameters.AddWithValue("@desconto", 0);
+                    command.Parameters.AddWithValue("@acrescimo", 0);                   
+                    command.ExecuteNonQuery();
+
+                    // Se deu certo Commit.
+                    transaction.Commit();
+                    return true;
+
+                }
+                catch (Exception ex)
+                {
+
+                    // roll back na transaction.
+                    try
+                    {
+                        transaction.Rollback();
+                        connection.Close();
+                    }
+                    catch (Exception ex2)
+                    {
+                        return false;
+                    }
+                }
+                return false;
+            }               
+
+        }
+
+        public bool EstornarRecebimento(Receber receber)
+        {
+            int id_recebido=0;
+            using (SqlConnection connection = new SqlConnection(db.GetStringConnection()))
+            {
+                connection.Open();
+
+                SqlCommand command = connection.CreateCommand();
+                SqlTransaction transaction;
+                transaction = connection.BeginTransaction("SampleTransaction");
+                command.Connection = connection;
+                command.Transaction = transaction;
+
+                string updateReceber = @"Update receber set valorpago =@valorpago where id_receber =@id_receber";
+
+                string buscaId = @"select id_recebido from receber_recebido where id_recebido in (select id_recebido 
+from receber_recebido
+where id_receber =@idreceber)";
+
+                string deleteReceber_recebido = @"delete from receber_recebido where id_receber=@id_recebe";
+
+                string deleterecebido = @"delete from recebido where id_recebido=@id_recebido";
+
+                try
+                {
+                    command.CommandText = updateReceber;  //update receber
+                    command.Parameters.AddWithValue("@valorpago", 0);
+                    command.Parameters.AddWithValue("@id_receber", receber.id_receber);
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = buscaId;
+                    command.Parameters.AddWithValue("@idreceber", receber.id_receber);
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            id_recebido = reader.GetInt32(0);
+                        }
+                    }
+                    reader.Close();
+
+                    command.CommandText = deleteReceber_recebido;  //delete Receber_recebido
+                    command.Parameters.AddWithValue("@id_recebe", receber.id_receber);
+                    command.ExecuteNonQuery();
+
+                    command.CommandText = deleterecebido;  //delete receber
+                    command.Parameters.AddWithValue("@id_recebido", id_recebido);
+                    command.ExecuteNonQuery();
+
+                    // Se deu certo Commit.
+                    transaction.Commit();
+                    return true;
+
+                }
+                catch (Exception ex)
+                {
+
+                    // roll back na transaction.
+                    try
+                    {
+                        transaction.Rollback();
+                        connection.Close();
+                    }
+                    catch (Exception ex2)
+                    {
+                        return false;
+                    }
+                }
+                return false;
             }
         }
 
@@ -294,7 +437,7 @@ CASE
 WHEN entrada = 1 THEN 'Entrada'
 ELSE 'Parcela' END AS Tipo
 FROM receber r
-inner join cliente c on c.cli_id = r.cli_id" + onde+" and r.cli_id =@cliid";
+inner join cliente c on c.cli_id = r.cli_id" + onde + " and r.cli_id =@cliid";
                 db.AddParameter("@cliid", cli_id);
                 dt.Load(db.ExecuteReader(sql));
                 return dt;
@@ -304,6 +447,59 @@ inner join cliente c on c.cli_id = r.cli_id" + onde+" and r.cli_id =@cliid";
                 throw ex;
             }
         }
+
+        public DataTable FiltroRecebidos(string onde)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                // string sql = "SELECT cli_id, cli_nome FROM cliente";
+                string sql = @"SELECT r.id_receber as CodRec,r.lot_id as CodLote, r.pro_id, r.cli_id, r.lot_id, c.cli_nome + ' ' + c.cli_sobrenome  as Cliente  ,
+parcela as Parcela, r.valor as Valor, 
+CASE 
+WHEN entrada = 1 THEN 'Entrada'
+ELSE 'Parcela' END AS Tipo,dtvencimento as Vencimentos, re.dtpagamento as Pagamento
+FROM receber_recebido rr
+inner join recebido re on re.id_recebido = rr.id_recebido
+inner join receber r on r.id_receber = rr.id_receber
+inner join cliente c on c.cli_id = r.cli_id" + onde;
+
+                dt.Load(db.ExecuteReader(sql));
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public DataTable FiltroRecebidos(string onde, int cli_id)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                // string sql = "SELECT cli_id, cli_nome FROM cliente";
+                string sql = @"SELECT r.id_receber as CodRec,r.lot_id as CodLote, r.pro_id, r.cli_id, r.lot_id, c.cli_nome + ' ' + c.cli_sobrenome  as Cliente  ,
+parcela as Parcela, r.valor as Valor, 
+CASE 
+WHEN entrada = 1 THEN 'Entrada'
+ELSE 'Parcela' END AS Tipo,dtvencimento as Vencimento, re.dtpagamento as Pagamento
+FROM receber_recebido rr
+inner join recebido re on re.id_recebido = rr.id_recebido
+inner join receber r on r.id_receber = rr.id_receber
+inner join cliente c on c.cli_id = r.cli_id" + onde + " and r.cli_id =@cliid";
+                db.AddParameter("@cliid", cli_id);
+                dt.Load(db.ExecuteReader(sql));
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
         public DataTable GetRecebimentos(int pro_id,int cli_id, int lot_id)
         {
             try

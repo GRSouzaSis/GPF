@@ -38,6 +38,10 @@
             this.bBuscar = new FontAwesome.Sharp.IconButton();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.dgvCadastro = new System.Windows.Forms.DataGridView();
+            this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.per_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.per_ativo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.perfilBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pButtons = new System.Windows.Forms.Panel();
             this.bExcluir = new FontAwesome.Sharp.IconButton();
             this.bAlterar = new FontAwesome.Sharp.IconButton();
@@ -51,16 +55,12 @@
             this.bSalvar = new FontAwesome.Sharp.IconButton();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
-            this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.per_nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.per_ativo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.perfilBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pDgvLocaliza.SuspendLayout();
             this.pBuscas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCadastro)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.perfilBindingSource)).BeginInit();
             this.pButtons.SuspendLayout();
             this.pCrud.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.perfilBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pDgvLocaliza
@@ -179,6 +179,38 @@
             this.dgvCadastro.Size = new System.Drawing.Size(378, 365);
             this.dgvCadastro.TabIndex = 0;
             // 
+            // codigo
+            // 
+            this.codigo.DataPropertyName = "per_id";
+            this.codigo.HeaderText = "Código";
+            this.codigo.Name = "codigo";
+            this.codigo.ReadOnly = true;
+            this.codigo.Visible = false;
+            // 
+            // per_nome
+            // 
+            this.per_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.per_nome.DataPropertyName = "per_nome";
+            this.per_nome.HeaderText = "Perfil";
+            this.per_nome.Name = "per_nome";
+            this.per_nome.ReadOnly = true;
+            this.per_nome.Width = 65;
+            // 
+            // per_ativo
+            // 
+            this.per_ativo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.per_ativo.DataPropertyName = "per_ativo";
+            this.per_ativo.HeaderText = "Ativo";
+            this.per_ativo.Name = "per_ativo";
+            this.per_ativo.ReadOnly = true;
+            this.per_ativo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.per_ativo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.per_ativo.Width = 64;
+            // 
+            // perfilBindingSource
+            // 
+            this.perfilBindingSource.DataSource = typeof(GPF.Model.Perfil);
+            // 
             // pButtons
             // 
             this.pButtons.BackColor = System.Drawing.Color.CadetBlue;
@@ -194,7 +226,7 @@
             // bExcluir
             // 
             this.bExcluir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bExcluir.BackColor = System.Drawing.Color.Maroon;
+            this.bExcluir.BackColor = System.Drawing.Color.DarkCyan;
             this.bExcluir.FlatAppearance.BorderSize = 0;
             this.bExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bExcluir.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
@@ -216,7 +248,7 @@
             // bAlterar
             // 
             this.bAlterar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bAlterar.BackColor = System.Drawing.Color.Orange;
+            this.bAlterar.BackColor = System.Drawing.Color.DarkCyan;
             this.bAlterar.FlatAppearance.BorderSize = 0;
             this.bAlterar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bAlterar.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
@@ -238,7 +270,7 @@
             // bNovo
             // 
             this.bNovo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bNovo.BackColor = System.Drawing.Color.Green;
+            this.bNovo.BackColor = System.Drawing.Color.SeaGreen;
             this.bNovo.FlatAppearance.BorderSize = 0;
             this.bNovo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bNovo.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
@@ -310,7 +342,7 @@
             // bCancelar
             // 
             this.bCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bCancelar.BackColor = System.Drawing.Color.OrangeRed;
+            this.bCancelar.BackColor = System.Drawing.Color.DarkCyan;
             this.bCancelar.FlatAppearance.BorderSize = 0;
             this.bCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bCancelar.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
@@ -400,38 +432,6 @@
             this.txtNome.TabIndex = 1;
             this.txtNome.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNome_KeyPress);
             // 
-            // codigo
-            // 
-            this.codigo.DataPropertyName = "per_id";
-            this.codigo.HeaderText = "Código";
-            this.codigo.Name = "codigo";
-            this.codigo.ReadOnly = true;
-            this.codigo.Visible = false;
-            // 
-            // per_nome
-            // 
-            this.per_nome.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.per_nome.DataPropertyName = "per_nome";
-            this.per_nome.HeaderText = "Perfil";
-            this.per_nome.Name = "per_nome";
-            this.per_nome.ReadOnly = true;
-            this.per_nome.Width = 65;
-            // 
-            // per_ativo
-            // 
-            this.per_ativo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.per_ativo.DataPropertyName = "per_ativo";
-            this.per_ativo.HeaderText = "Ativo";
-            this.per_ativo.Name = "per_ativo";
-            this.per_ativo.ReadOnly = true;
-            this.per_ativo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.per_ativo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.per_ativo.Width = 64;
-            // 
-            // perfilBindingSource
-            // 
-            this.perfilBindingSource.DataSource = typeof(GPF.Model.Perfil);
-            // 
             // fCadPerfil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -450,10 +450,10 @@
             this.pBuscas.ResumeLayout(false);
             this.pBuscas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCadastro)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.perfilBindingSource)).EndInit();
             this.pButtons.ResumeLayout(false);
             this.pCrud.ResumeLayout(false);
             this.pCrud.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.perfilBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
